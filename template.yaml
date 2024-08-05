@@ -1,0 +1,79 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  bot-backoffice-backend
+
+  Sample SAM Template for bot-backoffice-backend
+
+
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  CategoriesGetAll:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories_get_all/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        CategoriesGetAll:
+          Type: Api 
+          Properties:
+            Path: /categories
+            Method: get
+  CategoriesGetAllCount:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories_get_all_count/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        CategoriesGetAllCount:
+          Type: Api 
+          Properties:
+            Path: /count/categories
+            Method: get
+  CategoriesGetAllTypes:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories_get_all_types/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        CategoriesGetAllTypes:
+          Type: Api 
+          Properties:
+            Path: /types/categories
+            Method: get
+  UsersUserGet:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: users_user_get/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        UsersUserGet:
+          Type: Api 
+          Properties:
+            Path: /login
+            Method: get
+  
+
