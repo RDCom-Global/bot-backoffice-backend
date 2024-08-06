@@ -59,6 +59,262 @@ Resources:
           Properties:
             Path: /types/categories
             Method: get
+  CategoriesGetLastCategory:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories_get_last_category/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        CategoriesGetLastCategory:
+          Type: Api 
+          Properties:
+            Path: /last/categories
+            Method: get
+  CategoriesGetOneCategory:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories_get_one_category/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        CategoriesGetOneCategory:
+          Type: Api 
+          Properties:
+            Path: /categories/one
+            Method: get
+  CategoriesSearchCategory:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories_get_search_category/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        CategoriesSearchCategory:
+          Type: Api 
+          Properties:
+            Path: /search/categories
+            Method: get
+  CategoriesCreateOneCategory:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories_create_one_category/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        CategoriesCreateOneCategory:
+          Type: Api 
+          Properties:
+            Path: /categories
+            Method: post
+  CategoriesDeleteOneCategory:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories_delete_one_category/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        CategoriesDeleteOneCategory:
+          Type: Api 
+          Properties:
+            Path: /categories
+            Method: delete
+  CategoriesUpdateOneCategory:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories_update_one_category/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        CategoriesUpdateOneCategory:
+          Type: Api 
+          Properties:
+            Path: /categories
+            Method: put
+  PathologiesGetAll:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: pathologies_get_all/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        PathologiesGetAll:
+          Type: Api 
+          Properties:
+            Path: /pathologies
+            Method: get
+  SymptomsGetAll:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_get_all/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsGetAll:
+          Type: Api 
+          Properties:
+            Path: /symptoms
+            Method: get
+  SymptomsGetAllSymptomsPending:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_get_all_symptoms_pending/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsGetAllSymptomsPending:
+          Type: Api 
+          Properties:
+            Path: /pending/symptoms
+            Method: get
+  SymptomsGetAllSymptomsCount:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_get_all_symptoms_count/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsGetAllSymptomsCount:
+          Type: Api 
+          Properties:
+            Path: /count/symptoms
+            Method: get
+  SymptomsGetAllSymptomsCountPending:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_get_all_symptoms_count_pending/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsGetAllSymptomsCountPending:
+          Type: Api 
+          Properties:
+            Path: /count/pending/symptoms
+            Method: get
+  SymptomsGetLastSymptom:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_get_last_symptom/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsGetLastSymptom:
+          Type: Api 
+          Properties:
+            Path: /last/symptoms
+            Method: get
+  SymptomsGetOneSymptom:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_get_one_symptom/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsGetOneSymptom:
+          Type: Api 
+          Properties:
+            Path: /symptoms/one
+            Method: get
+  SymptomsGetSearchSymptom:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_get_search_symptom/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsGetSearchSymptom:
+          Type: Api 
+          Properties:
+            Path: /search/symptoms
+            Method: get
+  SymptomsGetSearchByHpoSymptom:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_get_search_by_hpo_symptom/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsGetSearchByHpoSymptom:
+          Type: Api 
+          Properties:
+            Path: /searchbyhpo/symptoms
+            Method: get
+  SymptomsGetSearchByCategorySymptom:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_get_search_by_category_symptom/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsGetSearchByCategorySymptom:
+          Type: Api 
+          Properties:
+            Path: /searchbycategory/symptoms
+            Method: get
   UsersUserGet:
     Type: AWS::Serverless::Function
     Properties:

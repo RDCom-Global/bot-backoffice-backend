@@ -3,7 +3,7 @@ import postgre
 
 def lambda_handler(event, context):
     
-    query = "select * from categories where categories.type = 'system'"
+    query = "select MAX(symptoms.sym_id) from symptoms"
     results = postgre.query_postgresql(query)
     
     return {
