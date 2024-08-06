@@ -1,0 +1,15 @@
+import json
+import postgre
+
+def lambda_handler(event, context):
+    cat_id_1 = event['queryStringParameters']['cat_id_1']
+    cat_id_2 = event['queryStringParameters']['cat_id_2']
+
+    query = "insert into categories_categories (cat_id_1, cat_id_2) values ('"+ cat_id_1 +"', '"+ cat_id_2 +"') RETURNING *"
+    
+    results = postgre.query_postgresql(query)
+    
+    return {
+        'statusCode': 200,
+        'body': json.dumps(results)
+    }

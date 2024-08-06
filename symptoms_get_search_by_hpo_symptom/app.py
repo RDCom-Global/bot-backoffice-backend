@@ -2,8 +2,9 @@ import json
 import postgre
 
 def lambda_handler(event, context):
+    palabra = event['queryStringParameters']['palabra']
+    query = "select * from symptoms where hpo_id = '"+ palabra +"' "
     
-    query = "select * from categories where categories.type = 'system'"
     results = postgre.query_postgresql(query)
     
     return {

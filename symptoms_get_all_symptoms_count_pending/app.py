@@ -3,7 +3,7 @@ import postgre
 
 def lambda_handler(event, context):
     
-    query = "select * from categories where categories.type = 'system'"
+    query = "select COUNT(*) from symptoms where state='pendiente de verificar'"
     results = postgre.query_postgresql(query)
     
     return {

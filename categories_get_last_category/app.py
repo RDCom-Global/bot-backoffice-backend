@@ -2,8 +2,7 @@ import json
 import postgre
 
 def lambda_handler(event, context):
-    
-    query = "select * from categories where categories.type = 'system'"
+    query = "select MAX(categories.cat_id) from categories"
     results = postgre.query_postgresql(query)
     
     return {

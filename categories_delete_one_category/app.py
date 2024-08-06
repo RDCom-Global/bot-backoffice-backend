@@ -2,8 +2,10 @@ import json
 import postgre
 
 def lambda_handler(event, context):
-    
-    query = "select * from categories where categories.type = 'system'"
+    id = event['queryStringParameters']['id']
+
+    query = "delete from categories where cat_id = '"+ id +"'"
+
     results = postgre.query_postgresql(query)
     
     return {
