@@ -37,4 +37,418 @@ manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["UsersUserGet"]
 
+[function_build_definitions.7da796ee-cfdd-453a-bbea-97d112c8540c]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_get_last_category"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesGetLastCategory"]
+
+[function_build_definitions.eeb5a9bb-6455-4f96-b4f2-a92149da1437]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_get_one_category"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesGetOneCategory"]
+
+[function_build_definitions.a6ee78f8-9582-4315-9826-2bcd76ec2e06]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_get_search_category"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesSearchCategory"]
+
+[function_build_definitions.c3d5f2a0-2085-4eff-8a12-db3b9531939e]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_create_one_category"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesCreateOneCategory"]
+
+[function_build_definitions.1049eb5b-fac3-41a8-9001-826d933999cb]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_delete_one_category"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesDeleteOneCategory"]
+
+[function_build_definitions.50af9834-b96f-4f5b-9cab-29791984e5fe]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_update_one_category"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesUpdateOneCategory"]
+
+[function_build_definitions.1bb679d1-23cb-4a98-b096-9999ae69f008]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_all"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetAll"]
+
+[function_build_definitions.0c6e7dea-5e23-4b82-a9f2-fc30fd43bb99]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_get_all"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsGetAll"]
+
+[function_build_definitions.04ad8267-85d3-4f85-8de7-71a496528b48]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_get_all_symptoms_pending"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsGetAllSymptomsPending"]
+
+[function_build_definitions.42a6a1eb-2898-4774-9c57-d86df6fd0735]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_get_all_symptoms_count"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsGetAllSymptomsCount"]
+
+[function_build_definitions.0bbf0cbb-4071-4cee-b3f5-fcbecefe09e6]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_get_all_symptoms_count_pending"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsGetAllSymptomsCountPending"]
+
+[function_build_definitions.ed4da3b6-b86a-4bb7-b89d-268570ad9925]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_get_last_symptom"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsGetLastSymptom"]
+
+[function_build_definitions.84989a9d-7c83-4f32-accd-9852cd7eea53]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_get_one_symptom"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsGetOneSymptom"]
+
+[function_build_definitions.4501dc87-3c65-418b-9ef8-2e8c601afedc]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_get_search_symptom"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsGetSearchSymptom"]
+
+[function_build_definitions.abd75cdb-af95-4141-a6d7-00c1e86ef46c]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_get_search_by_hpo_symptom"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsGetSearchByHpoSymptom"]
+
+[function_build_definitions.02e6bd84-b246-45ee-be78-18db9ffabd3b]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_get_search_by_category_symptom"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsGetSearchByCategorySymptom"]
+
+[function_build_definitions.4c263c6e-2111-454d-82d0-9ff9ac51f454]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_all_count"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetAllCount"]
+
+[function_build_definitions.ad0d098d-4794-4713-a21a-0ba7d99ab4e8]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_last_pathology"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetLastPathology"]
+
+[function_build_definitions.e67516d4-a606-4e00-9f1a-a639a789c8a9]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_one_pathology"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetOnePathology"]
+
+[function_build_definitions.bf7db737-f325-4b75-b2c1-e3d75e9769a2]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_search_pathology"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetSearchPathology"]
+
+[function_build_definitions.15fc808d-232c-40f3-b45e-2e9754faf0f2]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_search_pathology_by_orpha"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetSearchPathologyByOrpha"]
+
+[function_build_definitions.02189215-d512-4668-aaed-fdca7ae87cd9]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_search_pathology_by_omim"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetSearchPathologyByOmim"]
+
+[function_build_definitions.b4ea2a20-df4c-4540-bc9a-c148a938245b]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_search_by_category_pathology"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetSearchByCategoryPathology"]
+
+[function_build_definitions.b551abfd-7f24-4ff3-88db-b68d4a44f008]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_search_by_one_symptom_pathology"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetSearchByOneSymptomPathology"]
+
+[function_build_definitions.873231c9-ef7d-4f9c-aa48-df708691d801]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_search_by_one_symptom_pathology_count"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetSearchByOneSymptomPathologyCount"]
+
+[function_build_definitions.41603485-d502-4666-a1fe-3881da44abe5]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_search_by_two_symptoms_pathology"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetSearchByTwoSymptomsPathology"]
+
+[function_build_definitions.45773913-4e0e-4ea6-85ec-5afaac7bde98]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_search_by_two_symptoms_pathology_count"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetSearchByTwoSymptomsPathologyCount"]
+
+[function_build_definitions.0ab4b804-3db0-4471-ac76-f465232401ac]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_search_by_three_symptoms_pathology"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetSearchByThreeSymptomsPathology"]
+
+[function_build_definitions.2dadd8c5-1077-4642-93e1-0afad681b7a5]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_search_by_three_symptoms_pathology_count"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetSearchByThreeSymptomsPathologyCount"]
+
+[function_build_definitions.3bfd7237-7f5e-49a1-8816-b8eb11924ce2]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_create_one_pathology"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesCreateOnePathology"]
+
+[function_build_definitions.56387908-7b6a-4982-96ef-3950b39583b4]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_delete_one_pathology"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesDeleteOnePathology"]
+
+[function_build_definitions.18d1b5f2-4b9f-4ea9-b2ef-71b62468fa69]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_update_one_pathology"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesUpdateOnePathology"]
+
+[function_build_definitions.5c157f18-bc7f-4165-af4e-676b62a2343b]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_get_search_by_category_symptom_count"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsGetSearchByCategorySymptomCount"]
+
+[function_build_definitions.1e1ab9ba-3b0e-407d-a94d-2fba9027956f]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_create_one_symptom"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsCreateOneSymptom"]
+
+[function_build_definitions.904d0a3d-7b7b-4452-a2e2-5421881f3205]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_delete_one_symptom"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsDeleteOneSymptom"]
+
+[function_build_definitions.3e7fe641-56e8-49c1-97f1-006ec94522d7]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_update_one_symptom"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsUpdateOneSymptom"]
+
+[function_build_definitions.08dbb6a2-ac9b-4e54-9d34-bba32ca80e50]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_categories_get_the_categories_for_category"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesCategoriesGetTheCategoriesForCategory"]
+
+[function_build_definitions.c048c424-7869-4f36-a603-799915ca410e]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_categories_get_all_subcategories_of_category"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesCategoriesGetAllSubcategoriesOfCategory"]
+
+[function_build_definitions.5366554a-7e3c-40f3-85fc-29b3699655e6]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_categories_add_one_category_to_category"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesCategoriesAddOneCategoryToCategory"]
+
+[function_build_definitions.a2cd999c-0606-441b-bb44-ce4fee0ef88c]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_categories_remove_one_category_from_category"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesCategoriesRemoveOneCategoryFromCategory"]
+
+[function_build_definitions.c073c203-3ed6-4986-bcbb-cc76628c3bd8]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_symptoms_get_the_symptoms"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesSymptomsGetTheSymptoms"]
+
+[function_build_definitions.8b198f02-ab69-457f-8e9d-fc972175d20c]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_symptoms_add_one_symptom"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesSymptomsAddOneSymptom"]
+
+[function_build_definitions.ac5e780c-d61f-46ae-ab8b-6e4984b17a98]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_symptoms_remove_one_symptom"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesSymptomsRemoveOneSymptom"]
+
+[function_build_definitions.cb1c0ea4-9fdc-401c-8bd3-cbfb2c212500]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_symptoms_get_the_categories_for_symptom"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesSymptomsGetTheCategoriesforSymptom"]
+
+[function_build_definitions.f8a31d79-4833-4b51-820b-376c79e87dfc]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_symptoms_add_one_category_to_symptom"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesSymptomsAddOneCategoryToSymptom"]
+
+[function_build_definitions.5fdfc854-93bd-4c2c-8ed8-1cce9016e91c]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_symptoms_remove_one_category_from_symptom"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesSymptomsRemoveOneCategoryFromSymptom"]
+
 [layer_build_definitions]

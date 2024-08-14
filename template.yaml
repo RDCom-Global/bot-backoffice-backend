@@ -718,7 +718,7 @@ Resources:
   CategoriesSymptomsGetTheCategoriesforSymptom:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: categories_symptoms_get_the_categories_for_symptoms/
+      CodeUri: categories_symptoms_get_the_categories_for_symptom/
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
@@ -734,7 +734,7 @@ Resources:
   CategoriesSymptomsAddOneCategoryToSymptom:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: categories_symptoms_add_one_category_to_symptoms/
+      CodeUri: categories_symptoms_add_one_category_to_symptom/
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
@@ -750,7 +750,7 @@ Resources:
   CategoriesSymptomsRemoveOneCategoryFromSymptom:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: categories_symptoms_remove_one_category_from_symptoms/
+      CodeUri: categories_symptoms_remove_one_category_from_symptom/
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
