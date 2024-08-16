@@ -4,15 +4,17 @@ import postgre
 def lambda_handler(event, context):
     id = event['queryStringParameters']['id']
 
-<<<<<<< HEAD
-    query = "select categories_symptoms.cat_id, categories_symptoms.sym_id, categories.name, categories.type from (categories_symptoms inner join categories on categories_symptoms.cat_id = categories.cat_id) where categories_symptoms.sym_id '"+ id +"'"
-=======
     query = "select * from categories where cat_id = '"+ id +"'"
->>>>>>> ba363feff47f235e8466f1cff5db82bbc74919a7
-    
     results = postgre.query_postgresql(query)
+
+    output = [{"cat_id": row[0],"name": row[1],"type": row[2]} for row in results]
     
     return {
-        'statusCode': 200,
-        'body': json.dumps(results)
+        "statusCode": 200,
+        "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+                "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+                   },
+        "body": json.dumps(output)
     }
