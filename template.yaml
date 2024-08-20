@@ -18,7 +18,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -34,7 +34,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -50,7 +50,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -66,7 +66,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -82,7 +82,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -98,7 +98,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -114,7 +114,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -130,7 +130,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -146,7 +146,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -162,7 +162,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -178,7 +178,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -194,7 +194,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -210,7 +210,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -226,7 +226,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -242,7 +242,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -258,7 +258,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -274,7 +274,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -290,7 +290,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -306,7 +306,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -322,7 +322,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -338,7 +338,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -354,7 +354,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -370,7 +370,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -386,7 +386,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -402,7 +402,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -418,7 +418,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -434,7 +434,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -450,7 +450,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -466,7 +466,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -482,7 +482,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -498,7 +498,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -514,7 +514,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -530,7 +530,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -546,7 +546,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -562,7 +562,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -578,7 +578,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -594,7 +594,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -610,7 +610,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -626,7 +626,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -642,7 +642,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -658,7 +658,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -674,7 +674,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -690,7 +690,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -706,7 +706,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -722,7 +722,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -738,7 +738,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -754,7 +754,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -770,7 +770,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -786,7 +786,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
@@ -802,7 +802,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:4
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
       Architectures:
         - x86_64
       Events:
