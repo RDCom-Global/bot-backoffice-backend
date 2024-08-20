@@ -8,14 +8,14 @@ def lambda_handler(event, context):
 
     query = "insert into categories (cat_id, name, type) values ('"+ cat_id +"', '"+ name +"', '"+ type +"') RETURNING *"
 
-    results = postgre.query_postgresql(query)
+    results = postgre.insert_postgresql(query)
     
     return {
         "statusCode": 200,
         "headers": {
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
-                "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+                "Access-Control-Allow-Methods": "OPTIONS,POST"
                    },
         "body": json.dumps(results)
     }

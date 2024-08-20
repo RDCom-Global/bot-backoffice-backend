@@ -12,7 +12,7 @@ def lambda_handler(event, context):
 
     query = "update symptoms set name = '"+ name +"', sym_id = '"+ sym_id +"', hpo_id = '"+ hpo_id +"', synonymous = '"+ synonymous +"', link = '"+ link +"', state = '"+ state +"' where sym_id = '"+ id +"' RETURNING *"
 
-    results = postgre.query_postgresql(query)
+    results = postgre.insert_postgresql(query)
     
     return {
         "statusCode": 200,

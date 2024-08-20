@@ -7,7 +7,7 @@ def lambda_handler(event, context):
 
     query = "insert into categories_categories (cat_id_1, cat_id_2) values ('"+ cat_id_1 +"', '"+ cat_id_2 +"') RETURNING *"
     
-    results = postgre.query_postgresql(query)
+    results = postgre.insert_postgresql(query)
     
     return {
         "statusCode": 200,

@@ -9,7 +9,7 @@ def lambda_handler(event, context):
 
     query = "update categories set cat_id = '"+ cat_id +"', name = '"+ name +"', type = '"+ type +"' where cat_id = '"+ id +"' RETURNING *"
 
-    results = postgre.query_postgresql(query)
+    results = postgre.insert_postgresql(query)
     
     return {
         "statusCode": 200,

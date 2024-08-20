@@ -6,7 +6,8 @@ def lambda_handler(event, context):
     sym_id = event['queryStringParameters']['sym_id']
 
     query = "insert into pathologies_symptoms (pat_id, sym_id) values ('"+ pat_id +"', '"+ sym_id +"') RETURNING *"
-    results = postgre.query_postgresql(query)
+ 
+    results = postgre.insert_postgresql(query)
     
     return {
         "statusCode": 200,
