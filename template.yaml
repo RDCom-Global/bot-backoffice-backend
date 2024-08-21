@@ -11,6 +11,15 @@ Globals:
     Timeout: 3
 
 Resources:
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowHeaders: '''*'''
+        AllowOrigin: '''*'''
+        AllowCredentials: '''*'''
+        AllowMethods: '''*'''
   CategoriesGetAll:
     Type: AWS::Serverless::Function
     Properties:
@@ -25,6 +34,7 @@ Resources:
         CategoriesGetAll:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /categories
             Method: get
   CategoriesGetAllCount:
@@ -41,6 +51,7 @@ Resources:
         CategoriesGetAllCount:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /categoriesCount
             Method: get
   CategoriesGetAllTypes:
@@ -57,6 +68,7 @@ Resources:
         CategoriesGetAllTypes:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /categoriesTypes
             Method: get
   CategoriesGetLastCategory:
@@ -73,6 +85,7 @@ Resources:
         CategoriesGetLastCategory:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /categoriesLast
             Method: get
   CategoriesGetOneCategory:
@@ -89,6 +102,7 @@ Resources:
         CategoriesGetOneCategory:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /categoriesOne
             Method: get
   CategoriesSearchCategory:
@@ -105,6 +119,7 @@ Resources:
         CategoriesSearchCategory:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /categoriesSearch
             Method: get
   CategoriesCreateOneCategory:
@@ -121,6 +136,7 @@ Resources:
         CategoriesCreateOneCategory:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /categoriesAdd
             Method: post
   CategoriesDeleteOneCategory:
@@ -137,6 +153,7 @@ Resources:
         CategoriesDeleteOneCategory:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /categoriesDelete
             Method: post
   CategoriesUpdateOneCategory:
@@ -153,6 +170,7 @@ Resources:
         CategoriesUpdateOneCategory:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /categoriesUpdate
             Method: post
   PathologiesGetAll:
@@ -169,6 +187,7 @@ Resources:
         PathologiesGetAll:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologies
             Method: get
   PathologiesGetAllCount:
@@ -185,6 +204,7 @@ Resources:
         PathologiesGetAllCount:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesCount
             Method: get
   PathologiesGetLastPathology:
@@ -201,6 +221,7 @@ Resources:
         PathologiesGetLastPathology:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesLast
             Method: get
   PathologiesGetOnePathology:
@@ -217,6 +238,7 @@ Resources:
         PathologiesGetOnePathology:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesOne
             Method: get
   PathologiesGetSearchPathology:
@@ -233,6 +255,7 @@ Resources:
         PathologiesGetSearchPathology:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesSearch
             Method: get
   PathologiesGetSearchPathologyByOrpha:
@@ -249,6 +272,7 @@ Resources:
         PathologiesGetSearchPathologyByOrpha:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesSearchbyorpha
             Method: get
   PathologiesGetSearchPathologyByOmim:
@@ -265,6 +289,7 @@ Resources:
         PathologiesGetSearchPathologyByOmim:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesSearchbyomim
             Method: get
   PathologiesGetSearchByCategoryPathology:
@@ -281,6 +306,7 @@ Resources:
         PathologiesGetSearchByCategoryPathology:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesSearchbycategory
             Method: get
   PathologiesGetSearchByOneSymptomPathology:
@@ -297,6 +323,7 @@ Resources:
         PathologiesGetSearchByOneSymptomPathology:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesSearchbyonesymptom
             Method: get
   PathologiesGetSearchByOneSymptomPathologyCount:
@@ -313,6 +340,7 @@ Resources:
         PathologiesGetSearchByOneSymptomPathologyCount:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesSearchbyonesymptomCount
             Method: get
   PathologiesGetSearchByTwoSymptomsPathology:
@@ -329,6 +357,7 @@ Resources:
         PathologiesGetSearchByTwoSymptomsPathology:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesSearchbytwosymptoms
             Method: get
   PathologiesGetSearchByTwoSymptomsPathologyCount:
@@ -345,6 +374,7 @@ Resources:
         PathologiesGetSearchByTwoSymptomsPathologyCount:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesSearchbytwosymptomsCount
             Method: get
   PathologiesGetSearchByThreeSymptomsPathology:
@@ -361,6 +391,7 @@ Resources:
         PathologiesGetSearchByThreeSymptomsPathology:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesSearchbythreesymptoms
             Method: get
   PathologiesGetSearchByThreeSymptomsPathologyCount:
@@ -377,6 +408,7 @@ Resources:
         PathologiesGetSearchByThreeSymptomsPathologyCount:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesSearchbythreesymptomsCount
             Method: get
   PathologiesCreateOnePathology:
@@ -393,6 +425,7 @@ Resources:
         PathologiesCreateOnePathology:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesAdd
             Method: post
   PathologiesDeleteOnePathology:
@@ -409,6 +442,7 @@ Resources:
         PathologiesDeleteOnePathology:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesDelete
             Method: post
   PathologiesUpdateOnePathology:
@@ -425,6 +459,7 @@ Resources:
         PathologiesUpdateOnePathology:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pathologiesUpdate
             Method: post
   SymptomsGetAll:
@@ -441,6 +476,7 @@ Resources:
         SymptomsGetAll:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /symptoms
             Method: get
   SymptomsGetAllSymptomsPending:
@@ -457,6 +493,7 @@ Resources:
         SymptomsGetAllSymptomsPending:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /symptomsPending
             Method: get
   SymptomsGetAllSymptomsCount:
@@ -473,6 +510,7 @@ Resources:
         SymptomsGetAllSymptomsCount:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /symptomsCount
             Method: get
   SymptomsGetAllSymptomsCountPending:
@@ -489,6 +527,7 @@ Resources:
         SymptomsGetAllSymptomsCountPending:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /symptomsPendingCount
             Method: get
   SymptomsGetLastSymptom:
@@ -505,6 +544,7 @@ Resources:
         SymptomsGetLastSymptom:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /symptomsLast
             Method: get
   SymptomsGetOneSymptom:
@@ -521,6 +561,7 @@ Resources:
         SymptomsGetOneSymptom:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /symptomsOne
             Method: get
   SymptomsGetSearchSymptom:
@@ -537,6 +578,7 @@ Resources:
         SymptomsGetSearchSymptom:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /symptomsSearch
             Method: get
   SymptomsGetSearchByHpoSymptom:
@@ -553,6 +595,7 @@ Resources:
         SymptomsGetSearchByHpoSymptom:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /symptomsSearchbyhpo
             Method: get
   SymptomsGetSearchByCategorySymptom:
@@ -569,6 +612,7 @@ Resources:
         SymptomsGetSearchByCategorySymptom:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /symptomsSearchbycategory
             Method: get
   SymptomsGetSearchByCategorySymptomCount:
@@ -585,6 +629,7 @@ Resources:
         SymptomsGetSearchByCategorySymptomCount:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /symptomsSearchbycategoryCount
             Method: get
   SymptomsCreateOneSymptom:
@@ -601,6 +646,7 @@ Resources:
         SymptomsCreateOneSymptom:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /symptoms
             Method: post
   SymptomsDeleteOneSymptom:
@@ -617,6 +663,7 @@ Resources:
         SymptomsDeleteOneSymptom:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /symptomsDelete
             Method: post
   SymptomsUpdateOneSymptom:
@@ -633,6 +680,7 @@ Resources:
         SymptomsUpdateOneSymptom:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /symptomsUpdate
             Method: post
   UsersUserGet:
@@ -649,6 +697,7 @@ Resources:
         UsersUserGet:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /login
             Method: get
   CategoriesCategoriesGetTheCategoriesForCategory:
@@ -665,6 +714,7 @@ Resources:
         CategoriesCategoriesGetTheCategoriesForCategory:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /cat_cat
             Method: get  
   CategoriesCategoriesGetAllSubcategoriesOfCategory:
@@ -681,6 +731,7 @@ Resources:
         CategoriesCategoriesGetAllSubcategoriesOfCategory:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /cat_catSubcategories
             Method: get  
   CategoriesCategoriesAddOneCategoryToCategory:
@@ -697,6 +748,7 @@ Resources:
         CategoriesCategoriesAddOneCategoryToCategory:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /cat_catAdd
             Method: post  
   CategoriesCategoriesRemoveOneCategoryFromCategory:
@@ -713,6 +765,7 @@ Resources:
         CategoriesCategoriesRemoveOneCategoryFromCategory:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /cat_catDelete
             Method: post  
   CategoriesSymptomsGetTheCategoriesforSymptom:
@@ -729,6 +782,7 @@ Resources:
         CategoriesSymptomsGetTheCategoriesforSymptom:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /cat_sym
             Method: get 
   CategoriesSymptomsAddOneCategoryToSymptom:
@@ -745,6 +799,7 @@ Resources:
         CategoriesSymptomsAddOneCategoryToSymptom:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /cat_symAdd
             Method: post 
   CategoriesSymptomsRemoveOneCategoryFromSymptom:
@@ -761,6 +816,7 @@ Resources:
         CategoriesSymptomsRemoveOneCategoryFromSymptom:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /cat_symDelete
             Method: post 
   PathologiesSymptomsGetTheSymptoms:
@@ -777,6 +833,7 @@ Resources:
         PathologiesSymptomsGetTheSymptoms:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pat_sym
             Method: get
   PathologiesSymptomsAddOneSymptom:
@@ -793,6 +850,7 @@ Resources:
         PathologiesSymptomsAddOneSymptom:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: pat_symAdd/
             Method: post
   PathologiesSymptomsRemoveOneSymptom:
@@ -809,5 +867,6 @@ Resources:
         PathologiesSymptomsRemoveOneSymptom:
           Type: Api 
           Properties:
+            RestApiId: !Ref MyApi
             Path: /pat_symDelete
             Method: post
