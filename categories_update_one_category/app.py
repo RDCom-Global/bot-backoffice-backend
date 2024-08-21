@@ -7,7 +7,7 @@ def lambda_handler(event, context):
     name = event['body']['name']
     type = event['body']['type']
 
-    query = "update categories set cat_id = '"+ cat_id +"', name = '"+ name +"', type = '"+ type +"' where cat_id = '"+ id +"' RETURNING *"
+    query = "update categories set cat_id = '"+ cat_id +"', name = '"+ name +"', type = '"+ type +"' where cat_id = '"+ id +"'"
 
     results = postgre.insert_postgresql(query)
     

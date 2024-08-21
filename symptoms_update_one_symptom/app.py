@@ -10,7 +10,7 @@ def lambda_handler(event, context):
     link = event['body']['link']
     state = event['body']['state']
 
-    query = "update symptoms set name = '"+ name +"', sym_id = '"+ sym_id +"', hpo_id = '"+ hpo_id +"', synonymous = '"+ synonymous +"', link = '"+ link +"', state = '"+ state +"' where sym_id = '"+ id +"' RETURNING *"
+    query = "update symptoms set name = '"+ name +"', sym_id = '"+ sym_id +"', hpo_id = '"+ hpo_id +"', synonymous = '"+ synonymous +"', link = '"+ link +"', state = '"+ state +"' where sym_id = '"+ id +"'"
 
     results = postgre.insert_postgresql(query)
     

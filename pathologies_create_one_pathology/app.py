@@ -7,7 +7,7 @@ def lambda_handler(event, context):
     orpha_id = event['body']['orpha_id']
     omim_id = event['body']['omim_id']
 
-    query = "insert into pathologies (pat_id, name, orpha_id, omim_id) values ('"+ pat_id +"', '"+ name +"', '"+ orpha_id +"', '"+ omim_id +"') RETURNING *"
+    query = "insert into pathologies (pat_id, name, orpha_id, omim_id) values ('"+ pat_id +"', '"+ name +"', '"+ orpha_id +"', '"+ omim_id +"') "
 
     results = postgre.insert_postgresql(query)
     

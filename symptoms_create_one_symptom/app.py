@@ -10,12 +10,12 @@ def lambda_handler(event, context):
     link = event['body']['link']
     state = event['body']['state']
 
-    query = "insert into Symptoms (name, sym_id, hpo_id, synonymous, link, state) values ('"+ name +"', '"+ sym_id +"', '"+ hpo_id +"', '"+ synonymous +"', '"+ link +"', '"+ state +"') RETURNING *"
+    query = "insert into Symptoms (name, sym_id, hpo_id, synonymous, link, state) values ('"+ name +"', '"+ sym_id +"', '"+ hpo_id +"', '"+ synonymous +"', '"+ link +"', '"+ state +"') "
 
     results = postgre.insert_postgresql(query)
     
     return {
-        "statusCode": 200,
+        "statusCode": 200
         "headers": {
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",

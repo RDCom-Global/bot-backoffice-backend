@@ -5,7 +5,7 @@ def lambda_handler(event, context):
     cat_id_1 = event['queryStringParameters']['cat_id_1']
     cat_id_2 = event['queryStringParameters']['cat_id_2']
 
-    query = "insert into categories_categories (cat_id_1, cat_id_2) values ('"+ cat_id_1 +"', '"+ cat_id_2 +"') RETURNING *"
+    query = "insert into categories_categories (cat_id_1, cat_id_2) values ('"+ cat_id_1 +"', '"+ cat_id_2 +"')"
     
     results = postgre.insert_postgresql(query)
     
