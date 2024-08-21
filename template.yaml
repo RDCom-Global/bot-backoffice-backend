@@ -121,7 +121,7 @@ Resources:
         CategoriesCreateOneCategory:
           Type: Api 
           Properties:
-            Path: /categories
+            Path: /categoriesAdd
             Method: post
   CategoriesDeleteOneCategory:
     Type: AWS::Serverless::Function
