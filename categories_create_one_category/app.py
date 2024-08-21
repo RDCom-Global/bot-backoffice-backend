@@ -1,12 +1,20 @@
 import json
 import postgre
+import logging
+
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
 
 def lambda_handler(event, context):
-    cat_id = event['body']['cat_id']
-    name = event['body']['name']
-    type = event['body']['type']
-
-    query = "insert into categories (cat_id, name, type) values ('"+ cat_id +"', '"+ name +"', '"+ type +"') RETURNING *"
+    
+    body = json.loads(event['body'])
+    
+    if 'cat_id' in event['body']:
+        cat_id = body['cat_id']
+        name = body['name']
+        type = body['type']
+    
+    query = "insert into categories (cat_id, name, type) values ('"+ cat_id +"', '"+ name +"', '"+ type +"')"
 
     results = postgre.insert_postgresql(query)
     
