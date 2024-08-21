@@ -41,7 +41,7 @@ Resources:
         CategoriesGetAllCount:
           Type: Api 
           Properties:
-            Path: /count/categories
+            Path: /categoriesCount
             Method: get
   CategoriesGetAllTypes:
     Type: AWS::Serverless::Function
@@ -57,7 +57,7 @@ Resources:
         CategoriesGetAllTypes:
           Type: Api 
           Properties:
-            Path: /categories/types
+            Path: /categoriesTypes
             Method: get
   CategoriesGetLastCategory:
     Type: AWS::Serverless::Function
@@ -73,7 +73,7 @@ Resources:
         CategoriesGetLastCategory:
           Type: Api 
           Properties:
-            Path: /categories/last
+            Path: /categoriesLast
             Method: get
   CategoriesGetOneCategory:
     Type: AWS::Serverless::Function
@@ -89,7 +89,7 @@ Resources:
         CategoriesGetOneCategory:
           Type: Api 
           Properties:
-            Path: /categories/one
+            Path: /categoriesOne
             Method: get
   CategoriesSearchCategory:
     Type: AWS::Serverless::Function
@@ -105,7 +105,7 @@ Resources:
         CategoriesSearchCategory:
           Type: Api 
           Properties:
-            Path: /categories/search
+            Path: /categoriesSearch
             Method: get
   CategoriesCreateOneCategory:
     Type: AWS::Serverless::Function
@@ -185,7 +185,7 @@ Resources:
         PathologiesGetAllCount:
           Type: Api 
           Properties:
-            Path: /pathologies/count
+            Path: /pathologiesCount
             Method: get
   PathologiesGetLastPathology:
     Type: AWS::Serverless::Function
@@ -201,7 +201,7 @@ Resources:
         PathologiesGetLastPathology:
           Type: Api 
           Properties:
-            Path: /pathologies/last
+            Path: /pathologiesLast
             Method: get
   PathologiesGetOnePathology:
     Type: AWS::Serverless::Function
@@ -217,7 +217,7 @@ Resources:
         PathologiesGetOnePathology:
           Type: Api 
           Properties:
-            Path: /pathologies/one
+            Path: /pathologiesOne
             Method: get
   PathologiesGetSearchPathology:
     Type: AWS::Serverless::Function
@@ -233,7 +233,7 @@ Resources:
         PathologiesGetSearchPathology:
           Type: Api 
           Properties:
-            Path: /pathologies/search
+            Path: /pathologiesSearch
             Method: get
   PathologiesGetSearchPathologyByOrpha:
     Type: AWS::Serverless::Function
@@ -249,7 +249,7 @@ Resources:
         PathologiesGetSearchPathologyByOrpha:
           Type: Api 
           Properties:
-            Path: /pathologies/searchbyorpha
+            Path: /pathologiesSearchbyorpha
             Method: get
   PathologiesGetSearchPathologyByOmim:
     Type: AWS::Serverless::Function
@@ -265,7 +265,7 @@ Resources:
         PathologiesGetSearchPathologyByOmim:
           Type: Api 
           Properties:
-            Path: /pathologies/searchbyomim
+            Path: /pathologiesSearchbyomim
             Method: get
   PathologiesGetSearchByCategoryPathology:
     Type: AWS::Serverless::Function
@@ -281,7 +281,7 @@ Resources:
         PathologiesGetSearchByCategoryPathology:
           Type: Api 
           Properties:
-            Path: /pathologies/searchbycategory
+            Path: /pathologiesSearchbycategory
             Method: get
   PathologiesGetSearchByOneSymptomPathology:
     Type: AWS::Serverless::Function
@@ -297,7 +297,7 @@ Resources:
         PathologiesGetSearchByOneSymptomPathology:
           Type: Api 
           Properties:
-            Path: /pathologies/searchbyonesymptom
+            Path: /pathologiesSearchbyonesymptom
             Method: get
   PathologiesGetSearchByOneSymptomPathologyCount:
     Type: AWS::Serverless::Function
@@ -313,7 +313,7 @@ Resources:
         PathologiesGetSearchByOneSymptomPathologyCount:
           Type: Api 
           Properties:
-            Path: /pathologies/searchbyonesymptom/count
+            Path: /pathologiesSearchbyonesymptomCount
             Method: get
   PathologiesGetSearchByTwoSymptomsPathology:
     Type: AWS::Serverless::Function
@@ -329,7 +329,7 @@ Resources:
         PathologiesGetSearchByTwoSymptomsPathology:
           Type: Api 
           Properties:
-            Path: /pathologies/searchbytwosymptoms
+            Path: /pathologiesSearchbytwosymptoms
             Method: get
   PathologiesGetSearchByTwoSymptomsPathologyCount:
     Type: AWS::Serverless::Function
@@ -345,7 +345,7 @@ Resources:
         PathologiesGetSearchByTwoSymptomsPathologyCount:
           Type: Api 
           Properties:
-            Path: /pathologies/searchbytwosymptoms/count
+            Path: /pathologiesSearchbytwosymptomsCount
             Method: get
   PathologiesGetSearchByThreeSymptomsPathology:
     Type: AWS::Serverless::Function
@@ -361,7 +361,7 @@ Resources:
         PathologiesGetSearchByThreeSymptomsPathology:
           Type: Api 
           Properties:
-            Path: /pathologies/searchbythreesymptoms
+            Path: /pathologiesSearchbythreesymptoms
             Method: get
   PathologiesGetSearchByThreeSymptomsPathologyCount:
     Type: AWS::Serverless::Function
@@ -377,7 +377,7 @@ Resources:
         PathologiesGetSearchByThreeSymptomsPathologyCount:
           Type: Api 
           Properties:
-            Path: /pathologies/searchbythreesymptoms/count
+            Path: /pathologiesSearchbythreesymptomsCount
             Method: get
   PathologiesCreateOnePathology:
     Type: AWS::Serverless::Function
@@ -393,7 +393,7 @@ Resources:
         PathologiesCreateOnePathology:
           Type: Api 
           Properties:
-            Path: /pathologies
+            Path: /pathologiesAdd
             Method: post
   PathologiesDeleteOnePathology:
     Type: AWS::Serverless::Function
@@ -457,7 +457,7 @@ Resources:
         SymptomsGetAllSymptomsPending:
           Type: Api 
           Properties:
-            Path: /symptoms/pending
+            Path: /symptomsPending
             Method: get
   SymptomsGetAllSymptomsCount:
     Type: AWS::Serverless::Function
@@ -473,7 +473,7 @@ Resources:
         SymptomsGetAllSymptomsCount:
           Type: Api 
           Properties:
-            Path: /symptoms/count
+            Path: /symptomsCount
             Method: get
   SymptomsGetAllSymptomsCountPending:
     Type: AWS::Serverless::Function
@@ -489,7 +489,7 @@ Resources:
         SymptomsGetAllSymptomsCountPending:
           Type: Api 
           Properties:
-            Path: /symptoms/pending/count
+            Path: /symptomsPendingCount
             Method: get
   SymptomsGetLastSymptom:
     Type: AWS::Serverless::Function
@@ -505,7 +505,7 @@ Resources:
         SymptomsGetLastSymptom:
           Type: Api 
           Properties:
-            Path: /symptoms/last
+            Path: /symptomsLast
             Method: get
   SymptomsGetOneSymptom:
     Type: AWS::Serverless::Function
@@ -521,7 +521,7 @@ Resources:
         SymptomsGetOneSymptom:
           Type: Api 
           Properties:
-            Path: /symptoms/one
+            Path: /symptomsOne
             Method: get
   SymptomsGetSearchSymptom:
     Type: AWS::Serverless::Function
@@ -537,7 +537,7 @@ Resources:
         SymptomsGetSearchSymptom:
           Type: Api 
           Properties:
-            Path: /symptoms/search
+            Path: /symptomsSearch
             Method: get
   SymptomsGetSearchByHpoSymptom:
     Type: AWS::Serverless::Function
@@ -553,7 +553,7 @@ Resources:
         SymptomsGetSearchByHpoSymptom:
           Type: Api 
           Properties:
-            Path: /symptoms/searchbyhpo
+            Path: /symptomsSearchbyhpo
             Method: get
   SymptomsGetSearchByCategorySymptom:
     Type: AWS::Serverless::Function
@@ -569,7 +569,7 @@ Resources:
         SymptomsGetSearchByCategorySymptom:
           Type: Api 
           Properties:
-            Path: /symptoms/searchbycategory
+            Path: /symptomsSearchbycategory
             Method: get
   SymptomsGetSearchByCategorySymptomCount:
     Type: AWS::Serverless::Function
@@ -585,7 +585,7 @@ Resources:
         SymptomsGetSearchByCategorySymptomCount:
           Type: Api 
           Properties:
-            Path: /symptoms/searchbycategory/count
+            Path: /symptomsSearchbycategoryCount
             Method: get
   SymptomsCreateOneSymptom:
     Type: AWS::Serverless::Function
@@ -681,7 +681,7 @@ Resources:
         CategoriesCategoriesGetAllSubcategoriesOfCategory:
           Type: Api 
           Properties:
-            Path: /cat_cat/subcategories
+            Path: /cat_catSubcategories
             Method: get  
   CategoriesCategoriesAddOneCategoryToCategory:
     Type: AWS::Serverless::Function
@@ -697,7 +697,7 @@ Resources:
         CategoriesCategoriesAddOneCategoryToCategory:
           Type: Api 
           Properties:
-            Path: /cat_cat/add
+            Path: /cat_catAdd
             Method: post  
   CategoriesCategoriesRemoveOneCategoryFromCategory:
     Type: AWS::Serverless::Function
@@ -745,7 +745,7 @@ Resources:
         CategoriesSymptomsAddOneCategoryToSymptom:
           Type: Api 
           Properties:
-            Path: /cat_sym/add
+            Path: /cat_symAdd
             Method: post 
   CategoriesSymptomsRemoveOneCategoryFromSymptom:
     Type: AWS::Serverless::Function
@@ -793,7 +793,7 @@ Resources:
         PathologiesSymptomsAddOneSymptom:
           Type: Api 
           Properties:
-            Path: pat_sym/add/
+            Path: pat_symAdd/
             Method: post
   PathologiesSymptomsRemoveOneSymptom:
     Type: AWS::Serverless::Function
