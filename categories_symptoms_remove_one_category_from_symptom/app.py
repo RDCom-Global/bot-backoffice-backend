@@ -7,7 +7,7 @@ def lambda_handler(event, context):
 
     query = "delete from categories_symptoms where (cat_id = '"+ cat_id +"' AND sym_id = '"+ sym_id +"')"
     
-    results = postgre.query_postgresql(query)
+    results = postgre.insert_postgresql(query)
     
     return {
         "statusCode": 200,
