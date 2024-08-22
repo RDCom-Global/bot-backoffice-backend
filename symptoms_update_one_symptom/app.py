@@ -2,13 +2,18 @@ import json
 import postgre
 
 def lambda_handler(event, context):
+
     id = event['queryStringParameters']['id']
-    name = event['body']['name']
-    sym_id = event['body']['sym_id']
-    hpo_id = event['body']['hpo_id']
-    synonymous = event['body']['synonymous']
-    link = event['body']['link']
-    state = event['body']['state']
+
+    body = json.loads(event['body'])
+    
+    if 'sym_id' in event['body']:
+        name = body['name']
+        sym_id = body['sym_id']
+        hpo_id = body['hpo_id']
+        synonymous = body['synonymous']
+        link = body['link']
+        state = body['state'] 
 
     query = "update symptoms set name = '"+ name +"', sym_id = '"+ sym_id +"', hpo_id = '"+ hpo_id +"', synonymous = '"+ synonymous +"', link = '"+ link +"', state = '"+ state +"' where sym_id = '"+ id +"'"
 

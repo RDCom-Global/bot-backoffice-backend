@@ -5,10 +5,13 @@ def lambda_handler(event, context):
 
     id = event['queryStringParameters']['id']
 
-    pat_id = event['body']['pat_id']
-    name = event['body']['name']
-    orpha_id = event['body']['orpha_id']
-    omim_id = event['body']['omim_id']
+    body = json.loads(event['body'])
+    
+    if 'pat_id' in event['body']:
+        pat_id = body['pat_id']
+        name = body['name']
+        orpha_id = body['orpha_id']
+        omim_id = body['omim_id']
 
     query = "update pathologies set pat_id = '"+ pat_id +"', name = '"+ name +"', orpha_id = '"+ orpha_id +"',  omim_id = '"+ omim_id +"' where pat_id = '"+ id +"'"
 

@@ -2,10 +2,14 @@ import json
 import postgre
 
 def lambda_handler(event, context):
-    pat_id = event['body']['pat_id']
-    name = event['body']['name']
-    orpha_id = event['body']['orpha_id']
-    omim_id = event['body']['omim_id']
+
+    body = json.loads(event['body'])
+    
+    if 'pat_id' in event['body']:
+        pat_id = body['pat_id']
+        name = body['name']
+        orpha_id = body['orpha_id']
+        omim_id = body['omim_id']
 
     query = "insert into pathologies (pat_id, name, orpha_id, omim_id) values ('"+ pat_id +"', '"+ name +"', '"+ orpha_id +"', '"+ omim_id +"') "
 
