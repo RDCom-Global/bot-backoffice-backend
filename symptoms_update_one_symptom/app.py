@@ -10,10 +10,10 @@ def lambda_handler(event, context):
     if 'sym_id' in event['body']:
         name = body['name']
         sym_id = body['sym_id']
-        hpo_id = body['hpo_id']
-        synonymous = body['synonymous']
-        link = body['link']
-        state = body['state'] 
+        hpo_id = body.get('hpo_id', '')
+        synonymous = body.get('synonymous', '')
+        link = body.get('link', '')
+        state = body.get('state', '')
 
     query = "update symptoms set name = '"+ name +"', sym_id = '"+ sym_id +"', hpo_id = '"+ hpo_id +"', synonymous = '"+ synonymous +"', link = '"+ link +"', state = '"+ state +"' where sym_id = '"+ id +"'"
 

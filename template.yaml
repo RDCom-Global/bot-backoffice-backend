@@ -851,7 +851,7 @@ Resources:
           Type: Api 
           Properties:
             RestApiId: !Ref MyApi
-            Path: pat_symAdd/
+            Path: /pat_symAdd
             Method: post
   PathologiesSymptomsRemoveOneSymptom:
     Type: AWS::Serverless::Function
