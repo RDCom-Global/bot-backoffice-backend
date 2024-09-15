@@ -7,8 +7,8 @@ def lambda_handler(event, context):
     
     results = postgre.query_postgresql(query)
  
-    output = [{"sym_id": row[0],"name": row[1],"state": row[2],"synonymous": row[3],"link": row[4],"hpo_id": row[5]} for row in results]
-    
+    output = [{"sym_id": row[0],"name": row[1],"synonymous": row[2],"state": row[3],"link": row[4],"hpo_id": row[5]} for row in results]
+  
     return {
         "statusCode": 200,
         "headers": {
