@@ -4,7 +4,7 @@ import postgre
 def lambda_handler(event, context):
     palabra = event['queryStringParameters']['palabra']
 
-    query = "select * from pathologies where name ilike '%'||'"+ palabra +"'||'%'"
+    query = "select * from pathologies where name ilike '%'||'"+ palabra +"'||'%' order by name ASC"
 
     results = postgre.query_postgresql(query)
     
