@@ -3,6 +3,8 @@ import postgre
 
 def lambda_handler(event, context):
 
+    username = event['queryStringParameters']['username']
+
     body = json.loads(event['body'])
     
     if 'sym_id' in event['body']:
@@ -13,7 +15,7 @@ def lambda_handler(event, context):
         link = body.get('link', '')
         state = body.get('state', '')
 
-    query = "insert into Symptoms (name, sym_id, hpo_id, synonymous, link, state) values ('"+ name +"', '"+ sym_id +"', '"+ hpo_id +"', '"+ synonymous +"', '"+ link +"', '"+ state +"') "
+    query = "insert into Symptoms (name, sym_id, hpo_id, synonymous, link, state, username) values ('"+ name +"', '"+ sym_id +"', '"+ hpo_id +"', '"+ synonymous +"', '"+ link +"', '"+ state +"', '"+ username +"') "
 
     results = postgre.insert_postgresql(query)
     
