@@ -836,7 +836,7 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /pat_sym
             Method: get
-    PathologiesSymptomsGetPending:
+  PathologiesSymptomsGetPending:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: pathologies_symptoms_get_pending/
@@ -852,6 +852,23 @@ Resources:
           Properties:
             RestApiId: !Ref MyApi
             Path: /pat_symPending
+            Method: get
+  PathologiesSymptomsValidateOneRelation:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: pathologies_symptoms_validate_one_relation/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
+      Architectures:
+        - x86_64
+      Events:
+        PathologiesSymptomsValidateOneRelation:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /pat_symValidate
             Method: get
   PathologiesSymptomsAddOneSymptom:
     Type: AWS::Serverless::Function
