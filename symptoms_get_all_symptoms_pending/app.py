@@ -5,7 +5,7 @@ def lambda_handler(event, context):
     query = "select * from symptoms where state='pendiente de verificar'"
     results = postgre.query_postgresql(query)
     
-    output = [{"sym_id": row[0],"name": row[1],"synonymous": row[2],"state": row[3],"link": row[4],"hpo_id": row[5]} for row in results]
+    output = [{"sym_id": row[0],"name": row[1],"synonymous": row[2],"state": row[3],"link": row[4],"hpo_id": row[5],"username": row[6]} for row in results]
    
     return {
         "statusCode": 200,

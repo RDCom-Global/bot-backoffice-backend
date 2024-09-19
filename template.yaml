@@ -869,7 +869,7 @@ Resources:
           Properties:
             RestApiId: !Ref MyApi
             Path: /pat_symValidate
-            Method: get
+            Method: post
   PathologiesSymptomsAddOneSymptom:
     Type: AWS::Serverless::Function
     Properties:
