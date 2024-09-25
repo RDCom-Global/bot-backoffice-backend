@@ -700,6 +700,40 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /symptomsUpdate
             Method: post
+  SymptomsValidateFirstOK:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_validate_first_ok/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsValidateFirstOK:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /symptomsValidateFirst
+            Method: post
+  SymptomsValidateSecondOK:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_validate_second_ok/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsValidateSecondOK:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /symptomsValidateSecond
+            Method: post 
   UsersUserGet:
     Type: AWS::Serverless::Function
     Properties:
