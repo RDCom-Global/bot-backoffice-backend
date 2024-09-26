@@ -2,10 +2,11 @@ import json
 import postgre
 
 def lambda_handler(event, context):
-    query = "select COUNT(*) from categories where categories.type = 'system'"
+    
+    query = "select * from categories where categories.state = 'pending'"
     results = postgre.query_postgresql(query)
-
-    output = [{"count": row[0]} for row in results]
+    
+    output = [{"cat_id": row[0],"name": row[1],"type": row[2]} for row in results]
     
     return {
         "statusCode": 200,

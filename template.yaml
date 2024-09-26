@@ -54,6 +54,40 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /categoriesCount
             Method: get
+    CategoriesGetAllPending:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories_get_all_pending/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
+      Architectures:
+        - x86_64
+      Events:
+        CategoriesGetAllPending:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /categoriesPending
+            Method: get
+  CategoriesGetAllCountPending:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories_get_all_count_pending/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
+      Architectures:
+        - x86_64
+      Events:
+        CategoriesGetAllCountPending:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /categoriesCountPending
+            Method: get
   CategoriesGetAllTypes:
     Type: AWS::Serverless::Function
     Properties:
@@ -206,6 +240,40 @@ Resources:
           Properties:
             RestApiId: !Ref MyApi
             Path: /pathologiesCount
+            Method: get
+  PathologiesGetAllPending:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: pathologies_get_all_pending/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
+      Architectures:
+        - x86_64
+      Events:
+        PathologiesGetAllPending:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /pathologiesPending
+            Method: get
+  PathologiesGetAllCountPending:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: pathologies_get_all_count_pending/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:postgre:6
+      Architectures:
+        - x86_64
+      Events:
+        PathologiesGetAllCountPending:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /pathologiesCountPending
             Method: get
   PathologiesGetLastPathology:
     Type: AWS::Serverless::Function
