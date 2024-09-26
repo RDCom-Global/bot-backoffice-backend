@@ -4,8 +4,10 @@ import postgre
 def lambda_handler(event, context):
     cat_id = event['queryStringParameters']['cat_id']
     sym_id = event['queryStringParameters']['sym_id']
+    state = event['queryStringParameters']['state']
+    username = event['queryStringParameters']['username']
 
-    query = "insert into categories_symptoms (cat_id, sym_id) values ('"+ cat_id +"', '"+ sym_id +"') "
+    query = "insert into categories_symptoms (cat_id, sym_id, state, username) values ('"+ cat_id +"', '"+ sym_id +"', '"+ state +"', '"+ username +"') "
     
     results = postgre.insert_postgresql(query)
     

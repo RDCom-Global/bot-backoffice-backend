@@ -3,7 +3,7 @@ import postgre
 
 def lambda_handler(event, context):
     
-    query = "select COUNT(*) from symptoms where state='pendiente de verificar'"
+    query = "SELECT COUNT(*) FROM symptoms WHERE state IN ('pending', 'preverified')"
     results = postgre.query_postgresql(query)
     
     output = [{"count": row[0]} for row in results]

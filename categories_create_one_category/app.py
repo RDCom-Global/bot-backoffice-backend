@@ -6,7 +6,10 @@ logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
 def lambda_handler(event, context):
-    
+
+    state = event['queryStringParameters']['state']
+    username = event['queryStringParameters']['username']
+
     body = json.loads(event['body'])
     
     if 'cat_id' in event['body']:
@@ -14,7 +17,7 @@ def lambda_handler(event, context):
         name = body['name']
         type = body['type']
     
-    query = "insert into categories (cat_id, name, type) values ('"+ cat_id +"', '"+ name +"', '"+ type +"')"
+    query = "insert into categories (cat_id, name, type, state, username) values ('"+ cat_id +"', '"+ name +"', '"+ type +"', '"+ state +"', '"+ username +"')"
 
     results = postgre.insert_postgresql(query)
     

@@ -5,7 +5,7 @@ def lambda_handler(event, context):
     pat_id = event['queryStringParameters']['pat_id']
     sym_id = event['queryStringParameters']['sym_id']
 
-    query = "update pathologies_symptoms set state = 'verificado' where pat_id = '"+ pat_id +"' and sym_id = '"+ sym_id +"'"
+    query = "update pathologies_symptoms set state = 'verified' where pat_id = '"+ pat_id +"' and sym_id = '"+ sym_id +"'"
  
     results = postgre.insert_postgresql(query)
     
