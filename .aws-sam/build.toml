@@ -10,15 +10,6 @@ manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["CategoriesGetAll"]
 
-[function_build_definitions.e8ceaae8-c67b-4a54-bf0c-736a059957ed]
-codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_get_all_count"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["CategoriesGetAllCount"]
-
 [function_build_definitions.9254fadb-6886-4a9e-9e1c-2b51bd77f9c2]
 codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_get_all_types"
 runtime = "python3.11"
@@ -450,5 +441,86 @@ handler = "app.lambda_handler"
 manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["CategoriesSymptomsRemoveOneCategoryFromSymptom"]
+
+[function_build_definitions.dbdfc59a-3524-42c9-b26a-fb3d35aaedc6]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_get_all_pending"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesGetAllCount"]
+
+[function_build_definitions.cf8ad29c-bcf4-4d71-9233-cdd4d14f70d6]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\categories_get_all_count_pending"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["CategoriesGetAllCountPending"]
+
+[function_build_definitions.104a01bb-5823-45e3-98ef-620410d9d9c8]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_all_pending"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetAllPending"]
+
+[function_build_definitions.f812dc85-ec33-44f7-b73b-45b53f9f7e1d]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_get_all_count_pending"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesGetAllCountPending"]
+
+[function_build_definitions.e03fc9db-7005-4d5a-9d65-120fd3f755a3]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_get_last_symptom_rdc"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsGetLastSymptomRDC"]
+
+[function_build_definitions.0dec84b8-b4fd-44c8-937f-871a9366f199]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_validate_first_ok"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsValidateFirstOK"]
+
+[function_build_definitions.d3a60f3c-bd56-477a-ba2a-6f27a23b1867]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\symptoms_validate_second_ok"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsValidateSecondOK"]
+
+[function_build_definitions.1fae95df-0a70-407c-8be3-19792f7e8c0b]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_symptoms_get_pending"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesSymptomsGetPending"]
+
+[function_build_definitions.b1f7271d-55b1-4524-a640-b76ecc099636]
+codeuri = "C:\\Users\\ignas\\Documents\\Ignacio\\RDCom\\code\\rdcom-bot\\bot-backoffice\\bot-backoffice-backend\\pathologies_symptoms_validate_one_relation"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesSymptomsValidateOneRelation"]
 
 [layer_build_definitions]
