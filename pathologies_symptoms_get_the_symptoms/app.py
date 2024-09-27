@@ -4,7 +4,7 @@ import postgre
 def lambda_handler(event, context):
     id = event['queryStringParameters']['id']
 
-    query = "select pathologies_symptoms.pat_id, symptoms.name, symptoms.synonymous, symptoms.sym_id, symptoms.hpo_id, symptoms.state from (pathologies_symptoms inner join symptoms on pathologies_symptoms.sym_id = symptoms.sym_id) where pathologies_symptoms.pat_id = '"+ id +"' order by symptoms.state ASC, symptoms.name ASC"
+    query = "select pathologies_symptoms.pat_id, symptoms.name, symptoms.synonymous, symptoms.sym_id, symptoms.hpo_id, pathologies_symptoms.state from (pathologies_symptoms inner join symptoms on pathologies_symptoms.sym_id = symptoms.sym_id) where pathologies_symptoms.pat_id = '"+ id +"' order by pathologies_symptoms.state desc, symptoms.name ASC"
     results = postgre.query_postgresql(query)
     
     output = [{"pat_id": row[0],"name": row[1],"synonymous": row[2],"sym_id": row[3],"hpo_id": row[4],"state": row[5]} for row in results]
