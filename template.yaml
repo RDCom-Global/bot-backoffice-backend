@@ -853,6 +853,23 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /cat_catSubcategories
             Method: get  
+  CategoriesCategoriesGetAllPending:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories_categories_get_all_pending/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:layer_postgre_prod:4
+      Architectures:
+        - x86_64
+      Events:
+        CategoriesCategoriesGetAllPending:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /cat_catPending
+            Method: get  
   CategoriesCategoriesAddOneCategoryToCategory:
     Type: AWS::Serverless::Function
     Properties:
@@ -886,6 +903,23 @@ Resources:
           Properties:
             RestApiId: !Ref MyApi
             Path: /cat_catDelete
+            Method: post  
+  CategoriesCategoriesValidateOneRelation:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories_categories_validate_one_relation/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:layer_postgre_prod:4
+      Architectures:
+        - x86_64
+      Events:
+        CategoriesCategoriesValidateOneRelation:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /cat_catValidate
             Method: post  
   CategoriesSymptomsGetTheCategoriesforSymptom:
     Type: AWS::Serverless::Function
