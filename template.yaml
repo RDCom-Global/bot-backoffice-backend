@@ -564,7 +564,7 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /symptomsPending
             Method: get
-    SymptomsGetAllSymptomsCategoryPending:
+  SymptomsGetAllSymptomsCategoryPending:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: symptoms_get_all_symptoms_category_pending/
