@@ -564,6 +564,23 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /symptomsPending
             Method: get
+    SymptomsGetAllSymptomsCategoryPending:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_get_all_symptoms_category_pending/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:layer_postgre_prod:4
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsGetAllSymptomsCategoryPending:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /symptomsCategoryPending
+            Method: get
   SymptomsGetAllSymptomsCount:
     Type: AWS::Serverless::Function
     Properties:
@@ -597,6 +614,23 @@ Resources:
           Properties:
             RestApiId: !Ref MyApi
             Path: /symptomsPendingCount
+            Method: get
+  SymptomsGetAllSymptomsCategoryPendingCount:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_get_all_symptoms_category_pending_count/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:layer_postgre_prod:4
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsGetAllSymptomsCategoryPendingCount:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /symptomsCategoryPendingCount
             Method: get
   SymptomsGetLastSymptom:
     Type: AWS::Serverless::Function
