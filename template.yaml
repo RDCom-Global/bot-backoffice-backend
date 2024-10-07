@@ -54,7 +54,7 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /categoriesCount
             Method: get
-    CategoriesGetAllPending:
+  CategoriesGetAllPending:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: categories_get_all_pending/

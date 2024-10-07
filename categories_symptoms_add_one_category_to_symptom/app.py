@@ -2,10 +2,11 @@ import json
 import postgre
 
 def lambda_handler(event, context):
-    cat_id = event['queryStringParameters']['cat_id']
-    sym_id = event['queryStringParameters']['sym_id']
-    state = event['queryStringParameters']['state']
-    username = event['queryStringParameters']['username']
+    body = json.loads(event['body'])
+    cat_id = body.get('cat_id')
+    sym_id = body.get('sym_id')
+    state = body.get('state')
+    username = body.get('username')
 
     query = "insert into categories_symptoms (cat_id, sym_id, state, username) values ('"+ cat_id +"', '"+ sym_id +"', '"+ state +"', '"+ username +"') "
     
