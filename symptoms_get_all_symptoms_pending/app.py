@@ -2,7 +2,7 @@ import json
 import postgre
 
 def lambda_handler(event, context):
-    query = "SELECT * FROM symptoms WHERE state IN ('pending', 'preverified') order by state ASC"
+    query = "SELECT * FROM symptoms WHERE state IN ('pending', 'preverified') order by name ASC"
     results = postgre.query_postgresql(query)
     
     output = [{"sym_id": row[0],"name": row[1],"synonymous": row[2],"state": row[3],"link": row[4],"hpo_id": row[5],"username": row[6]} for row in results]
