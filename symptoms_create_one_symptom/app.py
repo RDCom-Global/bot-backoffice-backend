@@ -12,10 +12,9 @@ def lambda_handler(event, context):
         sym_id = body['sym_id']
         hpo_id = body.get('hpo_id', '')
         synonymous = body.get('synonymous', '')
-        link = body.get('link', '')
         state = body.get('state', '')
 
-    query = "insert into Symptoms (name, sym_id, hpo_id, synonymous, link, state, username) values ('"+ name +"', '"+ sym_id +"', '"+ hpo_id +"', '"+ synonymous +"', '"+ link +"', '"+ state +"', '"+ username +"') "
+    query = "insert into Symptoms (name, sym_id, hpo_id, synonymous, state, username) values ('"+ name +"', '"+ sym_id +"', '"+ hpo_id +"', '"+ synonymous +"', '"+ state +"', '"+ username +"') "
 
     results = postgre.insert_postgresql(query)
     

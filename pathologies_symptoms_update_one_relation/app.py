@@ -2,20 +2,16 @@ import json
 import postgre
 
 def lambda_handler(event, context):
-
-    id = event['queryStringParameters']['id']
-
+        
     body = json.loads(event['body'])
     
-    if 'sym_id' in event['body']:
-        name = body['name']
+    if 'pat_id' in event['body']:
+        pat_id = body['pat_id']
         sym_id = body['sym_id']
-        hpo_id = body.get('hpo_id', '')
-        synonymous = body.get('synonymous', '')
-        state = body.get('state', '')
+        link = body.get('link', '')
 
-    query = "update symptoms set name = '"+ name +"', sym_id = '"+ sym_id +"', hpo_id = '"+ hpo_id +"', synonymous = '"+ synonymous +"', state = '"+ state +"' where sym_id = '"+ id +"'"
-
+    query = "update pathologies_symptoms set link = '"+ link +"' where pat_id = '"+ pat_id +"' and sym_id = '"+ sym_id +"'"
+ 
     results = postgre.insert_postgresql(query)
     
     return {
