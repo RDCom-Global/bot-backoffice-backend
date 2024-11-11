@@ -15,9 +15,20 @@ def lambda_handler(event, context):
         query = "select * from users where username = '"+ username +"' and password = '" + password + "'"
         results = postgre.query_postgresql(query)
 
-        output = [{"username": row[0],"password": row[1],"type": row[2]} for row in results]
+        # Verificar si no se encontraron resultados
+        if not results:
+            return {
+                "statusCode": 404,
+                "headers": {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+                    "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+                },
+                "body": json.dumps({"message": "Usuario no encontrado o contraseña incorrecta."})
+            }
     
-        
+        output = [{"username": row[0],"password": row[1],"type": row[2]} for row in results]
+               
         return {
             "statusCode": 200,
             "headers": {
