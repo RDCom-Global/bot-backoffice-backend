@@ -15,8 +15,8 @@ def lambda_handler(event, context):
         password = body.get("password")
 
         # Construye la consulta con placeholders para evitar SQL injection
-        query = "SELECT * FROM users WHERE username = %s AND password = %s"
-        results = postgre.query_postgresql(query, (username, password))
+        query = "SELECT * FROM users WHERE username = '"+ username +"' AND password = '"+ password +"'"
+        results = postgre.query_postgresql(query)
 
         # Verificar si no se encontraron resultados
         if not results:
