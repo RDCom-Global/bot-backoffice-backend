@@ -11,8 +11,8 @@ def lambda_handler(event, context):
         
         # Extrae los datos del body y deserializa el JSON
         body = json.loads(event['body'])
-        username = body('username')
-        password = body('password')
+        username = body['username']
+        password = body['password']
 
         query = "SELECT * FROM users WHERE username = '"+ username +"' AND password = '"+ password +"'"
         results = postgre.query_postgresql(query)
