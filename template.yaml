@@ -852,7 +852,7 @@ Resources:
           Properties:
             RestApiId: !Ref MyApi
             Path: /login
-            Method: get
+            Method: post
   CategoriesCategoriesGetTheCategoriesForCategory:
     Type: AWS::Serverless::Function
     Properties:
