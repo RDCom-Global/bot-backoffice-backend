@@ -11,10 +11,9 @@ def lambda_handler(event, context):
         
         # Extrae los datos del body y deserializa el JSON
         body = json.loads(event['body'])
-        username = body.get("username")
-        password = body.get("password")
+        username = body('username')
+        password = body('password')
 
-        # Construye la consulta con placeholders para evitar SQL injection
         query = "SELECT * FROM users WHERE username = '"+ username +"' AND password = '"+ password +"'"
         results = postgre.query_postgresql(query)
 
