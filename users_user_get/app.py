@@ -9,11 +9,14 @@ def lambda_handler(event, context):
     try:
         logger.info(event)
         
-        username = event['queryStringParameters']['username']
-        password = event['queryStringParameters']['password']
+        # Extrae los datos del body y deserializa el JSON
+        body = json.loads(event['body'])
+        username = body.get("username")
+        password = body.get("password")
 
-        query = "select * from users where username = '"+ username +"' and password = '" + password + "'"
-        results = postgre.query_postgresql(query)
+        # Construye la consulta con placeholders para evitar SQL injection
+        query = "SELECT * FROM users WHERE username = %s AND password = %s"
+        results = postgre.query_postgresql(query, (username, password))
 
         # Verificar si no se encontraron resultados
         if not results:
@@ -27,7 +30,8 @@ def lambda_handler(event, context):
                 "body": json.dumps({"message": "Usuario no encontrado o contraseña incorrecta."})
             }
     
-        output = [{"username": row[0],"password": row[1],"type": row[2]} for row in results]
+        # Procesa los resultados de la consulta
+        output = [{"username": row[0], "password": row[1], "type": row[2]} for row in results]
                
         return {
             "statusCode": 200,
@@ -44,5 +48,6 @@ def lambda_handler(event, context):
         logger.error("Ocurrió un error: %s", str(e), exc_info=True)
         
         return {
-            'statusCode': 500
-        } 
+            "statusCode": 500,
+            "body": json.dumps({"error": "Ocurrió un error en el servidor."})
+        }
