@@ -3,7 +3,7 @@ import postgre
 
 def lambda_handler(event, context):
     
-    query = "select * from symptoms WHERE state != 'pending' LIMIT 20"
+    query = "select * from symptoms WHERE state != 'pending'"
     results = postgre.query_postgresql(query)
     
     output = [{"sym_id": row[0],"name": row[1],"synonymous": row[2],"state": row[3],"link": row[4],"hpo_id": row[5],"username": row[6]} for row in results]
