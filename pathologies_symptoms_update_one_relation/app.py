@@ -9,8 +9,10 @@ def lambda_handler(event, context):
         pat_id = body['pat_id']
         sym_id = body['sym_id']
         link = body.get('link', '')
+        important = body.get('important', '')
+        frequency = body.get('frequency', '')
 
-    query = "update pathologies_symptoms set link = '"+ link +"' where pat_id = '"+ pat_id +"' and sym_id = '"+ sym_id +"'"
+    query = "update pathologies_symptoms set link = '"+ link +"', important = '"+ important +"', frequency = '"+ frequency +"' where pat_id = '"+ pat_id +"' and sym_id = '"+ sym_id +"'"
  
     results = postgre.insert_postgresql(query)
     

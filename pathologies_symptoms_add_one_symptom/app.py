@@ -7,8 +7,10 @@ def lambda_handler(event, context):
     state = event['queryStringParameters']['state']
     username = event['queryStringParameters']['username']
     link = event['queryStringParameters'].get('link', '')
+    important = event['queryStringParameters'].get('important', '')
+    frequency = event['queryStringParameters'].get('frequency', '')
 
-    query = "insert into pathologies_symptoms (pat_id, sym_id, state, username, link) values ('"+ pat_id +"', '"+ sym_id +"', '"+ state +"', '"+ username +"', '"+ link +"')"
+    query = "insert into pathologies_symptoms (pat_id, sym_id, state, username, link, important, frequency) values ('"+ pat_id +"', '"+ sym_id +"', '"+ state +"', '"+ username +"', '"+ link +"', '"+ important +"', '"+ frequency +"')"
  
     results = postgre.insert_postgresql(query)
     
