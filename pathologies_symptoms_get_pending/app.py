@@ -3,7 +3,7 @@ import postgre
 
 def lambda_handler(event, context):
 
-    query = "SELECT pathologies.pat_id, pathologies.name AS nombre_patologia, symptoms.sym_id, symptoms.hpo_id, symptoms.name AS nombre_sintoma, pathologies_symptoms.username, pathologies_symptoms.link, pathologies_symptoms.important, pathologies_symptoms.frequency FROM pathologies_symptoms JOIN pathologies ON pathologies_symptoms.pat_id = pathologies.pat_id JOIN symptoms ON pathologies_symptoms.sym_id = symptoms.sym_id WHERE pathologies_symptoms.state = 'pending'  order by pathologies.name ASC"
+    query = "SELECT pathologies.pat_id, pathologies.name AS nombre_patologia, symptoms.sym_id, symptoms.hpo_id, symptoms.name AS nombre_sintoma, pathologies_symptoms.username, pathologies_symptoms.link, pathologies_symptoms.important, pathologies_symptoms.frequency FROM pathologies_symptoms JOIN pathologies ON pathologies_symptoms.pat_id = pathologies.pat_id JOIN symptoms ON pathologies_symptoms.sym_id = symptoms.sym_id WHERE pathologies_symptoms.state = 'pending' order by pathologies.name ASC"
 
     results = postgre.query_postgresql(query)
     

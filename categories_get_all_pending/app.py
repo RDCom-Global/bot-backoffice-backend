@@ -3,7 +3,7 @@ import postgre
 
 def lambda_handler(event, context):
     
-    query = "select * from categories where categories.state = 'pending'"
+    query = "select * from categories where categories.state = 'pending' ORDER BY name ASC"
     results = postgre.query_postgresql(query)
     
     output = [{"cat_id": row[0],"name": row[1],"type": row[2]} for row in results]

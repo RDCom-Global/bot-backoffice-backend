@@ -3,7 +3,7 @@ import postgre
 
 def lambda_handler(event, context):
 
-    query = "SELECT cc.cat_id_1, c1.name AS name_1, cc.cat_id_2, c2.name AS name_2, cc.state FROM categories_categories cc JOIN categories c1 ON cc.cat_id_1 = c1.cat_id JOIN categories c2 ON cc.cat_id_2 = c2.cat_id WHERE cc.state = 'pending'"
+    query = "SELECT cc.cat_id_1, c1.name AS name_1, cc.cat_id_2, c2.name AS name_2, cc.state FROM categories_categories cc JOIN categories c1 ON cc.cat_id_1 = c1.cat_id JOIN categories c2 ON cc.cat_id_2 = c2.cat_id WHERE cc.state = 'pending' ORDER BY name_1 ASC"
     
     results = postgre.query_postgresql(query)
     
