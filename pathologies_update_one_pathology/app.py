@@ -1,6 +1,12 @@
 import json
 import postgre
 
+def escape_apostrophes(text):
+    """funcion que modifica las comillas simples duplicándolas para SQL seguro."""
+    if text is None:
+        return ''
+    return text.replace("'", "''")
+
 def lambda_handler(event, context):
 
     id = event['queryStringParameters']['id']
@@ -9,7 +15,7 @@ def lambda_handler(event, context):
     
     if 'pat_id' in event['body']:
         pat_id = body['pat_id']
-        name = body['name']
+        name = escape_apostrophes(body['name'])
         orpha_id = body['orpha_id']
         omim_id = body['omim_id']
 
