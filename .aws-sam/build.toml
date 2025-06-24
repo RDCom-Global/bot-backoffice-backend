@@ -720,4 +720,22 @@ manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["UsersGetAll"]
 
+[function_build_definitions.0b138d29-877f-4cf2-84de-c3990b655ec3]
+codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/rdcom-bot/bot-backoffice/bot-backoffice-backend/pathologies_symptoms_get_pending_count"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["PathologiesSymptomsGetPendingCount"]
+
+[function_build_definitions.a9407910-a1de-45b0-ab65-7cf1bb769f6e]
+codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/rdcom-bot/bot-backoffice/bot-backoffice-backend/symptoms_add"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
+packagetype = "Zip"
+functions = ["SymptomsAdd"]
+
 [layer_build_definitions]

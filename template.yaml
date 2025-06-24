@@ -20,6 +20,15 @@ Resources:
         AllowOrigin: '''*'''
         AllowCredentials: '''*'''
         AllowMethods: '''*'''
+  PSQL:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: psql_layer
+      Description: Lógica de conexión PostgreSQL sin psycopg2
+      ContentUri: _layers/psql
+      CompatibleRuntimes:
+        - python3.11
+
   CategoriesGetAll:
     Type: AWS::Serverless::Function
     Properties:
@@ -1397,3 +1406,21 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /categoriestranslationsdeleteone
             Method: post
+
+  SymptomsAdd:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: symptoms_add/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - !Ref PSQL
+      Architectures:
+        - x86_64
+      Events:
+        SymptomsAdd:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /symptoms_add
+            Method: POST
