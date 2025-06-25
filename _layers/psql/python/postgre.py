@@ -1,6 +1,6 @@
 import psycopg2
 
-POSTGRE_DB_HOST = "db-rdibot.claoesjfa0zq.us-east-1.rds.amazonaws.com"
+POSTGRE_DB_HOST = "db-rdibot-dev.claoesjfa0zq.us-east-1.rds.amazonaws.com"
 POSTGRE_DB_PORT = "5432"
 POSTGRE_DB_NAME = "postgres"
 POSTGRE_DB_USER = "postgres"
