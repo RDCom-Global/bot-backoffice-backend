@@ -71,7 +71,7 @@ def createSym(data):
                             FROM Symptoms
                         ),
                         '{hpo_id}',
-                        '{synonymous}',
+                        '{escape_apostrophes(synonymous)}',
                         'pending',
                         '{username}'
                         )
