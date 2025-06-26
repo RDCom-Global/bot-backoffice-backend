@@ -21,7 +21,7 @@ Resources:
         AllowCredentials: '''*'''
         AllowMethods: '''*'''
   
-  PSQL:
+  PSQLDEV:
     Type: AWS::Serverless::LayerVersion
     Properties:
       LayerName: psql_layer_dev
@@ -37,7 +37,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -54,7 +54,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -71,7 +71,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -88,7 +88,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -105,7 +105,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -122,7 +122,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -139,7 +139,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -156,7 +156,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -173,7 +173,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -190,7 +190,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -207,7 +207,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -224,7 +224,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -241,7 +241,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -258,7 +258,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -275,7 +275,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -292,7 +292,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -309,7 +309,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -326,7 +326,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -343,7 +343,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -360,7 +360,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -377,7 +377,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -394,7 +394,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -411,7 +411,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -428,7 +428,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -445,7 +445,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -462,7 +462,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -479,7 +479,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -496,7 +496,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -513,7 +513,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -530,7 +530,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -547,7 +547,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -564,7 +564,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -581,7 +581,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -598,7 +598,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -615,7 +615,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -632,7 +632,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -649,7 +649,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -666,7 +666,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -683,7 +683,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -700,7 +700,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -717,7 +717,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -734,7 +734,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -751,7 +751,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -768,7 +768,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -785,7 +785,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -802,7 +802,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -819,7 +819,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -836,7 +836,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -853,7 +853,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -870,7 +870,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -887,7 +887,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -904,7 +904,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -921,7 +921,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -938,7 +938,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -955,7 +955,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -972,7 +972,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -989,7 +989,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1006,7 +1006,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1023,7 +1023,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1040,7 +1040,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1057,7 +1057,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1074,7 +1074,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1091,7 +1091,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1108,7 +1108,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1125,7 +1125,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1142,7 +1142,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1159,7 +1159,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1176,7 +1176,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1193,7 +1193,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1210,7 +1210,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1227,7 +1227,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1244,7 +1244,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1261,7 +1261,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1278,7 +1278,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1295,7 +1295,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1312,7 +1312,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1329,7 +1329,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1346,7 +1346,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1363,7 +1363,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1380,7 +1380,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1397,7 +1397,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:
@@ -1415,7 +1415,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:1
+        - PSQLDEV
       Architectures:
         - x86_64
       Events:

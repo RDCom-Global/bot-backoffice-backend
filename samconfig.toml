@@ -17,9 +17,10 @@ lint = true
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = true
 resolve_s3 = true
-s3_prefix = "bot-backoffice-backend"
+s3_prefix = "bot-backoffice-backend-dev"
 region = "us-east-1"
 image_repositories = []
+stack_name = "bot-backoffice-backend-dev"
 
 [default.package.parameters]
 resolve_s3 = true
