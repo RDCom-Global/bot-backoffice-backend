@@ -6,7 +6,7 @@ def lambda_handler(event, context):
     query = "select * from pathologies where state = 'pending' order by name ASC"
     results = postgre.query_postgresql(query)
     
-    output = [{"pat_id": row[0],"name": row[1],"orpha_id": row[2],"omim_id": row[3]} for row in results]
+    output = [{"pat_id": row[0],"name": row[1],"orpha_id": row[2],"omim_id": row[3],"type": row[6]} for row in results]
     
     return {
             "statusCode": 200,

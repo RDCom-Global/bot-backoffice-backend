@@ -19,8 +19,9 @@ def lambda_handler(event, context):
         name = escape_apostrophes(body['name'])
         orpha_id = body['orpha_id']
         omim_id = body['omim_id']
+        type = body['type']
 
-    query = "insert into pathologies (pat_id, name, orpha_id, omim_id, state, username) values ('"+ pat_id +"', '"+ name +"', '"+ orpha_id +"', '"+ omim_id +"', '"+ state +"', '"+ username +"') "
+    query = "insert into pathologies (pat_id, name, orpha_id, omim_id, state, username, type) values ('"+ pat_id +"', '"+ name +"', '"+ orpha_id +"', '"+ omim_id +"', '"+ state +"', '"+ username +"', '"+ type +"') "
 
     results = postgre.insert_postgresql(query)
     

@@ -1425,3 +1425,20 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /symptoms_add
             Method: POST
+  PathologiesAdd:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: pathologies_add/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - PSQLDEV
+      Architectures:
+        - x86_64
+      Events:
+        PathologiesAdd:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /pathologies_add
+            Method: POST
