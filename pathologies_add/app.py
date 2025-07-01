@@ -24,7 +24,7 @@ def lambda_handler(event, context):
                 "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
             },
             "body": json.dumps({
-                "message": "Error al crear el síntoma",
+                "message": "Error al crear Patología",
                 "result": results
             })
         }
@@ -37,7 +37,7 @@ def lambda_handler(event, context):
                 "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
                    },
         "body": json.dumps({
-            "message": "Síntoma creado correctamente",
+            "message": "Patología creada correctamente",
             "pat_id": results,
             "result": results
         })
@@ -70,7 +70,7 @@ def createPat(data):
                         '{orpha_id}',
                         '{omim_id}',
                         'pending',
-                        '{username}'
+                        '{username}',
                         '{type}'
                         )
                         RETURNING pat_id; """
