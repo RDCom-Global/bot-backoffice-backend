@@ -2,14 +2,13 @@ import json
 import postgre
 
 def lambda_handler(event, context):
-    palabra = event['queryStringParameters']['palabra']
+    pat_id = event['queryStringParameters']['pat_id']
 
-    query = "select * from symptoms where name ilike '%'|| '"+ palabra +"' ||'%'  OR synonymous ilike '%' || '"+ palabra +"' || '%'"
-
+    query = "select * from pathologies_codes where pat_id = '"+ pat_id +"' "
     results = postgre.query_postgresql(query)
     
-    output = [{"sym_id": row[0],"name": row[1],"synonymous": row[2],"state": row[3],"link": row[4],"hpo_id": row[5],"username": row[6]} for row in results]
-   
+    output = [{"pat_id": row[0],"code_id": row[1],"value": row[2],"name": row[3],"state": row[4],"date": row[5],"username": row[6]} for row in results]
+    
     return {
         "statusCode": 200,
         "headers": {

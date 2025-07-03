@@ -1433,3 +1433,71 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /pathologies_add
             Method: POST
+  PathologiesCodesGetOne:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: pathologies_codes_get_one/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:3
+      Architectures:
+        - x86_64
+      Events:
+        PathologiesCodesGetOne:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /pathologiescodesgetone
+            Method: get
+  PathologiesCodesCreateOne:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: pathologies_codes_create_one/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:3
+      Architectures:
+        - x86_64
+      Events:
+        PathologiesCodesCreateOne:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /pathologiescodescreateone
+            Method: post
+  PathologiesCodesUpdateOne:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: pathologies_codes_update_one/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:3
+      Architectures:
+        - x86_64
+      Events:
+        PathologiesCodesUpdateOne:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /pathologiescodesupdateone
+            Method: post
+  PathologiesCodesDeleteOne:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: pathologies_codes_delete_one/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:3
+      Architectures:
+        - x86_64
+      Events:
+        PathologiesCodesDeleteOne:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /pathologiescodesdeleteone
+            Method: post

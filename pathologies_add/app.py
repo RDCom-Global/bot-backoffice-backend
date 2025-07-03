@@ -58,6 +58,8 @@ def createPat(data):
         #Datos de los lenguajes
         languages = data["languages"]
         
+        #Datos de los codigos
+        codes = data["codes"]
         
         # Creo la patologia
         query = f""" INSERT INTO pathologies (name, pat_id, orpha_id, omim_id, state, username, type)
@@ -92,6 +94,19 @@ def createPat(data):
                                 ); """
                 postgre.insert_withoutId(query)
         
+            # Creo los codigos
+            for code in codes:
+                query = f""" INSERT INTO pathologies_codes (pat_id, code_id, value, name, state, date, username)
+                                VALUES (
+                                '{pat_id}',
+                                '{code["code_id"]}',
+                                '{escape_apostrophes(code["value"])}',
+                                '{escape_apostrophes(code["name"])}',
+                                'pending',
+                                NOW(),
+                                '{username}'
+                                ); """
+                postgre.insert_withoutId(query)
         
         return pat_id
     except Exception as e:
