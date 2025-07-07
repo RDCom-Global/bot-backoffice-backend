@@ -62,6 +62,24 @@ def createSym(data):
         frecuency = data["frecuency"]
         link = data["link"]
         
+        # Generar hpo_id automático si viene vacío
+        if not hpo_id or hpo_id.strip() == "":
+            query = """
+                SELECT 'RDC_' || LPAD(
+                    CAST(COALESCE(MAX(CAST(SUBSTRING(hpo_id FROM 5) AS INTEGER)), 0) + 1 AS TEXT),
+                    6,
+                    '0'
+                )
+                FROM symptoms
+                WHERE hpo_id LIKE 'RDC_%'
+            """
+            results = postgre.query_postgresql(query)
+            if results and len(results) > 0:
+                hpo_id = results[0][0]
+                print("Generado hpo_id:", hpo_id)
+            else:
+                hpo_id = "RDC_000001"  # fallback por si no hay ningún RDC_
+            
         # Creo el síntoma
         query = f""" INSERT INTO Symptoms (name, sym_id, hpo_id, synonymous, state, username)
                         VALUES (
