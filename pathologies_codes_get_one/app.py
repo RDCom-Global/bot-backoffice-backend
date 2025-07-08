@@ -7,7 +7,7 @@ def lambda_handler(event, context):
     query = "select * from pathologies_codes where pat_id = '"+ pat_id +"' "
     results = postgre.query_postgresql(query)
     
-    output = [{"pat_id": row[0],"code_id": row[1],"value": row[2],"name": row[3],"state": row[4],"date": row[5],"username": row[6]} for row in results]
+    output = [{"pat_id": row[0],"code_id": row[1],"value": row[2],"name": row[3],"state": row[4],"date": row[5].isoformat() if row[5] else None,"username": row[6]} for row in results]
     
     return {
         "statusCode": 200,
