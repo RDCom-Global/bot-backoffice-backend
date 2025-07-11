@@ -43,7 +43,7 @@ def insert_postgresql(query):
         inserted_id = 0
         
         # Si la consulta incluye un INSERT, obtenemos el id generado
-        if "INSERT" in query.upper():
+        if "INSERT" in query.upper() and "RETURNING" in query.upper():
             inserted_id = cursor.fetchone()[0]  # Obtenemos el primer valor retornado (el id)
             
         if "UPDATE" in query.upper() and "RETURNING" in query.upper():
@@ -54,7 +54,10 @@ def insert_postgresql(query):
         cursor.close()
         conn.close()
 
-        return inserted_id
+        if inserted_id > 0:
+            return inserted_id
+        else:
+            return True
     
     except Exception as e:
         print(f"Error al ejecutar la consulta: {e}")
