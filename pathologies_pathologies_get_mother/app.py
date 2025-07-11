@@ -4,10 +4,11 @@ import postgre
 def lambda_handler(event, context):
     pat_id = event['queryStringParameters']['pat_id']
 
-    query = "select * from pathologies_codes where pat_id = '"+ pat_id +"' "
+    query = "select * from pathologies_pathologies where pat_id_2 = '"+ pat_id +"' "
+    
     results = postgre.query_postgresql(query)
     
-    output = [{"pat_id": row[0],"code_id": row[1],"value": row[2],"name": row[3],"state": row[4],"date": row[5].isoformat() if row[5] else None,"username": row[6]} for row in results]
+    output = [{"pat_id_1": row[0],"pat_id_2": row[1],"state": row[2], "username": row[3]} for row in results]
     
     return {
         "statusCode": 200,

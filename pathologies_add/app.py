@@ -55,6 +55,9 @@ def createPat(data):
         type = data['type']
         username = data["username"]
         
+        #Datos pat_id de la madre
+        mother = data['mother']
+        
         #Datos de los lenguajes
         languages = data["languages"]
         
@@ -81,6 +84,19 @@ def createPat(data):
         print(pat_id)
         
         if pat_id:
+            
+            # Creo la relación con la madre solo si mother no está vacío
+            if mother:
+                query = f"""
+                    INSERT INTO pathologies_pathologies (pat_id_1, pat_id_2, state, username)
+                    VALUES (
+                        '{escape_apostrophes(mother)}',
+                        '{escape_apostrophes(pat_id)}',
+                        'pending',
+                        '{escape_apostrophes(username)}'
+                    )
+                """
+                postgre.insert_withoutId(query)
             
             # Creo los traducciones
             for lang in languages:

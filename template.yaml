@@ -1501,3 +1501,20 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /pathologiescodesdeleteone
             Method: post
+  PathologiesPathologiesGetMother:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: pathologies_pathologies_get_mothers/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:3
+      Architectures:
+        - x86_64
+      Events:
+        PathologiesPathologiesGetMother:
+          Type: Api 
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /pathologiespathologiesgetmother
+            Method: post
