@@ -1517,4 +1517,4 @@ Resources:
           Properties:
             RestApiId: !Ref MyApi
             Path: /pathologiespathologiesgetmother
-            Method: post
+            Method: get
