@@ -1504,7 +1504,7 @@ Resources:
   PathologiesPathologiesGetMother:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: pathologies_pathologies_get_mothers/
+      CodeUri: pathologies_pathologies_get_mother/
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
