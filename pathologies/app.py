@@ -135,9 +135,33 @@ def createPat(data):
     
 def getAll(data):
     try:
-        query = "SELECT * FROM pathologies ORDER BY name ASC"
-        results = postgre.db_read(query, user="system")  # asumimos user fijo
-        output = [{"pat_id": row[0], "name": row[1], "orpha_id": row[2], "omim_id": row[3], "type": row[6]} for row in results]
+        query = """
+            SELECT 
+                p.pat_id,
+                p.name,
+                p.orpha_id,
+                p.omim_id,
+                p.type,
+                COALESCE(
+                    STRING_AGG(pc.code_id || ':' || pc.value, ', '), ''
+                ) AS codes
+            FROM pathologies p
+            LEFT JOIN pathologies_codes pc ON p.pat_id = pc.pat_id AND pc.state != 'inactive'
+            GROUP BY p.pat_id, p.name, p.orpha_id, p.omim_id, p.type
+            ORDER BY p.name ASC;
+        """
+
+        results = postgre.query_postgresql(query)
+
+        output = [{
+            "pat_id": row[0],
+            "name": row[1],
+            "orpha_id": row[2],
+            "omim_id": row[3],
+            "type": row[4],
+            "codes": row[5]
+        } for row in results]
+
         return output
     except Exception as e:
         print("error", e)
