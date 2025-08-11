@@ -6,6 +6,12 @@ POSTGRE_DB_NAME = "postgres"
 POSTGRE_DB_USER = "postgres"
 POSTGRE_DB_PASS = "RDCom2024!!"
 
+DB_HOST = "db-rdibot-dev.claoesjfa0zq.us-east-1.rds.amazonaws.com"
+DB_PORT = "5432"
+DB_NAME = "postgres"
+DB_USER = "postgres"
+DB_PASS = "RDCom2024!!"
+
 def query_postgresql(query):
     try:
         connection_params = {
@@ -43,7 +49,7 @@ def insert_postgresql(query):
         inserted_id = 0
         
         # Si la consulta incluye un INSERT, obtenemos el id generado
-        if "INSERT" in query.upper():
+        if "INSERT" in query.upper() and "RETURNING" in query.upper():
             inserted_id = cursor.fetchone()[0]  # Obtenemos el primer valor retornado (el id)
             
         if "UPDATE" in query.upper() and "RETURNING" in query.upper():
@@ -54,7 +60,10 @@ def insert_postgresql(query):
         cursor.close()
         conn.close()
 
-        return inserted_id
+        if inserted_id > 0:
+            return inserted_id
+        else:
+            return True
     
     except Exception as e:
         print(f"Error al ejecutar la consulta: {e}")
@@ -116,3 +125,68 @@ def transaction_postgresql(queries):
             cursor.close()  # Cierra el cursor
         if conn:
             conn.close()  # Cierra la conexión
+            
+def db_read(query, user = "no_user", params=None):
+    try:
+        connection_params = {
+            'dbname': DB_NAME,
+            'user': DB_USER,
+            'password': DB_PASS,
+            'host': DB_HOST,
+            'port': DB_PORT
+        }
+        conn = psycopg2.connect(**connection_params)
+        cursor = conn.cursor()
+
+        cursor.execute('SET session "my.app_user" = %s;', (user,))
+        cursor.execute(query, params)  # Usamos parámetros
+
+        results = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+        return results
+
+    except Exception as e:
+        print(f"Error al ejecutar la consulta: {e}")
+        return None
+
+
+def db_insert(query, user = "no_user", params=None):
+    try:
+        connection_params = {
+            'dbname': DB_NAME,
+            'user': DB_USER,
+            'password': DB_PASS,
+            'host': DB_HOST,
+            'port': DB_PORT
+        }
+        conn = psycopg2.connect(**connection_params)
+        cursor = conn.cursor()
+
+        cursor.execute('SET session "my.app_user" = %s;', (user,))
+        cursor.execute(query, params)  # Usamos parámetros
+
+        inserted_id = 0
+
+        if "INSERT" in query.upper() and "RETURNING" in query.upper():
+            inserted_id = cursor.fetchone()[0]
+
+        if "UPDATE" in query.upper() and "RETURNING" in query.upper():
+            inserted_id = cursor.fetchone()[0]
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        if inserted_id > 0:
+            return inserted_id
+        else:
+            return True
+
+    except Exception as e:
+        print(f"Error al ejecutar la consulta: {e}")
+        return None
+    
+
+    

@@ -31,6 +31,7 @@ def lambda_handler(event, context):
             symptoms.name ASC
     """
 
+
     results = postgre.query_postgresql(query)
     
     output = [{

@@ -18,7 +18,10 @@ def lambda_handler(event, context):
         omim_id = body['omim_id']
         type = body['type']
         mother = body['mother']
-        username = body['username']
+        if 'username' in body:
+            username = body['username']
+        else:
+            username = 'Systems'
 
     # Actualiza los datos principales
     query = f"""
