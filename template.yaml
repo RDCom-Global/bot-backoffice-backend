@@ -1415,7 +1415,7 @@ Resources:
           Properties:
             RestApiId: !Ref MyApi
             Path: /symptoms_add
-            Method: POST
+            Method: post
   PathologiesAdd:
     Type: AWS::Serverless::Function
     Properties:
@@ -1432,7 +1432,7 @@ Resources:
           Properties:
             RestApiId: !Ref MyApi
             Path: /pathologies_add
-            Method: POST
+            Method: post
   PathologiesCodesGetOne:
     Type: AWS::Serverless::Function
     Properties:
