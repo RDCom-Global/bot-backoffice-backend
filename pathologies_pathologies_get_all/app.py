@@ -2,9 +2,8 @@ import json
 import postgre
 
 def lambda_handler(event, context):
-    pat_id = event['queryStringParameters']['pat_id']
 
-    query = "SELECT pp.pat_id_1, p1.name AS name_1, pp.pat_id_2, p2.name AS name_2, pp.state, pp.username FROM pathologies_pathologies pp INNER JOIN pathologies p1 ON pp.pat_id_1 = p1.pat_id INNER JOIN pathologies p2 ON pp.pat_id_2 = p2.pat_id WHERE pp.pat_id_2 = '" + pat_id + "' ORDER BY name_1 ASC, name_2 ASC"
+    query = "SELECT pp.pat_id_1, p1.name AS name_1, pp.pat_id_2, p2.name AS name_2, pp.state, pp.username FROM pathologies_pathologies pp INNER JOIN pathologies p1 ON pp.pat_id_1 = p1.pat_id INNER JOIN pathologies p2 ON pp.pat_id_2 = p2.pat_id ORDER BY name_1 ASC, name_2 ASC"
     
     results = postgre.query_postgresql(query)
     
