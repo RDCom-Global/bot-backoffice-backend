@@ -783,4 +783,40 @@ manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["PathologiesCodesDeleteOne"]
 
+[function_build_definitions.7dba3110-56f0-4839-a0ec-f522f464b729]
+codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_pathologies_get_mother"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["PathologiesPathologiesGetMother"]
+
+[function_build_definitions.b5135cb7-891c-400f-80f6-8b8c8f72c45b]
+codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_pathologies_get_all"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["PathologiesPathologiesGetAll"]
+
+[function_build_definitions.a831d16d-ad81-461c-b772-d80a0b368fba]
+codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_pathologies_validate_one_relation"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["PathologiesPathologiesValidateOneRelation"]
+
+[function_build_definitions.b1eb842e-d08e-440f-8735-d304afa432a7]
+codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["PathologiesGet"]
+
 [layer_build_definitions]
