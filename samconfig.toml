@@ -4,24 +4,25 @@ version = 0.1
 [default.deploy]
 stack_name = "bot-backoffice-backend-dev"
 region = "us-east-1"
-capabilities = "CAPABILITY_IAM"
+capabilities = "CAPABILITY_NAMED_IAM"
 confirm_changeset = false
 fail_on_empty_changeset = false
 resolve_s3 = true
 [default.deploy.parameters]
-stack_name = "bot-backoffice-backend-dev"
+stack_name = "backoffice-dev"
 resolve_s3 = true
-s3_prefix = "bot-backoffice-backend-dev"
-region = "us-east-1"
-capabilities = "CAPABILITY_IAM"
+s3_prefix = "backoffice-dev"
+region = "us-east-2"
+capabilities = "CAPABILITY_NAMED_IAM"
 image_repositories = []
 parameter_overrides = "Environment=\"dev\""
+confirm_changeset = true
 
 [dev.deploy.parameters]
 stack_name = "backoffice-dev"
 resolve_s3 = true
 s3_prefix = "backoffice-dev"
 region = "us-east-2"
-capabilities = "CAPABILITY_IAM"
+capabilities = "CAPABILITY_NAMED_IAM"
 parameter_overrides = "Environment=\"dev\""
 image_repositories = []

@@ -84,18 +84,18 @@ def getAll(data):
     try:
         query = """
             SELECT 
-                p.pat_id,
+                p.id_pathology,
                 p.name,
-                p.orpha_id,
-                p.omim_id,
+                'OPRHA' as OPRHA,
+                'OMIM' as OMIM,
                 p.type,
-                p.state,
+                p.status,
                 COALESCE(
-                    STRING_AGG(pc.code_id || ':' || pc.value, ', '), ''
+                    STRING_AGG(pc.id_code || ':' || pc.id_code, ', '), ''
                 ) AS codes
             FROM pathologies p
-            LEFT JOIN pathologies_codes pc ON p.pat_id = pc.pat_id AND pc.state != 'inactive'
-            GROUP BY p.pat_id, p.name, p.orpha_id, p.omim_id, p.type
+            LEFT JOIN pathologies_codes pc ON p.id_pathology = pc.id_pathology AND pc.status != 'inactive'
+            GROUP BY p.id_pathology, p.name, p.type
             ORDER BY p.name ASC;
         """
 
@@ -121,7 +121,7 @@ def getOne(data):
         pat_id = data['queryStringParameters']['id']
         
         query = "SELECT * FROM pathologies WHERE pat_id = %s"
-        results = postgre.db_read(query, user="system", params=(pat_id,))
+        results = postgre.db_read(query, params=(pat_id,), user="system")
 
         output = [{"pat_id": row[0], "name": row[1], "orpha_id": row[2], "omim_id": row[3], "type": row[6]} for row in results]
         return output
