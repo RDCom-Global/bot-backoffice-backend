@@ -15,3 +15,13 @@ s3_prefix = "bot-backoffice-backend-dev"
 region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 image_repositories = []
+parameter_overrides = "Environment=\"dev\""
+
+[dev.deploy.parameters]
+stack_name = "backoffice-dev"
+resolve_s3 = true
+s3_prefix = "backoffice-dev"
+region = "us-east-2"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "Environment=\"dev\""
+image_repositories = []

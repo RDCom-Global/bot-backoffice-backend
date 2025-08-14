@@ -7,20 +7,51 @@ Description: >
 
 
 Globals:
-  Function:
-    Timeout: 3
-
-Resources:
-  MyApi:
-    Type: AWS::Serverless::Api
-    Properties:
-      StageName: Prod
+  Api:
       Cors:
         AllowHeaders: '''*'''
         AllowOrigin: '''*'''
         AllowCredentials: '''*'''
         AllowMethods: '''*'''
+  Function:
+    Timeout: 300
+    Environment:
+        Variables:
+          ENV: !Ref Environment
+          REGION_COGNITO: !Sub '{{resolve:ssm:/rdcmanager-backoffice-${Environment}/regionCognito}}'
+          POOLS_USER_ID: !Sub '{{resolve:ssm:/rdcmanager-backoffice-${Environment}/poolsUserId}}'
+          POOLS_WEB_CLINT_ID: !Sub '{{resolve:ssm:/rdcmanager-backoffice-${Environment}/poolsWebClintId}}'
+
+Parameters:
+  Environment:
+    Type: String
+
+Resources:
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Sub ${Environment}
+      Cors:
+        AllowHeaders: '''*'''
+        AllowOrigin: '''*'''
+        AllowCredentials: '''*'''
+        AllowMethods: '''*'''
+      Auth:
+          DefaultAuthorizer: MyAuthorizer
+          AddDefaultAuthorizerToCorsPreflight: false
+          Authorizers:
+            MyAuthorizer:
+              FunctionArn: !GetAtt Authorizer.Arn
         
+  Authorizer:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: utils/authorizer/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+  
   CategoriesGetAll:
     Type: AWS::Serverless::Function
     Properties:
@@ -1350,7 +1381,6 @@ Resources:
               Path: /pathologiesPathologiesValidateOneRelation
               Method: post
 
-
 ## New Refactor
   PathologiesGet:
     Type: AWS::Serverless::Function
@@ -1359,7 +1389,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-1:293854028872:layer:psql_layer_dev:7
+        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:3
       Architectures:
         - x86_64
       Events:
