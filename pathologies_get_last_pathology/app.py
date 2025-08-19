@@ -3,7 +3,7 @@ import postgre
 
 def lambda_handler(event, context):
     
-    query = "select MAX(pathologies.pat_id) from pathologies"
+    query = "select MAX(pathologies.id_pathology) from pathologies"
     results = postgre.query_postgresql(query)
 
     output = [{"max": row[0]} for row in results]

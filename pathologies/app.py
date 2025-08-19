@@ -120,10 +120,10 @@ def getOne(data):
     try:
         pat_id = data['queryStringParameters']['id']
         
-        query = "SELECT * FROM pathologies WHERE pat_id = %s"
+        query = "SELECT * FROM pathologies WHERE id_pathology = %s"
         results = postgre.db_read(query, params=(pat_id,), user="system")
 
-        output = [{"pat_id": row[0], "name": row[1], "orpha_id": row[2], "omim_id": row[3], "type": row[6]} for row in results]
+        output = [{"pat_id": row[0], "name": row[1], "status": row[2], "external_id": row[3], "type": row[4]} for row in results]
         return output
     except Exception as e:
         print("error getOne", e)
@@ -385,28 +385,17 @@ def validateRelation(data):
     
 def getMother(data):
     try:
-        pat_id = data['queryStringParameters']['pat_id']
-        username = data.get('username', 'system')  # opcional, por consistencia con otras funciones
+        print(data)
+        pat_id = data.get("id","")
 
-        query = """
-            SELECT 
-                pat_id_1, 
-                pat_id_2, 
-                state, 
-                username
-            FROM 
-                pathologies_pathologies
-            WHERE 
-                pat_id_2 = %s
-        """
+        query = "SELECT id_pathology_1, id_pathology_2, status FROM pathologies_pathologies WHERE id_pathology_2 = %s"
 
-        results = postgre.db_read(query, user=username, params=(pat_id,))
+        results = postgre.db_read(query, params=(pat_id), user="system")
 
         output = [{
             "pat_id_1": row[0],
             "pat_id_2": row[1],
-            "state": row[2],
-            "username": row[3]
+            "state": row[2]
         } for row in results]
 
         return output
