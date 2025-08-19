@@ -48,7 +48,7 @@ def lambda_handler(event, context):
             result = getMother(data)   
          
         
-        if result:
+        if result is not False and result is not None:
             return {
                 "statusCode": 200,
                 "headers": {
@@ -390,15 +390,18 @@ def getMother(data):
 
         query = "SELECT id_pathology_1, id_pathology_2, status FROM pathologies_pathologies WHERE id_pathology_2 = %s"
 
-        results = postgre.db_read(query, params=(pat_id), user="system")
+        results = postgre.db_read(query, params=(pat_id,), user="system")
 
-        output = [{
-            "pat_id_1": row[0],
-            "pat_id_2": row[1],
-            "state": row[2]
-        } for row in results]
-
-        return output
+        print(results)
+        if len(results) > 0:
+            output = [{
+                "pat_id_1": row[0],
+                "pat_id_2": row[1],
+                "state": row[2]
+            } for row in results]
+            return output
+        else:
+            return []
 
     except Exception as e:
         print("error getMother", e)
