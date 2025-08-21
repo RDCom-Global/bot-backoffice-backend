@@ -32,8 +32,11 @@ def lambda_handler(event, context):
         if action == "edit":         ##edita / actualiza datos de un sintoma 
             result = updateSym(data) 
             
-        if action == "validate":   ## valida una sintoma
-            result = validateSym(data) 
+        if action == "validate_first":   ## valida una sintoma
+            result = validateSymFirst(data) 
+            
+        if action == "validate_second":   ## valida una sintoma
+            result = validateSymSecond(data) 
             
         if action == "get_symptoms":     ## trate todos los sintomas de una patologia
             result = getSymptoms(data) 
@@ -131,55 +134,35 @@ def getWord(data):
     
 def getOne(data):
     try:
-        pat_id = data.get("id", "")
+        sym_id = data.get("id", "")
 
-        # Patología principal
-        query_pat = "SELECT * FROM pathologies WHERE id_pathology = %s"
-        results_pat = postgre.db_read(query_pat, params=(pat_id,), user="system")
-        pathology = [{
-            "pat_id": row[0],
+        # Sintoma principal
+        query_sym = "SELECT * FROM symptoms WHERE id_symptom = %s"
+        results_sym = postgre.db_read(query_sym, params=(sym_id,), user="system")
+        symptom = [{
+            "sym_id": row[0],
             "name": row[1],
-            "status": row[2],
-            "external_id": row[3],
-            "type": row[4]
-        } for row in results_pat]
-
-        # Madre
-        query_mother = "SELECT id_pathology_1, id_pathology_2, status FROM pathologies_pathologies WHERE id_pathology_2 = %s"
-        results_mother = postgre.db_read(query_mother, params=(pat_id,), user="system")
-        mother = [{
-            "pat_id_1": row[0],
-            "pat_id_2": row[1],
-            "state": row[2]
-        } for row in results_mother]
+            "synonymous": row[2],
+            "state": row[3],
+            "link": row[4],
+            "hpo_id": row[5],
+            "external_id": row[6]
+        } for row in results_sym]
 
         # Idiomas
-        query_langs = "SELECT * FROM tl_pathologies WHERE id_pathology = %s"
-        results_langs = postgre.db_read(query_langs, params=(pat_id,), user="system")
+        query_langs = "SELECT * FROM tl_symtoms WHERE id_symptom = %s"
+        results_langs = postgre.db_read(query_langs, params=(sym_id,), user="system")
         idiomas = [{
-            "pat_id": row[0],
+            "sym_id": row[0],
             "language": row[1],
             "value": row[2],
             "state": row[3]
         } for row in results_langs]
 
-        # Códigos
-        query_codes = "SELECT * FROM pathologies_codes WHERE id_pathology = %s"
-        results_codes = postgre.db_read(query_codes, params=(pat_id,), user="system")
-        codigos = [{
-            "pat_id": row[0],
-            "code_id": row[1],
-            "value": row[2],
-            "name": row[3],
-            "state": row[4]
-        } for row in results_codes]
-
         # Devolvemos todo en un solo JSON
         return {
-            "pathology": pathology,
-            "mother": mother,
-            "idiomas": idiomas,
-            "codigos": codigos
+            "symptom": symptom,
+            "idiomas": idiomas
         }
 
     except Exception as e:
@@ -188,127 +171,125 @@ def getOne(data):
 
 def createSym(data):
     try:
-        # Extraer datos
+        #Datos del sintoma
         name = data.get("name", "")
-        type_ = data.get("type", "")
+        hpo_id = data.get("hpo_id", "")
+        synonymous = data.get("synonymous", "")
         username = data.get("username", "")
-        mother = data.get("mother")  # None si no hay
-        languages = data.get("languages", [])
-        codes = data.get("codes", [])
-
-        # Generar external_id
-        query_ext_id = """
-            SELECT 'PAT_' || LPAD(CAST(COALESCE(MAX(CAST(SUBSTRING(external_id FROM 5) AS INTEGER)), 0) + 1 AS TEXT), 6, '0')
-            FROM pathologies
-        """
-        ext_id_result = postgre.db_read(query_ext_id)
-        external_id = ext_id_result[0][0]
-
-        # Insert principal (db_insert solo inserta)
-        query_insert = """
-            INSERT INTO pathologies (name, status, type, external_id)
-            VALUES (%s, 'pending', %s, %s)
-        """
-        postgre.db_insert(query_insert, params=(name, type_, external_id), user=username)
-
-        # Obtener id_pathology recién creado
-        query_get_id = "SELECT id_pathology FROM pathologies WHERE external_id = %s"
-        pat_id_result = postgre.db_read(query_get_id, params=(external_id,), user=username)
-        pat_id = pat_id_result[0][0]
-
-        # Inserto madre (si hay)
-        if mother:
-            query_mother = """
-                INSERT INTO pathologies_pathologies (id_pathology_1, id_pathology_2, status)
-                VALUES (%s, %s, 'pending')
-            """
-            postgre.db_insert(query_mother, params=(mother, pat_id), user=username)
-
-        # Inserto traducciones
-        for lang in languages:
-            query_lang = """
-                INSERT INTO tl_pathologies (id_pathology, language, value, status)
-                VALUES (%s, %s, %s, 'pending')
-            """
-            postgre.db_insert(query_lang, params=(pat_id, lang.get("language", ""), lang.get("value", "")), user=username)
-
-        # Inserto códigos
-        for code in codes:
-            query_code = """
-                INSERT INTO pathologies_codes (id_pathology, id_code, value, name, status)
-                VALUES (%s, %s, %s, %s, 'pending')
-            """
-            postgre.db_insert(query_code, params=(pat_id, code.get("code_id", ""), code.get("value", ""), code.get("name", "")), user=username)
-
-        return pat_id
-
+       
+        #Datos de los lenguajes
+        languages = data.get("languages", "")
+        
+        #Datos de la patologia
+        pat_id = data.get("pat_id", "")
+        important = data.get("important", "")
+        frecuency = data.get("frecuency", "")
+        link = data.get("link", "")
+        
+        # Creo el síntoma
+        query = f""" INSERT INTO Symptoms (name, sym_id, hpo_id, synonymous, state, username)
+                        VALUES (
+                        '{escape_apostrophes(name)}',
+                        (
+                            SELECT 'SYM_' || LPAD(CAST(COALESCE(MAX(CAST(SUBSTRING(sym_id FROM 5) AS INTEGER)), 0) + 1 AS TEXT), 6, '0')
+                            FROM Symptoms
+                        ),
+                        '{hpo_id}',
+                        '{synonymous}',
+                        'pending',
+                        '{username}'
+                        )
+                        RETURNING sym_id; """
+                        
+        sym_id = postgre.insert_postgresql(query)
+        
+        if sym_id:
+            # Asocio a patologia
+            query = "insert into pathologies_symptoms (pat_id, sym_id, state, username, link, importante, frequency) values ('"+ pat_id +"', '"+ sym_id +"', 'pending', '"+ username +"', '"+ link +"', '"+ str(important) +"', '"+ frecuency +"')"
+            results = postgre.insert_withoutId(query)
+            
+            if results is None:
+                #Aca deberiamos eliminar el síntoma
+                return False
+            
+            # Creo los traducciones
+            for lang in languages:
+                query = f""" INSERT INTO tl_symtoms (sym_id, language, value, state, username)
+                                VALUES (
+                                '{sym_id}',
+                                '{lang["language"]}',
+                                '{escape_apostrophes(lang["value"])}',
+                                'pending',
+                                '{username}'
+                                ); """
+                postgre.insert_withoutId(query)
+        
+        return True
     except Exception as e:
-        print("error createPat", e)
         return False
     
 def updateSym(data):
     try:
         # Extraer datos
-        pat_id = data.get("pat_id", "")
+        #Datos del sintoma
         name = data.get("name", "")
-        type_ = data.get("type", "")
+        sym_id = data.get("sym_id", "")
+        hpo_id = data.get("hpo_id", "")
+        synonymous = data.get("synonymous", "")
         username = data.get("username", "")
-        mother = data.get("mother")  # None si no hay
-        languages = data.get("languages", [])
-        codes = data.get("codes", [])
+        state = data.get('state', '')
+        
+        #Datos de los lenguajes
+        languages = data.get("languages", "")
+        
+        #Datos de la patologia
+        pat_id = data.get("pat_id", "")
+        important = data.get("important", "")
+        frecuency = data.get("frecuency", "")
+        link = data.get("link", "")
         
         # 1. Update principal
-        query_update = """
-            UPDATE pathologies
-            SET name = %s, type = %s
-            WHERE id_pathology = %s
-        """
-        postgre.db_insert(query_update, params=(name, type_, pat_id), user=username)
+        query_update = "update symptoms set name = '"+ name +"', hpo_id = '"+ hpo_id +"', synonymous = '"+ synonymous +"', status = '"+ state +"' where id_symptom = '"+ sym_id +"'"
 
-        # 2. Actualizar madre (eliminar y agregar de nuevo si existe)
-        query_delete_mother = "DELETE FROM pathologies_pathologies WHERE id_pathology_2 = %s"
-        postgre.db_insert(query_delete_mother, params=(pat_id,), user=username)
-        if mother:
-            query_mother = """
-                INSERT INTO pathologies_pathologies (id_pathology_1, id_pathology_2, status)
-                VALUES (%s, %s, 'pending')
-            """
-            postgre.db_insert(query_mother, params=(mother, pat_id), user=username)
+        postgre.db_insert(query_update, params=(name, pat_id), user=username)
 
-        # 3. Actualizar idiomas (borrar e insertar)
-        query_delete_lang = "DELETE FROM tl_pathologies WHERE id_pathology = %s"
-        postgre.db_insert(query_delete_lang, params=(pat_id,), user=username)
+        # 2. Actualizar idiomas (borrar e insertar)
+        query_delete_lang = "DELETE FROM tl_symptoms WHERE id_symptom = %s"
+        postgre.db_insert(query_delete_lang, params=(sym_id,), user=username)
         for lang in languages:
             query_lang = """
-                INSERT INTO tl_pathologies (id_pathology, language, value, status)
+                INSERT INTO tl_symptoms (id_symptom, language, value, status)
                 VALUES (%s, %s, %s, 'pending')
             """
-            postgre.db_insert(query_lang, params=(pat_id, lang["language"], lang["value"]), user=username)
+            postgre.db_insert(query_lang, params=(sym_id, lang["language"], lang["value"]), user=username)
 
-        # 4. Actualizar códigos (borrar e insertar)
-        query_delete_codes = "DELETE FROM pathologies_codes WHERE id_pathology = %s"
-        postgre.db_insert(query_delete_codes, params=(pat_id,), user=username)
-        for code in codes:
-            query_code = """
-                INSERT INTO pathologies_codes (id_pathology, id_code, value, name, status)
-                VALUES (%s, %s, %s, %s, 'pending')
-            """
-            postgre.db_insert(query_code, params=(pat_id, code["code_id"], code["value"], code["name"]), user=username)
-
-        return pat_id
+        return sym_id
 
     except Exception as e:
         print("error updatePat", e)
         return False
     
-def validateSym(data):
+def validateSymFirst(data):
     try:
  
-        pat_id = data.get("pat_id", "")
+        sym_id = data.get("sym_id", "")
         username = data.get('username', 'system')  # o el usuario que corresponda
         
-        query = "UPDATE pathologies SET status = 'active' WHERE id_pathology = %s"
-        result = postgre.db_insert(query, params=(pat_id,),user=username)
+        query = "UPDATE symptoms SET status = 'verified' WHERE id_symptom = %s"
+        result = postgre.db_insert(query, params=(sym_id,),user=username)
+        return result
+    except Exception as e:
+        print("error validatePat", e)
+        return False
+    
+def validateSymSecond(data):
+    try:
+ 
+        sym_id = data.get("sym_id", "")
+        username = data.get('username', 'system')  # o el usuario que corresponda
+        
+        query = "UPDATE symptoms SET status = 'active' WHERE id_symptom = %s"
+        result = postgre.db_insert(query, params=(sym_id,),user=username)
         return result
     except Exception as e:
         print("error validatePat", e)
@@ -367,24 +348,20 @@ def getSymptoms(data):
 
 def deleteSym(data):
     try:
-        pat_id = data.get("id","")
+        sym_id = data.get("id","")
         username = data.get('username', 'system')  # o el usuario que corresponda
         
         # 1. Borro idiomas
-        query_delete_lang = "DELETE FROM tl_pathologies WHERE id_pathology = %s"
-        postgre.db_insert(query_delete_lang, params=(pat_id,), user=username)
+        query_delete_lang = "DELETE FROM tl_symptoms WHERE id_symptom = %s"
+        postgre.db_insert(query_delete_lang, params=(sym_id,), user=username)
+            
+        # 3. Borro relaciones patologia-sintoma (ESTO VER CON SALI!!!!!!!!!!)
+        query_delete_relations = "DELETE FROM pathologies_symptoms WHERE id_symptom = %s"
+        postgre.db_insert(query_delete_relations, params=(sym_id,), user=username)
         
-        # 2. Borro códigos
-        query_delete_codes = "DELETE FROM pathologies_codes WHERE id_pathology = %s"
-        postgre.db_insert(query_delete_codes, params=(pat_id,), user=username)
-        
-        # 3. Borro relaciones madre-hijo (ESTO VER CON SALI!!!!!!!!!!)
-        query_delete_mother = "DELETE FROM pathologies_pathologies WHERE id_pathology_2 = %s OR id_pathology_1 = %s"
-        postgre.db_insert(query_delete_mother, params=(pat_id, pat_id), user=username)
-        
-        # 4. Borro la patología principal
-        query_delete_pat = "DELETE FROM pathologies WHERE id_pathology = %s"
-        postgre.db_insert(query_delete_pat, params=(pat_id,), user=username)
+        # 3. Borro el sintoma principal
+        query_delete_sym = "DELETE FROM symptoms WHERE id_symptom = %s"
+        postgre.db_insert(query_delete_sym, params=(sym_id,), user=username)
         
         return True
 

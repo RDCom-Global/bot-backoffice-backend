@@ -240,75 +240,6 @@ Resources:
             Path: /categoriesValidate
             Method: post
 
-  PathologiesGetAll:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_get_all/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesGetAll:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologies
-            Method: get
-
-  PathologiesGetAllPending:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_get_all_pending/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesGetAllPending:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiesPending
-            Method: get
-  PathologiesGetLastPathology:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_get_last_pathology/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesGetLastPathology:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiesLast
-            Method: get
-  PathologiesGetOnePathology:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_get_one_pathology/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesGetOnePathology:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiesOne
-            Method: get
   PathologiesGetSearchPathology:
     Type: AWS::Serverless::Function
     Properties:
@@ -445,74 +376,6 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /pathologiesSearchbythreesymptoms
             Method: get
-  PathologiesCreateOnePathology:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_create_one_pathology/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesCreateOnePathology:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiesAdd
-            Method: post
-  PathologiesDeleteOnePathology:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_delete_one_pathology/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesDeleteOnePathology:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiesDelete
-            Method: post
-  PathologiesUpdateOnePathology:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_update_one_pathology/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesUpdateOnePathology:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiesUpdate
-            Method: post
-  PathologiesValidateOnePathology:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_validate_one_pathology/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesValidateOnePathology:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiesValidate
-            Method: post
   SymptomsGetAll:
     Type: AWS::Serverless::Function
     Properties:
@@ -938,23 +801,6 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /cat_symDelete
             Method: post 
-  PathologiesSymptomsGetTheSymptoms:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_symptoms_get_the_symptoms/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesSymptomsGetTheSymptoms:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pat_sym
-            Method: get
   PathologiesSymptomsGetPending:
     Type: AWS::Serverless::Function
     Properties:
@@ -1296,74 +1142,7 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /pathologies_add
             Method: post
-  PathologiesCodesGetOne:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_codes_get_one/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesCodesGetOne:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiescodesgetone
-            Method: get
-  PathologiesCodesCreateOne:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_codes_create_one/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesCodesCreateOne:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiescodescreateone
-            Method: post
-  PathologiesCodesDeleteOne:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_codes_delete_one/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesCodesDeleteOne:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiescodesdeleteone
-            Method: post
-  PathologiesPathologiesGetMother:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_pathologies_get_mother/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesPathologiesGetMother:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiespathologiesgetmother
-            Method: get
+
   PathologiesPathologiesGetAll:
     Type: AWS::Serverless::Function
     Properties:

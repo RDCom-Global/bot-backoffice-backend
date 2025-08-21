@@ -96,7 +96,7 @@ def getAll(data):
             ORDER BY p.name ASC;
         """
 
-        results = postgre.query_postgresql(query)
+        results = postgre.db_read(query)
 
         output = [{
             "pat_id": row[0],
@@ -114,55 +114,121 @@ def getAll(data):
 def getOne(data):
     try:
         pat_id = data.get("id", "")
+        ## RESOLVER TODO EN UNA SOLA QUERY
+        
+        query = """SELECT
+                p.*,
+                /* único id de la madre (o NULL si no tiene) */
+                m.mother_id,
 
-        # Patología principal
-        query_pat = "SELECT * FROM pathologies WHERE id_pathology = %s"
-        results_pat = postgre.db_read(query_pat, params=(pat_id,), user="system")
-        pathology = [{
-            "pat_id": row[0],
-            "name": row[1],
-            "status": row[2],
-            "external_id": row[3],
-            "type": row[4]
-        } for row in results_pat]
+                /* idiomas: [{language, value}, ...] */
+                COALESCE(tl.langs, '[]'::jsonb) AS idiomas,
 
-        # Madre
-        query_mother = "SELECT id_pathology_1, id_pathology_2, status FROM pathologies_pathologies WHERE id_pathology_2 = %s"
-        results_mother = postgre.db_read(query_mother, params=(pat_id,), user="system")
-        mother = [{
-            "pat_id_1": row[0],
-            "pat_id_2": row[1],
-            "state": row[2]
-        } for row in results_mother]
+                /* códigos: [{id_code, value}, ...] */
+                COALESCE(c.codes, '[]'::jsonb)  AS codigos
 
-        # Idiomas
-        query_langs = "SELECT * FROM tl_pathologies WHERE id_pathology = %s"
-        results_langs = postgre.db_read(query_langs, params=(pat_id,), user="system")
-        idiomas = [{
-            "pat_id": row[0],
-            "language": row[1],
-            "value": row[2],
-            "state": row[3]
-        } for row in results_langs]
+                FROM pathologies p
 
-        # Códigos
-        query_codes = "SELECT * FROM pathologies_codes WHERE id_pathology = %s"
-        results_codes = postgre.db_read(query_codes, params=(pat_id,), user="system")
-        codigos = [{
-            "pat_id": row[0],
-            "code_id": row[1],
-            "value": row[2],
-            "name": row[3],
-            "state": row[4]
-        } for row in results_codes]
+                /* mother como escalar */
+                LEFT JOIN LATERAL (
+                SELECT pp.id_pathology_1 AS mother_id
+                FROM pathologies_pathologies pp
+                WHERE pp.id_pathology_2 = p.id_pathology
+                LIMIT 1
+                ) m ON TRUE
 
-        # Devolvemos todo en un solo JSON
-        return {
-            "pathology": pathology,
-            "mother": mother,
-            "idiomas": idiomas,
-            "codigos": codigos
-        }
+                /* idiomas como array JSON */
+                LEFT JOIN LATERAL (
+                SELECT jsonb_agg(
+                        jsonb_build_object(
+                            'language', tl.language,
+                            'value',    tl.value
+                        )
+                        ORDER BY tl.language
+                        ) AS langs
+                FROM tl_pathologies tl
+                WHERE tl.id_pathology = p.id_pathology
+                ) tl ON TRUE
+
+                /* códigos como array JSON */
+                LEFT JOIN LATERAL (
+                SELECT jsonb_agg(
+                        jsonb_build_object(
+                            'id_code', c.id_code,
+                            'value',   c.value
+                        )
+                        ORDER BY c.id_code
+                        ) AS codes
+                FROM pathologies_codes c
+                WHERE c.id_pathology = p.id_pathology
+                ) c ON TRUE
+                WHERE p.id_pathology = %s;"""
+        result = postgre.db_read(query, params=(pat_id,), user="system")
+        
+        print("result", result)
+        
+        if result:
+            row = result[0]
+            json_result = {
+                "pat_id": row[0],
+                "name": row[1],
+                "status": row[2],
+                "external_id": row[3],
+                "type": row[4],
+                "mother": row[5],
+                "idiomas": json.loads(row[6]) if isinstance(row[6], str) else row[6],
+                "codigos": json.loads(row[7]) if isinstance(row[7], str) else row[7],
+            }
+            return json_result
+        
+        # # Patología principal
+        # query_pat = "SELECT * FROM pathologies WHERE id_pathology = %s"
+        # results_pat = postgre.db_read(query_pat, params=(pat_id,), user="system")
+        # pathology = [{
+        #     "pat_id": row[0],
+        #     "name": row[1],
+        #     "status": row[2],
+        #     "external_id": row[3],
+        #     "type": row[4]
+        # } for row in results_pat]
+
+        # # Madre
+        # query_mother = "SELECT id_pathology_1, id_pathology_2, status FROM pathologies_pathologies WHERE id_pathology_2 = %s"
+        # results_mother = postgre.db_read(query_mother, params=(pat_id,), user="system")
+        # mother = [{
+        #     "pat_id_1": row[0],
+        #     "pat_id_2": row[1],
+        #     "state": row[2]
+        # } for row in results_mother]
+
+        # # Idiomas
+        # query_langs = "SELECT * FROM tl_pathologies WHERE id_pathology = %s"
+        # results_langs = postgre.db_read(query_langs, params=(pat_id,), user="system")
+        # idiomas = [{
+        #     "pat_id": row[0],
+        #     "language": row[1],
+        #     "value": row[2],
+        #     "state": row[3]
+        # } for row in results_langs]
+
+        # # Códigos
+        # query_codes = "SELECT * FROM pathologies_codes WHERE id_pathology = %s"
+        # results_codes = postgre.db_read(query_codes, params=(pat_id,), user="system")
+        # codigos = [{
+        #     "pat_id": row[0],
+        #     "code_id": row[1],
+        #     "value": row[2],
+        #     "name": row[3],
+        #     "state": row[4]
+        # } for row in results_codes]
+
+        # # Devolvemos todo en un solo JSON
+        # return {
+        #     "pathology": pathology,
+        #     "mother": mother,
+        #     "idiomas": idiomas,
+        #     "codigos": codigos
+        # }
 
     except Exception as e:
         print("error getOne", e)
@@ -172,31 +238,32 @@ def createPat(data):
     try:
         # Extraer datos
         name = data.get("name", "")
-        type_ = data.get("type", "")
+        type = data.get("type", "")
         username = data.get("username", "")
         mother = data.get("mother")  # None si no hay
         languages = data.get("languages", [])
         codes = data.get("codes", [])
 
-        # Generar external_id
-        query_ext_id = """
-            SELECT 'PAT_' || LPAD(CAST(COALESCE(MAX(CAST(SUBSTRING(external_id FROM 5) AS INTEGER)), 0) + 1 AS TEXT), 6, '0')
-            FROM pathologies
-        """
-        ext_id_result = postgre.db_read(query_ext_id)
-        external_id = ext_id_result[0][0]
+        # # Generar external_id
+        # query_ext_id = """
+        #     SELECT 'PAT_' || LPAD(CAST(COALESCE(MAX(CAST(SUBSTRING(external_id FROM 5) AS INTEGER)), 0) + 1 AS TEXT), 6, '0')
+        #     FROM pathologies
+        # """
+        # ext_id_result = postgre.db_read(query_ext_id)
+        # external_id = ext_id_result[0][0]
 
         # Insert principal (db_insert solo inserta)
         query_insert = """
-            INSERT INTO pathologies (name, status, type, external_id)
-            VALUES (%s, 'pending', %s, %s)
+            INSERT INTO pathologies (name, status, type)
+            VALUES (%s, 'pending', %s)
+            RETURNING id_pathology;
         """
-        postgre.db_insert(query_insert, params=(name, type_, external_id), user=username)
+        pat_id = postgre.db_insert(query_insert, params=(name, type), user=username)
 
-        # Obtener id_pathology recién creado
-        query_get_id = "SELECT id_pathology FROM pathologies WHERE external_id = %s"
-        pat_id_result = postgre.db_read(query_get_id, params=(external_id,), user=username)
-        pat_id = pat_id_result[0][0]
+        # # Obtener id_pathology recién creado
+        # query_get_id = "SELECT id_pathology FROM pathologies WHERE external_id = %s"
+        # pat_id_result = postgre.db_read(query_get_id, params=(external_id,), user=username)
+        # pat_id = pat_id_result[0][0]
 
         # Inserto madre (si hay)
         if mother:
@@ -218,7 +285,7 @@ def createPat(data):
         for code in codes:
             query_code = """
                 INSERT INTO pathologies_codes (id_pathology, id_code, value, name, status)
-                VALUES (%s, %s, %s, %s, 'pending')
+                VALUES (%s, %s, %s, %s, 'pending');
             """
             postgre.db_insert(query_code, params=(pat_id, code.get("code_id", ""), code.get("value", ""), code.get("name", "")), user=username)
 
