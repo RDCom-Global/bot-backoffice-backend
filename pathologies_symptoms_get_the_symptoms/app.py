@@ -6,28 +6,27 @@ def lambda_handler(event, context):
 
     query = """
         SELECT 
-            pathologies_symptoms.pat_id, 
+            pathologies_symptoms.id_pathology, 
             symptoms.name, 
             symptoms.synonymous, 
-            symptoms.sym_id, 
+            symptoms.id_symptom, 
             symptoms.hpo_id, 
-            symptoms.state, 
-            pathologies_symptoms.username, 
+            symptoms.status, 
             pathologies_symptoms.link, 
-            pathologies_symptoms.state, 
-            pathologies_symptoms.important, 
+            pathologies_symptoms.status, 
+            pathologies_symptoms.importante, 
             pathologies_symptoms.frequency  
         FROM 
             pathologies_symptoms 
         INNER JOIN 
             symptoms 
         ON 
-            pathologies_symptoms.sym_id = symptoms.sym_id 
+            pathologies_symptoms.id_symptom = symptoms.id_symptom 
         WHERE 
-            pathologies_symptoms.pat_id = '""" + id + """' 
-            AND symptoms.state != 'inactive'
+            pathologies_symptoms.id_pathology = '""" + id + """' 
+            AND symptoms.status != 'inactive'
         ORDER BY 
-            pathologies_symptoms.state DESC, 
+            pathologies_symptoms.status DESC, 
             symptoms.name ASC
     """
 
