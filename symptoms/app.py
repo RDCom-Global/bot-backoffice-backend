@@ -14,36 +14,36 @@ def lambda_handler(event, context):
             action = event['action']
             data = event['data']
             
-        if action == "createPat":   ##crea una nueva patologia con todos los datos completos
-            result = createPat(data) 
+        if action == "createSym":   ##crea una nuevo sintoma con todos los datos completos
+            result = createSym(data) 
         
-        if action == "get_all":   ##trae todas las patologias 
+        if action == "get_all":   ##trae todos los sintomas
             result = getAll(data) 
+            
+        if action == "get_word":   ##trae todos los sintomas
+            result = getWord(data) 
         
-        if action == "get_one":   ##trae datos de una partologia en particular 
+        if action == "get_one":   ##trae sintomas de una partologia en particular 
             result = getOne(data) 
             
-        if action == "delete":    ##borra una patologia y datos relacionados 
-            result = deletePat(data)
+        if action == "delete":    ##borra un sintoma y datos relacionados 
+            result = deleteSym(data)
             
-        if action == "edit":         ##edita / actualiza datos de una en particular 
-            result = updatePat(data) 
+        if action == "edit":         ##edita / actualiza datos de un sintoma 
+            result = updateSym(data) 
             
-        if action == "validate":   ## valida una patologia
-            result = validatePat(data) 
+        if action == "validate":   ## valida una sintoma
+            result = validateSym(data) 
             
         if action == "get_symptoms":     ## trate todos los sintomas de una patologia
             result = getSymptoms(data) 
             
-        if action == "get_relations": ##trae todas las relaciones madre-hija 
+        if action == "get_relations": ##trae todas las relaciones patologia-sintoma 
             result = getRelations(data) 
         
-        if action == "validate_relation": ##valida relacion madre-hija
+        if action == "validate_relation": ##valida relacion patologia-sintoma 
             result = validateRelation(data) 
             
-        if action == "get_mother":  ##trae la madre 
-            result = getMother(data)   
-         
         
         if result:
             return {
@@ -79,31 +79,49 @@ def lambda_handler(event, context):
 
 def getAll(data):
     try:
-        query = """
-            SELECT  
-                p.id_pathology,
-                p.name,
-                p.type,
-                p.status,
-                COALESCE(
-                    STRING_AGG(pc.id_code || ':' || pc.value, ', '), ''
-                ) AS codes
-            FROM pathologies p
-            LEFT JOIN pathologies_codes pc 
-                ON p.id_pathology = pc.id_pathology  
-            WHERE p.status != 'inactive'           
-            GROUP BY p.id_pathology, p.name, p.type, p.status
-            ORDER BY p.name ASC;
-        """
+        query = "SELECT * FROM symptoms WHERE status NOT IN ('pending', 'inactive') ORDER BY name ASC"
 
         results = postgre.query_postgresql(query)
 
         output = [{
-            "pat_id": row[0],
+            "sym_id": row[0],
             "name": row[1],
-            "type": row[2],
+            "synonymous": row[2],
             "state": row[3],
-            "codes": row[4]
+            "link": row[4],
+            "hpo_id": row[5],
+            "external_id": row[6]
+        } for row in results]
+
+        return output
+    except Exception as e:
+        print("error getAll", e)
+        return False
+
+def getWord(data):
+    try:
+    
+        palabra = data.get("palabra", "")
+    
+        query = """
+            SELECT * 
+            FROM symptoms 
+            WHERE name ILIKE %s 
+               OR synonymous ILIKE %s
+        """
+
+        like_pattern = f"%{palabra}%"  
+        
+        results = postgre.db_read(query, params=(like_pattern, like_pattern), user="system")
+        
+        output = [{
+            "sym_id": row[0],
+            "name": row[1],
+            "synonymous": row[2],
+            "state": row[3],
+            "link": row[4],
+            "hpo_id": row[5],
+            "external_id": row[6]
         } for row in results]
 
         return output
@@ -168,7 +186,7 @@ def getOne(data):
         print("error getOne", e)
         return False    
 
-def createPat(data):
+def createSym(data):
     try:
         # Extraer datos
         name = data.get("name", "")
@@ -228,7 +246,7 @@ def createPat(data):
         print("error createPat", e)
         return False
     
-def updatePat(data):
+def updateSym(data):
     try:
         # Extraer datos
         pat_id = data.get("pat_id", "")
@@ -283,7 +301,7 @@ def updatePat(data):
         print("error updatePat", e)
         return False
     
-def validatePat(data):
+def validateSym(data):
     try:
  
         pat_id = data.get("pat_id", "")
@@ -347,7 +365,7 @@ def getSymptoms(data):
         print("error getSymptoms", e)
         return False
 
-def deletePat(data):
+def deleteSym(data):
     try:
         pat_id = data.get("id","")
         username = data.get('username', 'system')  # o el usuario que corresponda
@@ -423,23 +441,3 @@ def validateRelation(data):
         print("error validateRelations", e)
         return False
     
-def getMother(data):
-    try:
-        print(data)
-        pat_id = data.get("id","")
-
-        query = "SELECT id_pathology_1, id_pathology_2, status FROM pathologies_pathologies WHERE id_pathology_2 = %s"
-
-        results = postgre.db_read(query, params=(pat_id), user="system")
-
-        output = [{
-            "pat_id_1": row[0],
-            "pat_id_2": row[1],
-            "state": row[2]
-        } for row in results]
-
-        return output
-
-    except Exception as e:
-        print("error getMother", e)
-        return False
