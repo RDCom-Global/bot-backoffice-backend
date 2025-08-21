@@ -544,8 +544,9 @@ Resources:
           Type: Api 
           Properties:
             RestApiId: !Ref MyApi
-            Path: /symptoms
+            Path: /symptoms_create
             Method: post
+            
   SymptomsDeleteOneSymptom:
     Type: AWS::Serverless::Function
     Properties:
@@ -1125,23 +1126,7 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /symptoms_add
             Method: post
-  PathologiesAdd:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_add/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesAdd:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologies_add
-            Method: post
+  
 
   PathologiesPathologiesGetAll:
     Type: AWS::Serverless::Function
