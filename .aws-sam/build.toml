@@ -709,7 +709,7 @@ architecture = "x86_64"
 handler = "app.lambda_handler"
 manifest_hash = ""
 packagetype = "Zip"
-functions = ["PathologiesGet"]
+functions = ["Pathologies"]
 
 [function_build_definitions.fb511666-a87b-49c6-8f31-cb267861c79f]
 codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/utils/authorizer"
@@ -719,5 +719,14 @@ handler = "app.lambda_handler"
 manifest_hash = ""
 packagetype = "Zip"
 functions = ["Authorizer"]
+
+[function_build_definitions.7161159d-3f41-4a27-aac0-6e94a7999396]
+codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/symptoms"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["Symptoms"]
 
 [layer_build_definitions]
