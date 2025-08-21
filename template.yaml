@@ -391,7 +391,7 @@ Resources:
           Type: Api 
           Properties:
             RestApiId: !Ref MyApi
-            Path: /symptoms
+            Path: /symptoms_getall
             Method: get
   SymptomsGetAllSymptomsPending:
     Type: AWS::Serverless::Function
@@ -1180,7 +1180,7 @@ Resources:
               Method: post
 
 ## New Refactor
-  PathologiesGet:
+  Pathologies:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: pathologies/
@@ -1191,14 +1191,14 @@ Resources:
       Architectures:
         - x86_64
       Events:
-          PathologiesGet:
+          Pathologies:
             Type: Api 
             Properties:
               RestApiId: !Ref MyApi
-              Path: /pathologies_getall
+              Path: /pathologies
               Method: POST
 
-  SymptomsGet:
+  Symptoms:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: symptoms/
@@ -1209,9 +1209,9 @@ Resources:
       Architectures:
         - x86_64
       Events:
-          SymptomsGet:
+          Symptoms:
             Type: Api 
             Properties:
               RestApiId: !Ref MyApi
-              Path: /symptoms_getall
+              Path: /symptoms
               Method: POST
