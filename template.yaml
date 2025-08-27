@@ -308,40 +308,6 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /pathologiesSearchbycategory
             Method: get
-  PathologiesGetSearchByOneSymptomPathology:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_get_search_by_one_symptom_pathology/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesGetSearchByOneSymptomPathology:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiesSearchbyonesymptom
-            Method: get
-  PathologiesGetSearchByOneSymptomPathologyCount:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_get_search_by_one_symptom_pathology_count/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesGetSearchByOneSymptomPathologyCount:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiesSearchbyonesymptomCount
-            Method: get
   PathologiesGetSearchByTwoSymptomsPathology:
     Type: AWS::Serverless::Function
     Properties:
@@ -376,40 +342,7 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /pathologiesSearchbythreesymptoms
             Method: get
-  SymptomsGetAll:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_get_all/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsGetAll:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptoms_getall
-            Method: get
-  SymptomsGetAllSymptomsPending:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_get_all_symptoms_pending/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsGetAllSymptomsPending:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomsPending
-            Method: get
+  
   SymptomsGetAllSymptomsCategoryPending:
     Type: AWS::Serverless::Function
     Properties:
@@ -426,91 +359,6 @@ Resources:
           Properties:
             RestApiId: !Ref MyApi
             Path: /symptomsCategoryPending
-            Method: get
-  SymptomsGetLastSymptom:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_get_last_symptom/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsGetLastSymptom:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomsLast
-            Method: get
-  SymptomsGetLastSymptomRDC:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_get_last_symptom_rdc/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsGetLastSymptomRDC:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomsLastRDC
-            Method: get
-  SymptomsGetOneSymptom:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_get_one_symptom/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsGetOneSymptom:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomsOne
-            Method: get
-  SymptomsGetSearchSymptom:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_get_search_symptom/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsGetSearchSymptom:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomsSearch
-            Method: get
-  SymptomsGetSearchByHpoSymptom:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_get_search_by_hpo_symptom/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsGetSearchByHpoSymptom:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomsSearchbyhpo
             Method: get
   SymptomsGetSearchByCategorySymptom:
     Type: AWS::Serverless::Function
@@ -529,126 +377,7 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /symptomsSearchbycategory
             Method: get
-  SymptomsCreateOneSymptom:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_create_one_symptom/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsCreateOneSymptom:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptoms_create
-            Method: post
             
-  SymptomsDeleteOneSymptom:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_delete_one_symptom/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsDeleteOneSymptom:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomsDelete
-            Method: post
-  SymptomsUpdateOneSymptom:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_update_one_symptom/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsUpdateOneSymptom:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomsUpdate
-            Method: post
-  SymptomsValidateFirstOK:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_validate_first_ok/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsValidateFirstOK:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomsValidateFirst
-            Method: post
-  SymptomsValidateSecondOK:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_validate_second_ok/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsValidateSecondOK:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomsValidateSecond
-            Method: post 
-  UsersUserGet:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: users_user_get/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        UsersUserGet:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /login
-            Method: post
-  UsersGetAll:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: users_get_all/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        UsersGetAll:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /users_all
-            Method: post
   CategoriesCategoriesGetTheCategoriesForCategory:
     Type: AWS::Serverless::Function
     Properties:
@@ -802,244 +531,7 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /cat_symDelete
             Method: post 
-  PathologiesSymptomsGetPending:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_symptoms_get_pending/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesSymptomsGetPending:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pat_symPending
-            Method: get
-  PathologiesSymptomsGetOne:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_symptoms_get_one/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesSymptomsGetOne:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pat_symOne
-            Method: get
-  PathologiesSymptomsValidateOneRelation:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_symptoms_validate_one_relation/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesSymptomsValidateOneRelation:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pat_symValidate
-            Method: post
-  PathologiesSymptomsUpdateOneRelation:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_symptoms_update_one_relation/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesSymptomsUpdateOneRelation:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pat_symUpdate
-            Method: post
-  PathologiesSymptomsAddOneSymptom:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_symptoms_add_one_symptom/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesSymptomsAddOneSymptom:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pat_symAdd
-            Method: post
-  PathologiesSymptomsRemoveOneSymptom:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_symptoms_remove_one_symptom/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesSymptomsRemoveOneSymptom:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pat_symDelete
-            Method: post
-  SymptomsTranslationsGetOne:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_translations_get_one/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsTranslationsGetOne:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomstranslationsgetone
-            Method: get
-  SymptomsTranslationsCreateOne:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_translations_create_one/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsTranslationsCreateOne:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomstranslationscreateone
-            Method: post
-  SymptomsTranslationsUpdateOne:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_translations_update_one/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsTranslationsUpdateOne:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomstranslationsupdateone
-            Method: post
-  SymptomsTranslationsDeleteOne:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_translations_delete_one/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsTranslationsDeleteOne:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptomstranslationsdeleteone
-            Method: post
-  PathologiesTranslationsGetOne:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_translations_get_one/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesTranslationsGetOne:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiestranslationsgetone
-            Method: get
-  PathologiesTranslationsCreateOne:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_translations_create_one/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesTranslationsCreateOne:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiestranslationscreateone
-            Method: post
-  PathologiesTranslationsUpdateOne:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_translations_update_one/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesTranslationsUpdateOne:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiestranslationsupdateone
-            Method: post
-  PathologiesTranslationsDeleteOne:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_translations_delete_one/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        PathologiesTranslationsDeleteOne:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /pathologiestranslationsdeleteone
-            Method: post
+
   CategoriesTranslationsGetOne:
     Type: AWS::Serverless::Function
     Properties:
@@ -1108,62 +600,7 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /categoriestranslationsdeleteone
             Method: post
-
-  SymptomsAdd:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: symptoms_add/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-        SymptomsAdd:
-          Type: Api 
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /symptoms_add
-            Method: post
   
-
-  PathologiesPathologiesGetAll:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_pathologies_get_all/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-          PathologiesPathologiesGetAll:
-            Type: Api 
-            Properties:
-              RestApiId: !Ref MyApi
-              Path: /pathologiesPathologiesGetall
-              Method: get
-
-  PathologiesPathologiesValidateOneRelation:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: pathologies_pathologies_validate_one_relation/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
-      Architectures:
-        - x86_64
-      Events:
-          PathologiesPathologiesValidateOneRelation:
-            Type: Api 
-            Properties:
-              RestApiId: !Ref MyApi
-              Path: /pathologiesPathologiesValidateOneRelation
-              Method: post
-
 ## New Refactor
   Pathologies:
     Type: AWS::Serverless::Function
@@ -1199,4 +636,22 @@ Resources:
             Properties:
               RestApiId: !Ref MyApi
               Path: /symptoms
+              Method: POST
+
+  Categories:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: categories/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
+      Architectures:
+        - x86_64
+      Events:
+          Categories:
+            Type: Api 
+            Properties:
+              RestApiId: !Ref MyApi
+              Path: /categories
               Method: POST

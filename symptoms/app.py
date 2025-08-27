@@ -14,22 +14,25 @@ def lambda_handler(event, context):
             action = event['action']
             data = event['data']
             
-        if action == "createSym":   ##crea una nuevo sintoma con todos los datos completos
+        if action == "create_sym":   ##crea una nuevo sintoma con todos los datos completos
             result = createSym(data) 
         
         if action == "get_all":   ##trae todos los sintomas
             result = getAll(data) 
             
-        if action == "get_word":   ##trae todos los sintomas
-            result = getWord(data) 
+        if action == "get_by_word":   ##trae todos los sintomas que incluyan una palabra
+            result = getByWord(data) 
+            
+        if action == "get_by_code":   ##trae todos los sintomas que tengan el codigo de busqueda
+            result = getByCode(data) 
         
         if action == "get_one":   ##trae sintomas de una partologia en particular 
             result = getOne(data) 
             
-        if action == "delete":    ##borra un sintoma y datos relacionados 
+        if action == "delete_sym":    ##borra un sintoma y datos relacionados 
             result = deleteSym(data)
             
-        if action == "edit":         ##edita / actualiza datos de un sintoma 
+        if action == "update_sym":         ##edita / actualiza datos de un sintoma 
             result = updateSym(data) 
             
         if action == "validate_first":   ## valida una sintoma
@@ -38,16 +41,24 @@ def lambda_handler(event, context):
         if action == "validate_second":   ## valida una sintoma
             result = validateSymSecond(data) 
             
-        if action == "get_symptoms":     ## trate todos los sintomas de una patologia
-            result = getSymptoms(data) 
-            
-        if action == "get_relations": ##trae todas las relaciones patologia-sintoma 
-            result = getRelations(data) 
+        if action == "get_pending_relations": ##trae todas las relaciones patologia-sintoma pendientes
+            result = getPendingRelations(data) 
         
         if action == "validate_relation": ##valida relacion patologia-sintoma 
             result = validateRelation(data) 
+
+        if action == "delete_relation": ##borra relacion patologia-sintoma 
+            result = deleteRelation(data) 
             
-        
+        if action == "create_relation": ##crea relacion patologia-sintoma 
+            result = createRelation(data) 
+            
+        if action == "update_relation": ##actualiza relacion patologia-sintoma 
+            result = updateRelation(data) 
+            
+        if action == "get_relation": ##busca datos de  relacion patologia-sintoma 
+            result = getRelation(data)         
+              
         if result:
             return {
                 "statusCode": 200,
@@ -82,9 +93,9 @@ def lambda_handler(event, context):
 
 def getAll(data):
     try:
-        query = "SELECT * FROM symptoms WHERE status NOT IN ('pending', 'inactive') ORDER BY name ASC"
+        query = "SELECT * FROM symptoms WHERE status NOT IN ('inactive') ORDER BY name ASC"
 
-        results = postgre.query_postgresql(query)
+        results = postgre.db_read(query)
 
         output = [{
             "sym_id": row[0],
@@ -101,10 +112,13 @@ def getAll(data):
         print("error getAll", e)
         return False
 
-def getWord(data):
+def getByWord(data):
     try:
     
-        palabra = data.get("palabra", "")
+        palabra = data.get("palabra", "").strip()
+        
+        if not palabra:
+            return []  # Si está vacío, devolvemos lista vacía en vez de todo
     
         query = """
             SELECT * 
@@ -129,9 +143,42 @@ def getWord(data):
 
         return output
     except Exception as e:
-        print("error getAll", e)
+        print("error getByWord", e)
         return False
+
+def getByCode(data):
+    try:
     
+        hpo_id = data.get("hpo_id", "").strip()
+        
+        if not hpo_id:
+            return []  # Si está vacío, devolvemos lista vacía en vez de todo
+    
+        query = """
+            SELECT * 
+            FROM symptoms 
+            WHERE COALESCE(hpo_id::TEXT, '') ILIKE %s 
+        """
+
+        like_pattern = f"%{hpo_id}%"  
+        
+        results = postgre.db_read(query, params=(like_pattern, ), user="system")
+        
+        output = [{
+            "sym_id": row[0],
+            "name": row[1],
+            "synonymous": row[2],
+            "state": row[3],
+            "link": row[4],
+            "hpo_id": row[5],
+            "external_id": row[6]
+        } for row in results]
+
+        return output
+    except Exception as e:
+        print("error getByCode", e)
+        return False
+
 def getOne(data):
     try:
         sym_id = data.get("id", "")
@@ -150,7 +197,7 @@ def getOne(data):
         } for row in results_sym]
 
         # Idiomas
-        query_langs = "SELECT * FROM tl_symtoms WHERE id_symptom = %s"
+        query_langs = "SELECT * FROM tl_symptoms WHERE id_symptom = %s"
         results_langs = postgre.db_read(query_langs, params=(sym_id,), user="system")
         idiomas = [{
             "sym_id": row[0],
@@ -171,61 +218,75 @@ def getOne(data):
 
 def createSym(data):
     try:
-        #Datos del sintoma
+        # Datos del síntoma
         name = data.get("name", "")
         hpo_id = data.get("hpo_id", "")
         synonymous = data.get("synonymous", "")
         username = data.get("username", "")
-       
-        #Datos de los lenguajes
-        languages = data.get("languages", "")
-        
-        #Datos de la patologia
-        pat_id = data.get("pat_id", "")
+
+        # Datos de los lenguajes
+        languages = data.get("languages", [])
+
+        # Datos de la patología
+        pat_id = data.get("pat_id", "").strip()
         important = data.get("important", "")
         frecuency = data.get("frecuency", "")
         link = data.get("link", "")
-        
-        # Creo el síntoma
-        query = f""" INSERT INTO Symptoms (name, sym_id, hpo_id, synonymous, state, username)
-                        VALUES (
-                        '{escape_apostrophes(name)}',
-                        (
-                            SELECT 'SYM_' || LPAD(CAST(COALESCE(MAX(CAST(SUBSTRING(sym_id FROM 5) AS INTEGER)), 0) + 1 AS TEXT), 6, '0')
-                            FROM Symptoms
-                        ),
-                        '{hpo_id}',
-                        '{synonymous}',
-                        'pending',
-                        '{username}'
-                        )
-                        RETURNING sym_id; """
-                        
-        sym_id = postgre.insert_postgresql(query)
-        
-        if sym_id:
-            # Asocio a patologia
-            query = "insert into pathologies_symptoms (pat_id, sym_id, state, username, link, importante, frequency) values ('"+ pat_id +"', '"+ sym_id +"', 'pending', '"+ username +"', '"+ link +"', '"+ str(important) +"', '"+ frecuency +"')"
-            results = postgre.insert_withoutId(query)
-            
-            if results is None:
-                #Aca deberiamos eliminar el síntoma
-                return False
-            
-            # Creo los traducciones
-            for lang in languages:
-                query = f""" INSERT INTO tl_symtoms (sym_id, language, value, state, username)
-                                VALUES (
-                                '{sym_id}',
-                                '{lang["language"]}',
-                                '{escape_apostrophes(lang["value"])}',
-                                'pending',
-                                '{username}'
-                                ); """
-                postgre.insert_withoutId(query)
-        
+
+        # Generar código RDC automáticamente si hpo_id está vacío
+        if not hpo_id:
+            query = """
+                SELECT hpo_id
+                FROM Symptoms
+                WHERE hpo_id LIKE 'RDC_%'
+                ORDER BY CAST(SUBSTRING(hpo_id FROM 5) AS INTEGER) DESC
+                LIMIT 1
+            """
+            ultimo_rdc = postgre.db_read(query)
+
+            if ultimo_rdc and len(ultimo_rdc) > 0 and ultimo_rdc[0][0]:
+                numero = int(ultimo_rdc[0][0].split('_')[1]) + 1
+            else:
+                numero = 1
+
+            hpo_id = f"RDC_{str(numero).zfill(6)}"
+
+        # Crear el síntoma
+        query = """
+            INSERT INTO Symptoms (name, external_id, hpo_id, synonymous, status)
+            VALUES (
+                %s,
+                (SELECT 'SYM_' || LPAD(CAST(COALESCE(MAX(CAST(SUBSTRING(external_id FROM 5) AS INTEGER)), 0) + 1 AS TEXT), 6, '0')
+                 FROM Symptoms),
+                %s, %s, 'pending'
+            )
+            RETURNING id_symptom;
+        """
+        sym_id = postgre.db_insert(query, params=(name, hpo_id, synonymous), user="system")
+
+        if not sym_id:
+            return False  # No se pudo crear el síntoma
+
+        # Crear las traducciones del síntoma
+        for lang in languages:
+            query = """
+                INSERT INTO tl_symptoms (id_symptom, language, value, status)
+                VALUES (%s, %s, %s, 'pending')
+            """
+            postgre.db_insert(query, params=(sym_id, lang["language"], lang["value"]), user="system")
+
+        # Si hay una patología asociada, insertar en pathologies_symptoms
+        if pat_id:
+            query = """
+                INSERT INTO pathologies_symptoms (id_pathology, id_symptom, status, link, importante, frequency)
+                VALUES (%s, %s, 'pending', %s, %s, %s)
+            """
+            postgre.db_insert(query, params=(pat_id, sym_id, link, str(important), frecuency), user="system")
+
         return True
+
     except Exception as e:
+        print("Error en createSym:", str(e))
         return False
     
 def updateSym(data):
@@ -240,7 +301,7 @@ def updateSym(data):
         state = data.get('state', '')
         
         #Datos de los lenguajes
-        languages = data.get("languages", "")
+        languages = data.get("languages", [])
         
         #Datos de la patologia
         pat_id = data.get("pat_id", "")
@@ -249,9 +310,16 @@ def updateSym(data):
         link = data.get("link", "")
         
         # 1. Update principal
-        query_update = "update symptoms set name = '"+ name +"', hpo_id = '"+ hpo_id +"', synonymous = '"+ synonymous +"', status = '"+ state +"' where id_symptom = '"+ sym_id +"'"
+        query_update = """
+            UPDATE symptoms
+            SET name = %s,
+                hpo_id = %s,
+                synonymous = %s,
+                status = %s
+            WHERE id_symptom = %s
+        """
 
-        postgre.db_insert(query_update, params=(name, pat_id), user=username)
+        postgre.db_insert(query_update, params=(name, hpo_id, synonymous, state, sym_id), user=username)
 
         # 2. Actualizar idiomas (borrar e insertar)
         query_delete_lang = "DELETE FROM tl_symptoms WHERE id_symptom = %s"
@@ -277,9 +345,9 @@ def validateSymFirst(data):
         
         query = "UPDATE symptoms SET status = 'verified' WHERE id_symptom = %s"
         result = postgre.db_insert(query, params=(sym_id,),user=username)
-        return result
+        return True if result else False
     except Exception as e:
-        print("error validatePat", e)
+        print("error validateSymFirst", e)
         return False
     
 def validateSymSecond(data):
@@ -290,62 +358,11 @@ def validateSymSecond(data):
         
         query = "UPDATE symptoms SET status = 'active' WHERE id_symptom = %s"
         result = postgre.db_insert(query, params=(sym_id,),user=username)
-        return result
+        return True if result else False
     except Exception as e:
-        print("error validatePat", e)
+        print("error validateSymSecond", e)
         return False
     
-def getSymptoms(data):
-    try:
-        pat_id = data.get("id","")
-
-        query = """
-           SELECT 
-            pathologies_symptoms.id_pathology, 
-            symptoms.name, 
-            symptoms.synonymous, 
-            symptoms.id_symptom, 
-            symptoms.hpo_id, 
-            symptoms.status, 
-            pathologies_symptoms.link, 
-            pathologies_symptoms.status, 
-            pathologies_symptoms.importante, 
-            pathologies_symptoms.frequency  
-        FROM 
-            pathologies_symptoms 
-        INNER JOIN 
-            symptoms 
-        ON 
-            pathologies_symptoms.id_symptom = symptoms.id_symptom 
-        WHERE 
-            pathologies_symptoms.id_pathology = %s
-            AND symptoms.status != 'inactive'
-        ORDER BY 
-            pathologies_symptoms.status DESC, 
-            symptoms.name ASC
-        """
-
-        results = postgre.db_read(query, params=(pat_id,), user="system")
-
-        output = [{
-            "pat_id": row[0],
-            "name": row[1],
-            "synonymous": row[2],
-            "sym_id": row[3],
-            "hpo_id": row[4],
-            "state": row[5],
-            "link": row[6],
-            "relstate": row[7],
-            "important": row[8],
-            "frequency": row[9]
-        } for row in results]
-
-        return output
-
-    except Exception as e:
-        print("error getSymptoms", e)
-        return False
-
 def deleteSym(data):
     try:
         sym_id = data.get("id","")
@@ -369,52 +386,169 @@ def deleteSym(data):
         print("error deletePat", e)
         return False
 
-def getRelations(data):
+def getPendingRelations(data):
     try:
         query = """
             SELECT 
-                pp.id_pathology_1, 
-                p1.name AS name_1, 
-                pp.id_pathology_2, 
-                p2.name AS name_2, 
-                pp.state, 
-                pp.username 
-            FROM pathologies_pathologies pp 
-            INNER JOIN pathologies p1 ON pp.id_pathology_1 = p1.id_pathology 
-            INNER JOIN pathologies p2 ON pp.id_pathology_2 = p2.id_pathology 
-            ORDER BY name_1 ASC, name_2 ASC
+                ps.id_pathology, 
+                p.name AS nombre_patologia, 
+                s.id_symptom, 
+                s.hpo_id, 
+                s.name AS nombre_sintoma,
+                ps.link, 
+                ps.importante, 
+                ps.frequency
+            FROM pathologies_symptoms ps
+            JOIN pathologies p ON ps.id_pathology = p.id_pathology
+            JOIN symptoms s ON ps.id_symptom = s.id_symptom
+            WHERE ps.status = 'pending'
+            ORDER BY p.name ASC
         """
-        
-        results = postgre.query_postgresql(query)
+
+        results = postgre.db_read(query)
 
         output = [{
-            "pat_id_1": row[0],
-            "name_1": row[1],
-            "pat_id_2": row[2],
-            "name_2": row[3],
-            "state": row[4],
-            "username": row[5]
+            "pat_id": row[0],
+            "pat_name": row[1],
+            "sym_id": row[2],
+            "sym_hpo": row[3],
+            "sym_name": row[4],
+            "link": row[5],
+            "important": row[6],
+            "frequency": row[7]
         } for row in results]
 
         return output
+
     except Exception as e:
-        print("error getRelations", e)
+        print("error getPendingRelations", e)
         return False
 
 def validateRelation(data):
     try:
-        pat_id_1 = data['queryStringParameters']['pat_id_1']
-        pat_id_2 = data['queryStringParameters']['pat_id_2']
+        pat_id = data.get("pat_id")
+        sym_id = data.get("sym_id")
         username = data.get('username', 'system')
 
         query = """
-            UPDATE pathologies_pathologies
+            UPDATE pathologies_symptoms
             SET status = 'verified'
-            WHERE id_pathology_1 = %s AND id_pathology_2 = %s
+            WHERE id_pathology = %s AND id_symptom = %s
         """
-        result = postgre.db_insert(query, user=username, params=(pat_id_1, pat_id_2))
+        result = postgre.db_insert(query, params=(pat_id, sym_id), user=username)
         return result
     except Exception as e:
-        print("error validateRelations", e)
+        print("error validateRelation", e)
+        return False
+
+def deleteRelation(data):
+    try:
+        pat_id = data.get("pat_id")
+        sym_id = data.get("sym_id")
+        username = data.get('username', 'system')
+
+        query = """
+            DELETE FROM pathologies_symptoms
+            WHERE id_pathology = %s AND id_symptom = %s
+        """
+        result = postgre.db_insert(query, params=(pat_id, sym_id), user=username)
+        return result
+    except Exception as e:
+        print("error deleteRelation", e)
         return False
     
+def createRelation(data):
+    try:
+        pat_id = data.get("pat_id")
+        sym_id = data.get("sym_id")
+        state = data.get("state")
+        username = data.get('username', 'system')
+        link = data.get('link', '')
+        important = data.get('important', None)
+        frequency = data.get('frequency', '')
+
+        query = """
+            INSERT INTO pathologies_symptoms 
+                (id_pathology, id_symptom, state, username, link, importante, frequency)
+            VALUES (%s, %s, 'pending', %s, %s, %s, %s)
+        """
+        result = postgre.db_insert(query, params = (pat_id, sym_id, username, link, important, frequency), user=username)
+
+        return result
+    except Exception as e:
+        print("error createRelation", e)
+        return False
+    
+def updateRelation(data):
+    try:
+        pat_id = data.get("pat_id")
+        sym_id = data.get("sym_id")
+        username = data.get("username", "system")
+        link = data.get("link", "")
+        important = data.get("important", None)
+        frequency = data.get("frequency", None)
+
+        query = """
+            UPDATE pathologies_symptoms
+            SET username = %s,
+                link = %s,
+                importante = %s,
+                frequency = %s
+            WHERE id_pathology = %s
+              AND id_symptom = %s
+        """
+        result = postgre.db_insert(
+            query,
+            params=(username, link, important, frequency, pat_id, sym_id),
+            user=username
+        )
+
+        return result
+    except Exception as e:
+        print("error updateRelation:", e)
+        return False
+    
+def getRelation(data):
+    try:
+        pat_id = data.get("pat_id")
+        sym_id = data.get("sym_id")
+        query = """
+            SELECT 
+                ps.id_pathology,
+                s.name,
+                s.synonymous,
+                s.id_symptom,
+                s.hpo_id,
+                ps.status,
+                ps.link,
+                ps.importante,
+                ps.frequency
+            FROM pathologies_symptoms ps
+            INNER JOIN symptoms s ON ps.id_symptom = s.id_symptom
+            WHERE ps.id_pathology = %s 
+              AND ps.id_symptom = %s
+            ORDER BY ps.status DESC, s.name ASC
+        """
+        
+        results = postgre.db_read(query, params=(pat_id, sym_id), user="system")
+
+        output = [
+            {
+                "pat_id": row[0],
+                "name": row[1],
+                "synonymous": row[2],
+                "sym_id": row[3],
+                "hpo_id": row[4],
+                "state": row[5],
+                "link": row[6],
+                "important": row[7],
+                "frequency": row[8]
+            }
+            for row in results
+        ]
+
+        return output
+
+    except Exception as e:
+        print("error getRelation:", e)
+        return []

@@ -19,7 +19,13 @@ def lambda_handler(event, context):
         
         if action == "get_all":   ##trae todas las patologias 
             result = getAll(data) 
-        
+
+        if action == "get_all_by_symptom":   ##trae todas las patologias que incluyen 1 sintoma
+            result = getAllBySymptom(data)            
+
+        if action == "get_all_by_symptom_count":   ##trae la cantidad de patologias que incluyen 1 sintoma
+            result = countBySymptom(data)                        
+            
         if action == "get_one":   ##trae datos de una partologia en particular 
             result = getOne(data) 
             
@@ -41,10 +47,6 @@ def lambda_handler(event, context):
         if action == "validate_relation": ##valida relacion madre-hija
             result = validateRelation(data) 
             
-        if action == "get_mother":  ##trae la madre 
-            result = getMother(data)   
-         
-        
         if result is not False and result is not None:
             return {
                 "statusCode": 200,
@@ -110,6 +112,67 @@ def getAll(data):
     except Exception as e:
         print("error getAll", e)
         return False
+
+def getAllBySymptom(data):
+    try:
+        id_symptom = data.get("sym_id")
+
+        query = """
+            SELECT  
+                p.id_pathology,
+                p.name,
+                p.type,
+                p.status,
+                COALESCE(
+                    STRING_AGG(pc.id_code || ':' || pc.value, ', '), ''
+                ) AS codes
+            FROM pathologies p
+            INNER JOIN pathologies_symptoms ps
+                ON p.id_pathology = ps.id_pathology
+            LEFT JOIN pathologies_codes pc 
+                ON p.id_pathology = pc.id_pathology
+            WHERE p.status != 'inactive'
+                AND ps.id_symptom = %s
+            GROUP BY p.id_pathology, p.name, p.type, p.status
+            ORDER BY p.name ASC;
+        """
+        results = postgre.db_read(query, params=(id_symptom,))
+
+        output = [{
+            "pat_id": row[0],
+            "name": row[1],
+            "type": row[2],
+            "state": row[3],
+            "codes": row[4]
+        } for row in results]
+
+        return output
+
+    except Exception as e:
+        print("error getAllBySymptom", e)
+        return False
+
+def countBySymptom(data):
+    try:
+        id_symptom = data.get("sym_id")
+
+        query = """
+            SELECT COUNT(*) 
+            FROM pathologies p
+            INNER JOIN pathologies_symptoms ps
+                ON p.id_pathology = ps.id_pathology
+            -- LEFT JOIN pathologies_codes pc ON p.id_pathology = pc.id_pathology  -- No hace falta para contar
+            WHERE ps.id_symptom = %s;
+        """
+        results = postgre.db_read(query, params=(id_symptom,))
+
+        # results es una lista de tuplas, tomamos el primer valor
+        count = results[0][0] if results else 0
+        return {"count": count}
+
+    except Exception as e:
+        print("error countBySymptom", e)
+        return False
     
 def getOne(data):
     try:
@@ -154,11 +217,13 @@ def getOne(data):
                 LEFT JOIN LATERAL (
                 SELECT jsonb_agg(
                         jsonb_build_object(
-                            'id_code', c.id_code,
-                            'value',   c.value
+                            'code_id', c.id_code,
+                            'value',   c.value,
+                            'name',    c.name,
+                            'status',  c.status
                         )
                         ORDER BY c.id_code
-                        ) AS codes
+                    ) AS codes
                 FROM pathologies_codes c
                 WHERE c.id_pathology = p.id_pathology
                 ) c ON TRUE
@@ -449,23 +514,21 @@ def getRelations(data):
                 p1.name AS name_1, 
                 pp.id_pathology_2, 
                 p2.name AS name_2, 
-                pp.state, 
-                pp.username 
+                pp.status
             FROM pathologies_pathologies pp 
             INNER JOIN pathologies p1 ON pp.id_pathology_1 = p1.id_pathology 
             INNER JOIN pathologies p2 ON pp.id_pathology_2 = p2.id_pathology 
-            ORDER BY name_1 ASC, name_2 ASC
+            ORDER BY name_1 ASC, name_2 ASC;
         """
         
-        results = postgre.query_postgresql(query)
+        results = postgre.db_read(query)
 
         output = [{
             "pat_id_1": row[0],
             "name_1": row[1],
             "pat_id_2": row[2],
             "name_2": row[3],
-            "state": row[4],
-            "username": row[5]
+            "state": row[4]
         } for row in results]
 
         return output
@@ -475,8 +538,8 @@ def getRelations(data):
 
 def validateRelation(data):
     try:
-        pat_id_1 = data['queryStringParameters']['pat_id_1']
-        pat_id_2 = data['queryStringParameters']['pat_id_2']
+        pat_id_1 = data.get("pat_id_1","")
+        pat_id_2 = data.get("pat_id_2","")
         username = data.get('username', 'system')
 
         query = """
@@ -484,32 +547,9 @@ def validateRelation(data):
             SET status = 'verified'
             WHERE id_pathology_1 = %s AND id_pathology_2 = %s
         """
-        result = postgre.db_insert(query, user=username, params=(pat_id_1, pat_id_2))
+        result = postgre.db_insert(query, params=(pat_id_1, pat_id_2), user=username)
         return result
     except Exception as e:
         print("error validateRelations", e)
         return False
     
-def getMother(data):
-    try:
-        print(data)
-        pat_id = data.get("id","")
-
-        query = "SELECT id_pathology_1, id_pathology_2, status FROM pathologies_pathologies WHERE id_pathology_2 = %s"
-
-        results = postgre.db_read(query, params=(pat_id,), user="system")
-
-        print(results)
-        if len(results) > 0:
-            output = [{
-                "pat_id_1": row[0],
-                "pat_id_2": row[1],
-                "state": row[2]
-            } for row in results]
-            return output
-        else:
-            return []
-
-    except Exception as e:
-        print("error getMother", e)
-        return False
