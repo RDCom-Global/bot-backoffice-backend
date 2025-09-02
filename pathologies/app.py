@@ -21,12 +21,15 @@ def lambda_handler(event, context):
             result = getAll(data) 
 
         if action == "get_all_by_symptom":   ##trae todas las patologias que incluyen 1 sintoma
-            result = getAllBySymptom(data)            
+            result = getAllBySymptom(data)           
+            
+        if action == "get_all_no_symptoms":   ##trae todas las patologias que incluyen 1 sintoma
+            result = getAllNoSymptoms(data)       
 
         if action == "get_all_by_symptom_count":   ##trae la cantidad de patologias que incluyen 1 sintoma
             result = countBySymptom(data)                        
             
-        if action == "get_one":   ##trae datos de una partologia en particular 
+        if action == "get_one":   ##trae datos de una patologia en particular 
             result = getOne(data) 
             
         if action == "delete":    ##borra una patologia y datos relacionados 
@@ -150,6 +153,44 @@ def getAllBySymptom(data):
 
     except Exception as e:
         print("error getAllBySymptom", e)
+        return False
+    
+def getAllNoSymptoms(data):
+    try:
+        
+        query = """
+            SELECT  
+                p.id_pathology,
+                p.name,
+                p.type,
+                p.status,
+                COALESCE(
+                    STRING_AGG(pc.id_code || ':' || pc.value, ', '), ''
+                ) AS codes
+            FROM pathologies p
+            LEFT JOIN pathologies_codes pc 
+                ON p.id_pathology = pc.id_pathology
+            LEFT JOIN pathologies_symptoms ps
+                ON p.id_pathology = ps.id_pathology
+            WHERE p.status != 'inactive' 
+            AND ps.id_pathology IS NULL
+            GROUP BY p.id_pathology, p.name, p.type, p.status
+            ORDER BY p.name ASC;
+        """
+        results = postgre.db_read(query, params=())
+
+        output = [{
+            "pat_id": row[0],
+            "name": row[1],
+            "type": row[2],
+            "state": row[3],
+            "codes": row[4]
+        } for row in results]
+
+        return output
+
+    except Exception as e:
+        print("error getAllNoSymptoms", e)
         return False
 
 def countBySymptom(data):

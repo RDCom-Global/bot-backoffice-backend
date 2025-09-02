@@ -20,25 +20,28 @@ def lambda_handler(event, context):
         if action == "get_all":   ##trae todos los sintomas
             result = getAll(data) 
             
+        if action == "get_all_no_category":   ##trae todos los sintomas sin categoria asignada
+            result = getAllNoCategory(data) 
+            
         if action == "get_by_word":   ##trae todos los sintomas que incluyan una palabra
             result = getByWord(data) 
             
         if action == "get_by_code":   ##trae todos los sintomas que tengan el codigo de busqueda
             result = getByCode(data) 
         
-        if action == "get_one":   ##trae sintomas de una partologia en particular 
+        if action == "get_one":   ##trae datos de un sintoma en particular 
             result = getOne(data) 
             
         if action == "delete_sym":    ##borra un sintoma y datos relacionados 
             result = deleteSym(data)
             
-        if action == "update_sym":         ##edita / actualiza datos de un sintoma 
+        if action == "update_sym":     ##edita / actualiza datos de un sintoma 
             result = updateSym(data) 
             
         if action == "validate_first":   ## valida una sintoma
             result = validateSymFirst(data) 
             
-        if action == "validate_second":   ## valida una sintoma
+        if action == "validate_second":   ## activa una sintoma
             result = validateSymSecond(data) 
             
         if action == "get_pending_relations": ##trae todas las relaciones patologia-sintoma pendientes
@@ -111,6 +114,39 @@ def getAll(data):
     except Exception as e:
         print("error getAll", e)
         return False
+
+def getAllNoCategory(data):
+    try:
+        query = """
+            SELECT s.id_symptom,
+                   s.name,
+                   s.synonymous,
+                   s.status,
+                   s.link,
+                   s.hpo_id,
+                   s.external_id
+            FROM symptoms s
+            LEFT JOIN categories_symptoms cs ON s.id_symptom = cs.id_symptom
+            WHERE cs.id_symptom IS NULL
+            ORDER BY s.name ASC
+        """
+        results = postgre.db_read(query)
+
+        output = [{
+            "sym_id": row[0],
+            "name": row[1],
+            "synonymous": row[2],
+            "state": row[3],
+            "link": row[4],
+            "hpo_id": row[5],
+            "external_id": row[6]
+        } for row in results]
+
+        return output
+    except Exception as e:
+        print("error getAllNoCategory", e)
+        return False
+
 
 def getByWord(data):
     try:
@@ -376,7 +412,11 @@ def deleteSym(data):
         query_delete_relations = "DELETE FROM pathologies_symptoms WHERE id_symptom = %s"
         postgre.db_insert(query_delete_relations, params=(sym_id,), user=username)
         
-        # 3. Borro el sintoma principal
+        # 4. Borro relaciones categoria-sintoma (ESTO VER CON SALI!!!!!!!!!!)
+        query_delete_relationscategories = "DELETE FROM categories_symptoms WHERE id_symptom = %s"
+        postgre.db_insert(query_delete_relationscategories, params=(sym_id,), user=username)
+        
+        # 5. Borro el sintoma principal
         query_delete_sym = "DELETE FROM symptoms WHERE id_symptom = %s"
         postgre.db_insert(query_delete_sym, params=(sym_id,), user=username)
         
