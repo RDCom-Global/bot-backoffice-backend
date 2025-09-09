@@ -492,7 +492,7 @@ def deleteRelation(data):
             WHERE id_pathology = %s AND id_symptom = %s
         """
         result = postgre.db_insert(query, params=(pat_id, sym_id), user=username)
-        return result
+        return True if result else False
     except Exception as e:
         print("error deleteRelation", e)
         return False
@@ -504,17 +504,17 @@ def createRelation(data):
         state = data.get("state")
         username = data.get('username', 'system')
         link = data.get('link', '')
-        important = data.get('important', None)
+        important = bool(data.get('important', False))
         frequency = data.get('frequency', '')
 
         query = """
             INSERT INTO pathologies_symptoms 
-                (id_pathology, id_symptom, state, username, link, importante, frequency)
-            VALUES (%s, %s, 'pending', %s, %s, %s, %s)
+                (id_pathology, id_symptom, status, link, importante, frequency)
+            VALUES (%s, %s, 'pending', %s, %s, %s)
         """
-        result = postgre.db_insert(query, params = (pat_id, sym_id, username, link, important, frequency), user=username)
+        result = postgre.db_insert(query, params = (pat_id, sym_id, link, important, frequency), user=username)
 
-        return result
+        return True if result else False
     except Exception as e:
         print("error createRelation", e)
         return False

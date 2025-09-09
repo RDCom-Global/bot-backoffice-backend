@@ -50,6 +50,9 @@ def lambda_handler(event, context):
         if action == "validate_relation": ##valida relacion madre-hija
             result = validateRelation(data) 
             
+        if action == "delete_relation": ##valida relacion madre-hija
+            result = deleteRelation(data) 
+            
         if result is not False and result is not None:
             return {
                 "statusCode": 200,
@@ -591,6 +594,21 @@ def validateRelation(data):
         result = postgre.db_insert(query, params=(pat_id_1, pat_id_2), user=username)
         return result
     except Exception as e:
-        print("error validateRelations", e)
+        print("error validateRelation", e)
         return False
     
+def deleteRelation(data):
+    try:
+        pat_id_1 = data.get("pat_id_1","")
+        pat_id_2 = data.get("pat_id_2","")
+        username = data.get('username', 'system')
+
+        query = """
+            DELETE FROM pathologies_pathologies
+            WHERE id_pathology_1 = %s AND id_pathology_2 = %s
+        """
+        result = postgre.db_insert(query, params=(pat_id_1, pat_id_2), user=username)
+        return result
+    except Exception as e:
+        print("error deleteRelation", e)
+        return False
