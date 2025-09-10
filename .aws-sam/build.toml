@@ -9,15 +9,6 @@ manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["CategoriesGetAll"]
 
-[function_build_definitions.294df5c9-9794-4308-96a6-0a53717730d8]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/categories_get_all_count"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["CategoriesGetAllCount"]
-
 [function_build_definitions.065c1460-123a-4787-8280-533f603bd878]
 codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/categories_get_all_pending"
 runtime = "python3.11"
@@ -26,15 +17,6 @@ handler = "app.lambda_handler"
 manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["CategoriesGetAllPending"]
-
-[function_build_definitions.e05a57d3-9deb-4404-a0d0-b915701bc820]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/categories_get_all_count_pending"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["CategoriesGetAllCountPending"]
 
 [function_build_definitions.3c47773a-22a1-4d2b-9aa6-741029362b33]
 codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/categories_get_all_types"
@@ -108,60 +90,6 @@ manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["CategoriesValidateOneCategory"]
 
-[function_build_definitions.435ffeb3-7a3b-4e72-8231-4be966276628]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_get_all"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesGetAll"]
-
-[function_build_definitions.54005aaf-b836-449d-88dd-ad43929c96fe]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_get_all_count"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesGetAllCount"]
-
-[function_build_definitions.18de33c3-f2cb-437c-ad33-796f0af396e6]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_get_all_pending"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesGetAllPending"]
-
-[function_build_definitions.a2e78324-d592-4ef2-a7ea-200f9e6d4785]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_get_all_count_pending"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesGetAllCountPending"]
-
-[function_build_definitions.ecb82a9a-b083-4e4e-8e01-5c0f5112dd41]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_get_last_pathology"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesGetLastPathology"]
-
-[function_build_definitions.bea53373-2483-4106-b04d-a586b452e22d]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_get_one_pathology"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesGetOnePathology"]
-
 [function_build_definitions.75b95dd8-e4a4-495a-af6e-179c17cffcfb]
 codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_get_search_pathology"
 runtime = "python3.11"
@@ -225,15 +153,6 @@ manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["PathologiesGetSearchByTwoSymptomsPathology"]
 
-[function_build_definitions.ffaf00be-766d-4634-95b5-18a1f3bf7cff]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_get_search_by_two_symptoms_pathology_count"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesGetSearchByTwoSymptomsPathologyCount"]
-
 [function_build_definitions.8282afcf-62d4-4f10-a245-792d7c06f363]
 codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_get_search_by_three_symptoms_pathology"
 runtime = "python3.11"
@@ -242,51 +161,6 @@ handler = "app.lambda_handler"
 manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["PathologiesGetSearchByThreeSymptomsPathology"]
-
-[function_build_definitions.cc18d626-cf7b-4066-8478-3372e1d77747]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_get_search_by_three_symptoms_pathology_count"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesGetSearchByThreeSymptomsPathologyCount"]
-
-[function_build_definitions.2496aef9-d44c-4a2b-aa85-9cb8e3719663]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_create_one_pathology"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesCreateOnePathology"]
-
-[function_build_definitions.3986d008-85c6-4d74-acbd-979cadfb0e73]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_delete_one_pathology"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesDeleteOnePathology"]
-
-[function_build_definitions.482523a3-a5d0-4e67-93bc-ff6e5c854e7d]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_update_one_pathology"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesUpdateOnePathology"]
-
-[function_build_definitions.4283fda2-7006-4a37-89cc-4faddfaa1c1f]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_validate_one_pathology"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesValidateOnePathology"]
 
 [function_build_definitions.78422378-8939-4632-a732-38e20e6872a9]
 codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/symptoms_get_all"
@@ -314,33 +188,6 @@ handler = "app.lambda_handler"
 manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["SymptomsGetAllSymptomsCategoryPending"]
-
-[function_build_definitions.85899b49-310e-41d2-8182-386f8baac6c8]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/symptoms_get_all_symptoms_count"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["SymptomsGetAllSymptomsCount"]
-
-[function_build_definitions.4bcd3fc0-edc7-4229-935e-6a546dabfef1]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/symptoms_get_all_symptoms_count_pending"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["SymptomsGetAllSymptomsCountPending"]
-
-[function_build_definitions.b341b691-11b4-4f3a-8585-5a138e21b623]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/symptoms_get_all_symptoms_category_pending_count"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["SymptomsGetAllSymptomsCategoryPendingCount"]
 
 [function_build_definitions.eb1303c2-18b2-4eb8-a645-cb55ce8514ca]
 codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/symptoms_get_last_symptom"
@@ -395,15 +242,6 @@ handler = "app.lambda_handler"
 manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["SymptomsGetSearchByCategorySymptom"]
-
-[function_build_definitions.1e6b630e-feb2-4170-ac88-111ab046780c]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/symptoms_get_search_by_category_symptom_count"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["SymptomsGetSearchByCategorySymptomCount"]
 
 [function_build_definitions.a1ab6e67-ca50-4c26-ae89-32f8b3ee4c49]
 codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/symptoms_create_one_symptom"
@@ -549,15 +387,6 @@ manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["CategoriesSymptomsRemoveOneCategoryFromSymptom"]
 
-[function_build_definitions.322381c3-504f-4b58-87b9-0401d6a4b1fb]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_symptoms_get_the_symptoms"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesSymptomsGetTheSymptoms"]
-
 [function_build_definitions.de63939e-186c-4dfd-ae26-71b62462b398]
 codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_symptoms_get_pending"
 runtime = "python3.11"
@@ -566,15 +395,6 @@ handler = "app.lambda_handler"
 manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["PathologiesSymptomsGetPending"]
-
-[function_build_definitions.ca28ac2c-9f81-464e-8a17-cb5270c99398]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_symptoms_get_pending_count"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesSymptomsGetPendingCount"]
 
 [function_build_definitions.60ec87e6-61d3-42ea-a076-eebf7226ed91]
 codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_symptoms_get_one"
@@ -738,60 +558,6 @@ manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
 packagetype = "Zip"
 functions = ["SymptomsAdd"]
 
-[function_build_definitions.8d5b7e70-bf02-4e6f-8cc6-8ba300480fba]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_add"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesAdd"]
-
-[function_build_definitions.8802f503-bc70-484f-9fd4-b3a369eaa327]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_codes_get_one"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesCodesGetOne"]
-
-[function_build_definitions.e6c9205e-b61a-4a6b-ac55-1ee4ddd39b3d]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_codes_create_one"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesCodesCreateOne"]
-
-[function_build_definitions.4075fd78-e885-41b2-afe4-23cc34453a00]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_codes_update_one"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesCodesUpdateOne"]
-
-[function_build_definitions.2255f883-9d00-4059-9a22-35b70ba1e6dc]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_codes_delete_one"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = "3298f13049d19cffaa37ca931dd4d421"
-packagetype = "Zip"
-functions = ["PathologiesCodesDeleteOne"]
-
-[function_build_definitions.7dba3110-56f0-4839-a0ec-f522f464b729]
-codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_pathologies_get_mother"
-runtime = "python3.11"
-architecture = "x86_64"
-handler = "app.lambda_handler"
-manifest_hash = ""
-packagetype = "Zip"
-functions = ["PathologiesPathologiesGetMother"]
-
 [function_build_definitions.b5135cb7-891c-400f-80f6-8b8c8f72c45b]
 codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/pathologies_pathologies_get_all"
 runtime = "python3.11"
@@ -817,6 +583,24 @@ architecture = "x86_64"
 handler = "app.lambda_handler"
 manifest_hash = ""
 packagetype = "Zip"
-functions = ["PathologiesGet"]
+functions = ["Pathologies"]
+
+[function_build_definitions.fb511666-a87b-49c6-8f31-cb267861c79f]
+codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/utils/authorizer"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["Authorizer"]
+
+[function_build_definitions.7161159d-3f41-4a27-aac0-6e94a7999396]
+codeuri = "/Users/ignaciosalimeno/Documents/Ignacio/RDCom/code/Bot/BO - Backend/symptoms"
+runtime = "python3.11"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["Symptoms"]
 
 [layer_build_definitions]
