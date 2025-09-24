@@ -1,16 +1,16 @@
 import psycopg2
 
-POSTGRE_DB_HOST = "db-rdibot-dev.claoesjfa0zq.us-east-1.rds.amazonaws.com"
+POSTGRE_DB_HOST = "rdcmanager.claoesjfa0zq.us-east-1.rds.amazonaws.com"
 POSTGRE_DB_PORT = "5432"
 POSTGRE_DB_NAME = "postgres"
-POSTGRE_DB_USER = "postgres"
-POSTGRE_DB_PASS = "RDCom2024!!"
+POSTGRE_DB_USER = "rdcom_admin"
+POSTGRE_DB_PASS = "ceLItSDJmlazZV8E7aQ"
 
-DB_HOST = "db-rdibot-dev.claoesjfa0zq.us-east-1.rds.amazonaws.com"
+DB_HOST = "rdcmanager.claoesjfa0zq.us-east-1.rds.amazonaws.com"
 DB_PORT = "5432"
 DB_NAME = "postgres"
-DB_USER = "postgres"
-DB_PASS = "RDCom2024!!"
+DB_USER = "rdcom_admin"
+DB_PASS = "sceLItSDJmlazZV8E7aQ"
 
 def query_postgresql(query):
     try:
@@ -150,7 +150,6 @@ def db_read(query, user = "no_user", params=None):
     except Exception as e:
         print(f"Error al ejecutar la consulta: {e}")
         return None
-
 
 def db_insert(query, user = "no_user", params=None):
     try:
