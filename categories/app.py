@@ -7,6 +7,9 @@ def lambda_handler(event, context):
     
         body = json.loads(event['body'])
         
+        # Extraer user_email del header X-User-Email
+        user_email = event.get('headers', {}).get('x-user-email', 'system')
+        
         if 'body' in event:
             action = body['action']
             data = body['data']
@@ -15,52 +18,52 @@ def lambda_handler(event, context):
             data = event['data']
 
         if action == "get_all":   ##trae todas las categorias 
-            result = getAll(data) 
+            result = getAll(data, user_email) 
             
         if action == "get_all_system":   ##trae todas las categorias system
-            result = getAllSystem(data) 
+            result = getAllSystem(data, user_email) 
             
         if action == "get_one":   ##trae datos con idiomas de una categoria en particular
-            result = getOne(data) 
+            result = getOne(data, user_email) 
                         
         if action == "create_cat":   ##crea una nueva categoria y sus idiomas
-            result = createCat(data) 
+            result = createCat(data, user_email) 
             
         if action == "delete_cat":    ##borra una categoria y datos relacionados 
-            result = deleteCat(data)
+            result = deleteCat(data, user_email)
             
         if action == "update_cat":     ##edita / actualiza datos de una en particular 
-            result = updateCat(data) 
+            result = updateCat(data, user_email) 
             
         if action == "validate_cat":   ## valida una categoria
-            result = validateCat(data) 
+            result = validateCat(data, user_email) 
             
         if action == "get_by_word":   ##trae todos las categorias que incluyan una palabra
-            result = getByWord(data) 
+            result = getByWord(data, user_email) 
             
         if action == "get_category_childrens":   ##trae las categorias hijas de una categoria en particular
-            result = getCatChild(data) 
+            result = getCatChild(data, user_email) 
             
         if action == "get_categories_of_symptom":   ##trae las categorias para un sintoma determinado
-            result = getCatOfSym(data)             
+            result = getCatOfSym(data, user_email)             
             
         if action == "add_category_to_symptom":   ##agrega una categoria a un sintoma
-            result = addCatToSym(data)      
+            result = addCatToSym(data, user_email)      
             
         if action == "delete_category_of_symptom":   ##borra una categoria de un sintoma
-            result = deleteCatOfSym(data)    
+            result = deleteCatOfSym(data, user_email)    
 
         if action == "get_all_cat_cat":    ##trae todas las relaciones categoria de categoria 
-            result = getAllCatCat(data)
+            result = getAllCatCat(data, user_email)
             
         if action == "delete_cat_cat":    ##borra una relacion categoria de categoria 
-            result = deleteCatCat(data)
+            result = deleteCatCat(data, user_email)
             
         if action == "create_cat_cat":    ##crea una relacion categoria de categoria 
-            result = createCatCat(data)
+            result = createCatCat(data, user_email)
             
         if action == "validate_cat_cat":    ##valida una relacion categoria de categoria 
-            result = validateCatCat(data)
+            result = validateCatCat(data, user_email)
             
         if result is not False and result is not None:
             return {
@@ -94,11 +97,11 @@ def lambda_handler(event, context):
             })
         }  
 
-def getAll(data):
+def getAll(data, user_email):
     try:
         query = "select * from categories ORDER BY name ASC"
        
-        results = postgre.db_read(query)
+        results = postgre.db_read(query, user=user_email)
     
         output = [{
             "cat_id": row[0],
@@ -113,11 +116,11 @@ def getAll(data):
         print("error getAll", e)
         return False
     
-def getAllSystem(data):
+def getAllSystem(data, user_email):
     try:
         query = "select * from categories where type = 'system' ORDER BY name ASC"
        
-        results = postgre.db_read(query)
+        results = postgre.db_read(query, user=user_email)
     
         output = [{
             "cat_id": row[0],
@@ -132,13 +135,13 @@ def getAllSystem(data):
         print("error getAll", e)
         return False
 
-def getOne(data):
+def getOne(data, user_email):
     try:
         cat_id = data.get("id", "")
 
         # Sintoma principal
         query_cat = "SELECT * FROM categories WHERE id_category = %s"
-        results_cat = postgre.db_read(query_cat, params=(cat_id,), user="system")
+        results_cat = postgre.db_read(query_cat, params=(cat_id,), user=user_email)
         category = [{
             "cat_id": row[0],
             "name": row[1],
@@ -149,7 +152,7 @@ def getOne(data):
 
         # Idiomas
         query_langs = "SELECT * FROM tl_categories WHERE id_category = %s"
-        results_langs = postgre.db_read(query_langs, params=(cat_id,), user="system")
+        results_langs = postgre.db_read(query_langs, params=(cat_id,), user=user_email)
         idiomas = [{
             "cat_id": row[0],
             "language": row[1],
@@ -168,7 +171,7 @@ def getOne(data):
         return False    
 
 
-def createCat(data):
+def createCat(data, user_email):
     try:
         # Extraer datos
         name = data.get("name", "")
@@ -182,7 +185,7 @@ def createCat(data):
             VALUES (%s, 'pending', %s)
             RETURNING id_category
         """
-        cat_id = postgre.db_insert(query_insert, params=(name,type), user=username)
+        cat_id = postgre.db_insert(query_insert, params=(name,type), user=user_email)
 
         # Inserto traducciones
         for lang in languages:
@@ -190,7 +193,7 @@ def createCat(data):
                 INSERT INTO tl_categories (id_category, language, value, status)
                 VALUES (%s, %s, %s, 'pending')
             """
-            postgre.db_insert(query_lang, params=(cat_id, lang.get("language", ""), lang.get("value", "")), user=username)
+            postgre.db_insert(query_lang, params=(cat_id, lang.get("language", ""), lang.get("value", "")), user=user_email)
 
         return cat_id
 
@@ -198,7 +201,7 @@ def createCat(data):
         print("error createCat", e)
         return False
     
-def updateCat(data):
+def updateCat(data, user_email):
     try:
         # Extraer datos
         cat_id = data.get("cat_id")
@@ -222,12 +225,12 @@ def updateCat(data):
         postgre.db_insert(
             query_update,
             params=(name, state, type, cat_id),
-            user=username
+            user=user_email
         )
 
         # Borro todas las traducciones existentes
         query_delete = "DELETE FROM tl_categories WHERE id_category = %s"
-        postgre.db_insert(query_delete, params=(cat_id,), user=username)
+        postgre.db_insert(query_delete, params=(cat_id,), user=user_email)
 
         # Inserto las nuevas traducciones
         for lang in languages:
@@ -238,7 +241,7 @@ def updateCat(data):
             postgre.db_insert(
                 query_insert_lang,
                 params=(cat_id, lang.get("language", ""), lang.get("value", "")),
-                user=username
+                user=user_email
             )
 
         return True
@@ -247,35 +250,31 @@ def updateCat(data):
         print("error updateCat", e)
         return False
     
-def validateCat(data):
+def validateCat(data, user_email):
     try:
  
         cat_id = data.get("cat_id", "")
-        username = data.get('username', 'system')  # o el usuario que corresponda
-        
         query = "UPDATE categories SET status = 'active' WHERE id_category = %s"
-        result = postgre.db_insert(query, params=(cat_id,),user=username)
+        result = postgre.db_insert(query, params=(cat_id,), user=user_email)
         return result
     except Exception as e:
         print("error validateCat", e)
         return False
     
-def deleteCat(data):
+def deleteCat(data, user_email):
     try:
         cat_id = data.get("id","")
-        username = data.get('username', 'system')  # o el usuario que corresponda
-        
         # 1. Borro idiomas
         query_delete_lang = "DELETE FROM tl_categories WHERE id_category = %s"
-        postgre.db_insert(query_delete_lang, params=(cat_id,), user=username)
+        postgre.db_insert(query_delete_lang, params=(cat_id,), user=user_email)
         
         # 2. Borro relaciones categoria-categoria (ESTO VER CON SALI!!!!!!!!!!)
         query_delete_mother = "DELETE FROM categories_categories WHERE id_category_1 = %s OR id_category_2 = %s"
-        postgre.db_insert(query_delete_mother, params=(cat_id, cat_id), user=username)
+        postgre.db_insert(query_delete_mother, params=(cat_id, cat_id), user=user_email)
         
         # 3. Borro la categoria principal
         query_delete_pat = "DELETE FROM categories WHERE id_category = %s"
-        postgre.db_insert(query_delete_pat, params=(cat_id,), user=username)
+        postgre.db_insert(query_delete_pat, params=(cat_id,), user=user_email)
         
         return True
 
@@ -283,14 +282,12 @@ def deleteCat(data):
         print("error deleteCat", e)
         return False
 
-def getByWord(data):
+def getByWord(data, user_email):
     try:
         palabra = data.get("palabra", "").strip()
-        username = data.get('username', 'system')  # o el usuario que corresponda
-        
         query = "SELECT * FROM categories WHERE name ILIKE %s"
         
-        results = postgre.db_read(query, params=(f"%{palabra}%",), user=username)
+        results = postgre.db_read(query, params=(f"%{palabra}%",), user=user_email)
     
         output = [{
             "cat_id": row[0],
@@ -305,11 +302,9 @@ def getByWord(data):
         print("error getByWord", e)
         return False
     
-def getCatChild(data):
+def getCatChild(data, user_email):
     try:
         cat_id = data.get("cat_id", "")
-        username = data.get('username', 'system')  # o el usuario que corresponda
-        
         query = """
             SELECT 
                 cc.id_category_1, 
@@ -321,7 +316,7 @@ def getCatChild(data):
             WHERE cc.id_category_1 = %s
             ORDER BY c.name ASC
         """
-        results = postgre.db_read(query, params=(cat_id,), user=username)
+        results = postgre.db_read(query, params=(cat_id,), user=user_email)
 
         output = [{"cat_id_1": row[0],"cat_id_2": row[1],"name": row[2],"type": row[3]} for row in results]
        
@@ -330,10 +325,9 @@ def getCatChild(data):
         print("error getCatChild", e)
         return False    
     
-def getCatOfSym(data):
+def getCatOfSym(data, user_email):
     try:
         sym_id = data.get("id", "")
-        username = data.get('username', 'system')  # o el usuario que corresponda
         query = """
             SELECT 
                 categories_symptoms.id_category, 
@@ -347,7 +341,7 @@ def getCatOfSym(data):
             ORDER BY categories.name ASC
         """
 
-        results = postgre.db_read(query, params=(sym_id,), user=username)
+        results = postgre.db_read(query, params=(sym_id,), user=user_email)
 
         output = [
             {
@@ -364,43 +358,39 @@ def getCatOfSym(data):
         print("error getCatOfSym", e)
         return False   
 
-def deleteCatOfSym(data):
+def deleteCatOfSym(data, user_email):
     try:
  
         cat_id = data.get("cat_id", "")
         sym_id = data.get("sym_id", "")
-        username = data.get('username', 'system')  # o el usuario que corresponda
-        
         query = "DELETE FROM categories_symptoms WHERE id_category = %s AND id_symptom = %s"
         
-        result = postgre.db_insert(query, params=(cat_id,sym_id),user=username)
+        result = postgre.db_insert(query, params=(cat_id,sym_id), user=user_email)
         
         return result
     except Exception as e:
         print("error deleteCatOfSym", e)
         return False
     
-def addCatToSym(data):
+def addCatToSym(data, user_email):
     try:
         
         cat_id = data.get("cat_id", "")
         sym_id = data.get("sym_id", "")
         state = data.get('state', 'pending')  # opcional, por defecto 'pending'
-        username = data.get('username', 'system')  # o el usuario que corresponda
-
         # Insertamos la relación en la tabla categories_symptoms
         query = """
             INSERT INTO categories_symptoms (id_category, id_symptom, status)
             VALUES (%s, %s, %s)
         """
-        result = postgre.db_insert(query, params=(cat_id,sym_id, state),user=username)
+        result = postgre.db_insert(query, params=(cat_id,sym_id, state), user=user_email)
         
         return result
     except Exception as e:
         print("error addCatToSym", e)
         return False
 
-def getAllCatCat(data):
+def getAllCatCat(data, user_email):
     try:
 
         query = """
@@ -415,7 +405,7 @@ def getAllCatCat(data):
             JOIN categories c2 ON cc.id_category_2 = c2.id_category
             ORDER BY name_1 ASC;
         """
-        results = postgre.db_read(query)
+        results = postgre.db_read(query, user=user_email)
         
         output = [{"cat_id_1": row[0],"name_1": row[1],"cat_id_2": row[2],"name_2": row[3],"state": row[4]} for row in results]
 
@@ -424,29 +414,25 @@ def getAllCatCat(data):
         print("error getAllCatCat", e)
         return False
 
-def deleteCatCat(data):
+def deleteCatCat(data, user_email):
     try:
  
         cat_id_1 = data.get("cat_id_1", "")
         cat_id_2 = data.get("cat_id_2", "")
-        username = data.get('username', 'system')  # o el usuario que corresponda
-        
         query = "delete from categories_categories where (id_category_1 = %s AND id_category_2= %s)"
     
-        result = postgre.db_insert(query, params=(cat_id_1,cat_id_2),user=username)
+        result = postgre.db_insert(query, params=(cat_id_1,cat_id_2), user=user_email)
         
         return result
     except Exception as e:
         print("error deleteCatCat", e)
         return False
     
-def createCatCat(data):
+def createCatCat(data, user_email):
     try:
  
         cat_id_1 = data.get("cat_id_1", "")
         cat_id_2 = data.get("cat_id_2", "")
-        username = data.get('username', 'system')  # o el usuario que corresponda
-        
         state = data.get('state', 'pending')  # opcional, por defecto 'pending'
 
         # Insertamos la relación en la tabla categories_categories
@@ -454,18 +440,17 @@ def createCatCat(data):
             INSERT INTO categories_categories (id_category_1, id_category_2, status)
             VALUES (%s, %s, %s)
         """
-        result = postgre.db_insert(query, params=(cat_id_1,cat_id_2, state),user=username)
+        result = postgre.db_insert(query, params=(cat_id_1,cat_id_2, state), user=user_email)
         
         return result
     except Exception as e:
         print("error deleteCatCat", e)
         return False
     
-def validateCatCat(data):
+def validateCatCat(data, user_email):
     try:
         cat_id_1 = data.get("cat_id_1", "")
         cat_id_2 = data.get("cat_id_2", "")
-        username = data.get("username", "system")  
         state = data.get("state", "active")  
 
         # Update del estado de la relación
@@ -477,7 +462,7 @@ def validateCatCat(data):
         result = postgre.db_insert(
             query,
             params=(state, cat_id_1, cat_id_2),
-            user=username
+            user=user_email
         )
 
         return result

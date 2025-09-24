@@ -119,7 +119,7 @@ def generatePolicyDocument(effect, methodArn,region,awsAccountId,restApiId):
         "Statement": [{
             "Action": 'execute-api:Invoke',
             "Effect": effect,
-            "Resource": "arn:aws:execute-api:{}:{}:{}/dev/*".format(region,awsAccountId,restApiId)
+            "Resource": "arn:aws:execute-api:{}:{}:{}/prod/*".format(region,awsAccountId,restApiId)
             #"Resource": "arn:aws:execute-api:{}:{}:{}/{}/*".format(region,awsAccountId,restApiId,os.environ['STAGE_NAME'])
             
         }]

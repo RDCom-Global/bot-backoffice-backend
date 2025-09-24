@@ -18,9 +18,9 @@ Globals:
     Environment:
         Variables:
           ENV: !Ref Environment
-          REGION_COGNITO: !Sub '{{resolve:ssm:/rdcmanager-backoffice-${Environment}/regionCognito}}'
-          POOLS_USER_ID: !Sub '{{resolve:ssm:/rdcmanager-backoffice-${Environment}/poolsUserId}}'
-          POOLS_WEB_CLINT_ID: !Sub '{{resolve:ssm:/rdcmanager-backoffice-${Environment}/poolsWebClintId}}'
+          REGION_COGNITO: !Sub '{{resolve:ssm:/rdcmanager-backoffice-dev/regionCognito}}'
+          POOLS_USER_ID: !Sub '{{resolve:ssm:/rdcmanager-backoffice-dev/poolsUserId}}'
+          POOLS_WEB_CLINT_ID: !Sub '{{resolve:ssm:/rdcmanager-backoffice-dev/poolsWebClintId}}'
 
 Parameters:
   Environment:
@@ -78,7 +78,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
+        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:5
       Architectures:
         - x86_64
       Events:
@@ -96,7 +96,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
+        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:5
       Architectures:
         - x86_64
       Events:
@@ -114,7 +114,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
+        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:5
       Architectures:
         - x86_64
       Events:

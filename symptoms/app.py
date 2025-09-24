@@ -7,6 +7,9 @@ def lambda_handler(event, context):
     
         body = json.loads(event['body'])
         
+        # Extraer user_email del header X-User-Email
+        user_email = event.get('headers', {}).get('x-user-email', 'system')
+        
         if 'body' in event:
             action = body['action']
             data = body['data']
@@ -15,52 +18,52 @@ def lambda_handler(event, context):
             data = event['data']
             
         if action == "create_sym":   ##crea una nuevo sintoma con todos los datos completos
-            result = createSym(data) 
+            result = createSym(data, user_email) 
         
         if action == "get_all":   ##trae todos los sintomas
-            result = getAll(data) 
+            result = getAll(data, user_email) 
             
         if action == "get_all_no_category":   ##trae todos los sintomas sin categoria asignada
-            result = getAllNoCategory(data) 
+            result = getAllNoCategory(data, user_email) 
             
         if action == "get_by_word":   ##trae todos los sintomas que incluyan una palabra
-            result = getByWord(data) 
+            result = getByWord(data, user_email) 
             
         if action == "get_by_code":   ##trae todos los sintomas que tengan el codigo de busqueda
-            result = getByCode(data) 
+            result = getByCode(data, user_email) 
         
         if action == "get_one":   ##trae datos de un sintoma en particular 
-            result = getOne(data) 
+            result = getOne(data, user_email) 
             
         if action == "delete_sym":    ##borra un sintoma y datos relacionados 
-            result = deleteSym(data)
+            result = deleteSym(data, user_email)
             
         if action == "update_sym":     ##edita / actualiza datos de un sintoma 
-            result = updateSym(data) 
+            result = updateSym(data, user_email) 
             
         if action == "validate_first":   ## valida una sintoma
-            result = validateSymFirst(data) 
+            result = validateSymFirst(data, user_email) 
             
         if action == "validate_second":   ## activa una sintoma
-            result = validateSymSecond(data) 
+            result = validateSymSecond(data, user_email) 
             
         if action == "get_pending_relations": ##trae todas las relaciones patologia-sintoma pendientes
-            result = getPendingRelations(data) 
+            result = getPendingRelations(data, user_email) 
         
         if action == "validate_relation": ##valida relacion patologia-sintoma 
-            result = validateRelation(data) 
+            result = validateRelation(data, user_email) 
 
         if action == "delete_relation": ##borra relacion patologia-sintoma 
-            result = deleteRelation(data) 
+            result = deleteRelation(data, user_email) 
             
         if action == "create_relation": ##crea relacion patologia-sintoma 
-            result = createRelation(data) 
+            result = createRelation(data, user_email) 
             
         if action == "update_relation": ##actualiza relacion patologia-sintoma 
-            result = updateRelation(data) 
+            result = updateRelation(data, user_email) 
             
         if action == "get_relation": ##busca datos de  relacion patologia-sintoma 
-            result = getRelation(data)         
+            result = getRelation(data, user_email)         
               
         if result:
             return {
@@ -94,11 +97,11 @@ def lambda_handler(event, context):
             })
         }  
 
-def getAll(data):
+def getAll(data, user_email):
     try:
         query = "SELECT * FROM symptoms WHERE status NOT IN ('inactive') ORDER BY name ASC"
 
-        results = postgre.db_read(query)
+        results = postgre.db_read(query, user=user_email)
 
         output = [{
             "sym_id": row[0],
@@ -115,7 +118,7 @@ def getAll(data):
         print("error getAll", e)
         return False
 
-def getAllNoCategory(data):
+def getAllNoCategory(data, user_email):
     try:
         query = """
             SELECT s.id_symptom,
@@ -130,7 +133,7 @@ def getAllNoCategory(data):
             WHERE cs.id_symptom IS NULL
             ORDER BY s.name ASC
         """
-        results = postgre.db_read(query)
+        results = postgre.db_read(query, user=user_email)
 
         output = [{
             "sym_id": row[0],
@@ -148,7 +151,7 @@ def getAllNoCategory(data):
         return False
 
 
-def getByWord(data):
+def getByWord(data, user_email):
     try:
     
         palabra = data.get("palabra", "").strip()
@@ -165,7 +168,7 @@ def getByWord(data):
 
         like_pattern = f"%{palabra}%"  
         
-        results = postgre.db_read(query, params=(like_pattern, like_pattern), user="system")
+        results = postgre.db_read(query, params=(like_pattern, like_pattern), user=user_email)
         
         output = [{
             "sym_id": row[0],
@@ -182,7 +185,7 @@ def getByWord(data):
         print("error getByWord", e)
         return False
 
-def getByCode(data):
+def getByCode(data, user_email):
     try:
     
         hpo_id = data.get("hpo_id", "").strip()
@@ -198,7 +201,7 @@ def getByCode(data):
 
         like_pattern = f"%{hpo_id}%"  
         
-        results = postgre.db_read(query, params=(like_pattern, ), user="system")
+        results = postgre.db_read(query, params=(like_pattern, ), user=user_email)
         
         output = [{
             "sym_id": row[0],
@@ -215,13 +218,13 @@ def getByCode(data):
         print("error getByCode", e)
         return False
 
-def getOne(data):
+def getOne(data, user_email):
     try:
         sym_id = data.get("id", "")
 
         # Sintoma principal
         query_sym = "SELECT * FROM symptoms WHERE id_symptom = %s"
-        results_sym = postgre.db_read(query_sym, params=(sym_id,), user="system")
+        results_sym = postgre.db_read(query_sym, params=(sym_id,), user=user_email)
         symptom = [{
             "sym_id": row[0],
             "name": row[1],
@@ -234,7 +237,7 @@ def getOne(data):
 
         # Idiomas
         query_langs = "SELECT * FROM tl_symptoms WHERE id_symptom = %s"
-        results_langs = postgre.db_read(query_langs, params=(sym_id,), user="system")
+        results_langs = postgre.db_read(query_langs, params=(sym_id,), user=user_email)
         idiomas = [{
             "sym_id": row[0],
             "language": row[1],
@@ -252,7 +255,7 @@ def getOne(data):
         print("error getOne", e)
         return False    
 
-def createSym(data):
+def createSym(data, user_email):
     try:
         # Datos del síntoma
         name = data.get("name", "")
@@ -278,7 +281,7 @@ def createSym(data):
                 ORDER BY CAST(SUBSTRING(hpo_id FROM 5) AS INTEGER) DESC
                 LIMIT 1
             """
-            ultimo_rdc = postgre.db_read(query)
+            ultimo_rdc = postgre.db_read(query, user=user_email)
 
             if ultimo_rdc and len(ultimo_rdc) > 0 and ultimo_rdc[0][0]:
                 numero = int(ultimo_rdc[0][0].split('_')[1]) + 1
@@ -298,7 +301,7 @@ def createSym(data):
             )
             RETURNING id_symptom;
         """
-        sym_id = postgre.db_insert(query, params=(name, hpo_id, synonymous), user="system")
+        sym_id = postgre.db_insert(query, params=(name, hpo_id, synonymous), user=user_email)
 
         if not sym_id:
             return False  # No se pudo crear el síntoma
@@ -309,7 +312,7 @@ def createSym(data):
                 INSERT INTO tl_symptoms (id_symptom, language, value, status)
                 VALUES (%s, %s, %s, 'pending')
             """
-            postgre.db_insert(query, params=(sym_id, lang["language"], lang["value"]), user="system")
+            postgre.db_insert(query, params=(sym_id, lang["language"], lang["value"]), user=user_email)
 
         # Si hay una patología asociada, insertar en pathologies_symptoms
         if pat_id:
@@ -317,7 +320,7 @@ def createSym(data):
                 INSERT INTO pathologies_symptoms (id_pathology, id_symptom, status, link, importante, frequency)
                 VALUES (%s, %s, 'pending', %s, %s, %s)
             """
-            postgre.db_insert(query, params=(pat_id, sym_id, link, str(important), frecuency), user="system")
+            postgre.db_insert(query, params=(pat_id, sym_id, link, str(important), frecuency), user=user_email)
 
         return True
 
@@ -325,7 +328,7 @@ def createSym(data):
         print("Error en createSym:", str(e))
         return False
     
-def updateSym(data):
+def updateSym(data, user_email):
     try:
         # Extraer datos
         #Datos del sintoma
@@ -355,17 +358,17 @@ def updateSym(data):
             WHERE id_symptom = %s
         """
 
-        postgre.db_insert(query_update, params=(name, hpo_id, synonymous, state, sym_id), user=username)
+        postgre.db_insert(query_update, params=(name, hpo_id, synonymous, state, sym_id), user=user_email)
 
         # 2. Actualizar idiomas (borrar e insertar)
         query_delete_lang = "DELETE FROM tl_symptoms WHERE id_symptom = %s"
-        postgre.db_insert(query_delete_lang, params=(sym_id,), user=username)
+        postgre.db_insert(query_delete_lang, params=(sym_id,), user=user_email)
         for lang in languages:
             query_lang = """
                 INSERT INTO tl_symptoms (id_symptom, language, value, status)
                 VALUES (%s, %s, %s, 'pending')
             """
-            postgre.db_insert(query_lang, params=(sym_id, lang["language"], lang["value"]), user=username)
+            postgre.db_insert(query_lang, params=(sym_id, lang["language"], lang["value"]), user=user_email)
 
         return sym_id
 
@@ -373,52 +376,49 @@ def updateSym(data):
         print("error updatePat", e)
         return False
     
-def validateSymFirst(data):
+def validateSymFirst(data, user_email):
     try:
  
         sym_id = data.get("sym_id", "")
-        username = data.get('username', 'system')  # o el usuario que corresponda
         
         query = "UPDATE symptoms SET status = 'verified' WHERE id_symptom = %s"
-        result = postgre.db_insert(query, params=(sym_id,),user=username)
+        result = postgre.db_insert(query, params=(sym_id,), user=user_email)
         return True if result else False
     except Exception as e:
         print("error validateSymFirst", e)
         return False
     
-def validateSymSecond(data):
+def validateSymSecond(data, user_email):
     try:
  
         sym_id = data.get("sym_id", "")
-        username = data.get('username', 'system')  # o el usuario que corresponda
         
         query = "UPDATE symptoms SET status = 'active' WHERE id_symptom = %s"
-        result = postgre.db_insert(query, params=(sym_id,),user=username)
+        result = postgre.db_insert(query, params=(sym_id,), user=user_email)
         return True if result else False
     except Exception as e:
         print("error validateSymSecond", e)
         return False
     
-def deleteSym(data):
+def deleteSym(data, user_email):
     try:
         sym_id = data.get("id","")
-        username = data.get('username', 'system')  # o el usuario que corresponda
         
         # 1. Borro idiomas
         query_delete_lang = "DELETE FROM tl_symptoms WHERE id_symptom = %s"
-        postgre.db_insert(query_delete_lang, params=(sym_id,), user=username)
+        postgre.db_insert(query_delete_lang, params=(sym_id,), user=user_email)
             
         # 3. Borro relaciones patologia-sintoma (ESTO VER CON SALI!!!!!!!!!!)
         query_delete_relations = "DELETE FROM pathologies_symptoms WHERE id_symptom = %s"
-        postgre.db_insert(query_delete_relations, params=(sym_id,), user=username)
+        postgre.db_insert(query_delete_relations, params=(sym_id,), user=user_email)
         
         # 4. Borro relaciones categoria-sintoma (ESTO VER CON SALI!!!!!!!!!!)
         query_delete_relationscategories = "DELETE FROM categories_symptoms WHERE id_symptom = %s"
-        postgre.db_insert(query_delete_relationscategories, params=(sym_id,), user=username)
+        postgre.db_insert(query_delete_relationscategories, params=(sym_id,), user=user_email)
         
         # 5. Borro el sintoma principal
         query_delete_sym = "DELETE FROM symptoms WHERE id_symptom = %s"
-        postgre.db_insert(query_delete_sym, params=(sym_id,), user=username)
+        postgre.db_insert(query_delete_sym, params=(sym_id,), user=user_email)
         
         return True
 
@@ -426,7 +426,7 @@ def deleteSym(data):
         print("error deletePat", e)
         return False
 
-def getPendingRelations(data):
+def getPendingRelations(data, user_email):
     try:
         query = """
             SELECT 
@@ -445,7 +445,7 @@ def getPendingRelations(data):
             ORDER BY p.name ASC
         """
 
-        results = postgre.db_read(query)
+        results = postgre.db_read(query, user=user_email)
 
         output = [{
             "pat_id": row[0],
@@ -464,45 +464,41 @@ def getPendingRelations(data):
         print("error getPendingRelations", e)
         return False
 
-def validateRelation(data):
+def validateRelation(data, user_email):
     try:
         pat_id = data.get("pat_id")
         sym_id = data.get("sym_id")
-        username = data.get('username', 'system')
-
         query = """
             UPDATE pathologies_symptoms
             SET status = 'verified'
             WHERE id_pathology = %s AND id_symptom = %s
         """
-        result = postgre.db_insert(query, params=(pat_id, sym_id), user=username)
+        result = postgre.db_insert(query, params=(pat_id, sym_id), user=user_email)
         return result
     except Exception as e:
         print("error validateRelation", e)
         return False
 
-def deleteRelation(data):
+def deleteRelation(data, user_email):
     try:
         pat_id = data.get("pat_id")
         sym_id = data.get("sym_id")
-        username = data.get('username', 'system')
-
         query = """
             DELETE FROM pathologies_symptoms
             WHERE id_pathology = %s AND id_symptom = %s
         """
-        result = postgre.db_insert(query, params=(pat_id, sym_id), user=username)
+        result = postgre.db_insert(query, params=(pat_id, sym_id), user=user_email)
         return True if result else False
     except Exception as e:
         print("error deleteRelation", e)
         return False
     
-def createRelation(data):
+def createRelation(data, user_email):
     try:
         pat_id = data.get("pat_id")
         sym_id = data.get("sym_id")
         state = data.get("state")
-        username = data.get('username', 'system')
+
         link = data.get('link', '')
         important = bool(data.get('important', False))
         frequency = data.get('frequency', '')
@@ -512,18 +508,18 @@ def createRelation(data):
                 (id_pathology, id_symptom, status, link, importante, frequency)
             VALUES (%s, %s, 'pending', %s, %s, %s)
         """
-        result = postgre.db_insert(query, params = (pat_id, sym_id, link, important, frequency), user=username)
+        result = postgre.db_insert(query, params = (pat_id, sym_id, link, important, frequency), user=user_email)
 
         return True if result else False
     except Exception as e:
         print("error createRelation", e)
         return False
     
-def updateRelation(data):
+def updateRelation(data, user_email):
     try:
         pat_id = data.get("pat_id")
         sym_id = data.get("sym_id")
-        username = data.get("username", "system")
+
         link = data.get("link", "")
         important = data.get("important", None)
         frequency = data.get("frequency", None)
@@ -539,8 +535,8 @@ def updateRelation(data):
         """
         result = postgre.db_insert(
             query,
-            params=(username, link, important, frequency, pat_id, sym_id),
-            user=username
+            params=(user_email, link, important, frequency, pat_id, sym_id),
+            user=user_email
         )
 
         return result
@@ -548,7 +544,7 @@ def updateRelation(data):
         print("error updateRelation:", e)
         return False
     
-def getRelation(data):
+def getRelation(data, user_email):
     try:
         pat_id = data.get("pat_id")
         sym_id = data.get("sym_id")
@@ -570,7 +566,7 @@ def getRelation(data):
             ORDER BY ps.status DESC, s.name ASC
         """
         
-        results = postgre.db_read(query, params=(pat_id, sym_id), user="system")
+        results = postgre.db_read(query, params=(pat_id, sym_id), user=user_email)
 
         output = [
             {

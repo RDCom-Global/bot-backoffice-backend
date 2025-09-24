@@ -7,6 +7,9 @@ def lambda_handler(event, context):
     
         body = json.loads(event['body'])
         
+        # Extraer user_email del header X-User-Email
+        user_email = event.get('headers', {}).get('x-user-email', 'system')
+        
         if 'body' in event:
             action = body['action']
             data = body['data']
@@ -15,43 +18,43 @@ def lambda_handler(event, context):
             data = event['data']
             
         if action == "createPat":   ##crea una nueva patologia con todos los datos completos
-            result = createPat(data) 
+            result = createPat(data, user_email) 
         
         if action == "get_all":   ##trae todas las patologias 
-            result = getAll(data) 
+            result = getAll(data, user_email) 
 
         if action == "get_all_by_symptom":   ##trae todas las patologias que incluyen 1 sintoma
-            result = getAllBySymptom(data)           
+            result = getAllBySymptom(data, user_email)           
             
         if action == "get_all_no_symptoms":   ##trae todas las patologias que incluyen 1 sintoma
-            result = getAllNoSymptoms(data)       
+            result = getAllNoSymptoms(data, user_email)       
 
         if action == "get_all_by_symptom_count":   ##trae la cantidad de patologias que incluyen 1 sintoma
-            result = countBySymptom(data)                        
+            result = countBySymptom(data, user_email)                        
             
         if action == "get_one":   ##trae datos de una patologia en particular 
-            result = getOne(data) 
+            result = getOne(data, user_email) 
             
         if action == "delete":    ##borra una patologia y datos relacionados 
-            result = deletePat(data)
+            result = deletePat(data, user_email)
             
         if action == "edit":         ##edita / actualiza datos de una en particular 
-            result = updatePat(data) 
+            result = updatePat(data, user_email) 
             
         if action == "validate":   ## valida una patologia
-            result = validatePat(data) 
+            result = validatePat(data, user_email) 
             
         if action == "get_symptoms":     ## trate todos los sintomas de una patologia
-            result = getSymptoms(data) 
+            result = getSymptoms(data, user_email) 
             
         if action == "get_relations": ##trae todas las relaciones madre-hija 
-            result = getRelations(data) 
+            result = getRelations(data, user_email) 
         
         if action == "validate_relation": ##valida relacion madre-hija
-            result = validateRelation(data) 
+            result = validateRelation(data, user_email) 
             
         if action == "delete_relation": ##valida relacion madre-hija
-            result = deleteRelation(data) 
+            result = deleteRelation(data, user_email) 
             
         if result is not False and result is not None:
             return {
@@ -85,7 +88,7 @@ def lambda_handler(event, context):
             })
         }  
 
-def getAll(data):
+def getAll(data, user_email):
     try:
         query = """
             SELECT  
@@ -104,7 +107,7 @@ def getAll(data):
             ORDER BY p.name ASC;
         """
 
-        results = postgre.db_read(query)
+        results = postgre.db_read(query, user=user_email)
 
         output = [{
             "pat_id": row[0],
@@ -119,7 +122,7 @@ def getAll(data):
         print("error getAll", e)
         return False
 
-def getAllBySymptom(data):
+def getAllBySymptom(data, user_email):
     try:
         id_symptom = data.get("sym_id")
 
@@ -142,7 +145,7 @@ def getAllBySymptom(data):
             GROUP BY p.id_pathology, p.name, p.type, p.status
             ORDER BY p.name ASC;
         """
-        results = postgre.db_read(query, params=(id_symptom,))
+        results = postgre.db_read(query, params=(id_symptom,), user=user_email)
 
         output = [{
             "pat_id": row[0],
@@ -158,7 +161,7 @@ def getAllBySymptom(data):
         print("error getAllBySymptom", e)
         return False
     
-def getAllNoSymptoms(data):
+def getAllNoSymptoms(data, user_email):
     try:
         
         query = """
@@ -180,7 +183,7 @@ def getAllNoSymptoms(data):
             GROUP BY p.id_pathology, p.name, p.type, p.status
             ORDER BY p.name ASC;
         """
-        results = postgre.db_read(query, params=())
+        results = postgre.db_read(query, user=user_email)
 
         output = [{
             "pat_id": row[0],
@@ -196,7 +199,7 @@ def getAllNoSymptoms(data):
         print("error getAllNoSymptoms", e)
         return False
 
-def countBySymptom(data):
+def countBySymptom(data, user_email):
     try:
         id_symptom = data.get("sym_id")
 
@@ -208,7 +211,7 @@ def countBySymptom(data):
             -- LEFT JOIN pathologies_codes pc ON p.id_pathology = pc.id_pathology  -- No hace falta para contar
             WHERE ps.id_symptom = %s;
         """
-        results = postgre.db_read(query, params=(id_symptom,))
+        results = postgre.db_read(query, params=(id_symptom,), user=user_email)
 
         # results es una lista de tuplas, tomamos el primer valor
         count = results[0][0] if results else 0
@@ -218,7 +221,7 @@ def countBySymptom(data):
         print("error countBySymptom", e)
         return False
     
-def getOne(data):
+def getOne(data, user_email):
     try:
         pat_id = data.get("id", "")
         ## RESOLVER TODO EN UNA SOLA QUERY
@@ -272,7 +275,7 @@ def getOne(data):
                 WHERE c.id_pathology = p.id_pathology
                 ) c ON TRUE
                 WHERE p.id_pathology = %s;"""
-        result = postgre.db_read(query, params=(pat_id,), user="system")
+        result = postgre.db_read(query, params=(pat_id,), user=user_email)
         
         print("result", result)
         
@@ -343,7 +346,7 @@ def getOne(data):
         print("error getOne", e)
         return False    
 
-def createPat(data):
+def createPat(data, user_email):
     try:
         # Extraer datos
         name = data.get("name", "")
@@ -367,11 +370,11 @@ def createPat(data):
             VALUES (%s, 'pending', %s)
             RETURNING id_pathology;
         """
-        pat_id = postgre.db_insert(query_insert, params=(name, type), user=username)
+        pat_id = postgre.db_insert(query_insert, params=(name, type), user=user_email)
 
         # # Obtener id_pathology recién creado
         # query_get_id = "SELECT id_pathology FROM pathologies WHERE external_id = %s"
-        # pat_id_result = postgre.db_read(query_get_id, params=(external_id,), user=username)
+        # pat_id_result = postgre.db_read(query_get_id, params=(external_id,), user=user_email)
         # pat_id = pat_id_result[0][0]
 
         # Inserto madre (si hay)
@@ -380,7 +383,7 @@ def createPat(data):
                 INSERT INTO pathologies_pathologies (id_pathology_1, id_pathology_2, status)
                 VALUES (%s, %s, 'pending')
             """
-            postgre.db_insert(query_mother, params=(mother, pat_id), user=username)
+            postgre.db_insert(query_mother, params=(mother, pat_id), user=user_email)
 
         # Inserto traducciones
         for lang in languages:
@@ -388,7 +391,7 @@ def createPat(data):
                 INSERT INTO tl_pathologies (id_pathology, language, value, status)
                 VALUES (%s, %s, %s, 'pending')
             """
-            postgre.db_insert(query_lang, params=(pat_id, lang.get("language", ""), lang.get("value", "")), user=username)
+            postgre.db_insert(query_lang, params=(pat_id, lang.get("language", ""), lang.get("value", "")), user=user_email)
 
         # Inserto códigos
         for code in codes:
@@ -396,7 +399,7 @@ def createPat(data):
                 INSERT INTO pathologies_codes (id_pathology, id_code, value, name, status)
                 VALUES (%s, %s, %s, %s, 'pending');
             """
-            postgre.db_insert(query_code, params=(pat_id, code.get("code_id", ""), code.get("value", ""), code.get("name", "")), user=username)
+            postgre.db_insert(query_code, params=(pat_id, code.get("code_id", ""), code.get("value", ""), code.get("name", "")), user=user_email)
 
         return pat_id
 
@@ -404,7 +407,7 @@ def createPat(data):
         print("error createPat", e)
         return False
     
-def updatePat(data):
+def updatePat(data, user_email):
     try:
         # Extraer datos
         pat_id = data.get("pat_id", "")
@@ -421,37 +424,37 @@ def updatePat(data):
             SET name = %s, type = %s
             WHERE id_pathology = %s
         """
-        postgre.db_insert(query_update, params=(name, type_, pat_id), user=username)
+        postgre.db_insert(query_update, params=(name, type_, pat_id), user=user_email)
 
         # 2. Actualizar madre (eliminar y agregar de nuevo si existe)
         query_delete_mother = "DELETE FROM pathologies_pathologies WHERE id_pathology_2 = %s"
-        postgre.db_insert(query_delete_mother, params=(pat_id,), user=username)
+        postgre.db_insert(query_delete_mother, params=(pat_id,), user=user_email)
         if mother:
             query_mother = """
                 INSERT INTO pathologies_pathologies (id_pathology_1, id_pathology_2, status)
                 VALUES (%s, %s, 'pending')
             """
-            postgre.db_insert(query_mother, params=(mother, pat_id), user=username)
+            postgre.db_insert(query_mother, params=(mother, pat_id), user=user_email)
 
         # 3. Actualizar idiomas (borrar e insertar)
         query_delete_lang = "DELETE FROM tl_pathologies WHERE id_pathology = %s"
-        postgre.db_insert(query_delete_lang, params=(pat_id,), user=username)
+        postgre.db_insert(query_delete_lang, params=(pat_id,), user=user_email)
         for lang in languages:
             query_lang = """
                 INSERT INTO tl_pathologies (id_pathology, language, value, status)
                 VALUES (%s, %s, %s, 'pending')
             """
-            postgre.db_insert(query_lang, params=(pat_id, lang["language"], lang["value"]), user=username)
+            postgre.db_insert(query_lang, params=(pat_id, lang["language"], lang["value"]), user=user_email)
 
         # 4. Actualizar códigos (borrar e insertar)
         query_delete_codes = "DELETE FROM pathologies_codes WHERE id_pathology = %s"
-        postgre.db_insert(query_delete_codes, params=(pat_id,), user=username)
+        postgre.db_insert(query_delete_codes, params=(pat_id,), user=user_email)
         for code in codes:
             query_code = """
                 INSERT INTO pathologies_codes (id_pathology, id_code, value, name, status)
                 VALUES (%s, %s, %s, %s, 'pending')
             """
-            postgre.db_insert(query_code, params=(pat_id, code["code_id"], code["value"], code["name"]), user=username)
+            postgre.db_insert(query_code, params=(pat_id, code["code_id"], code["value"], code["name"]), user=user_email)
 
         return pat_id
 
@@ -459,20 +462,18 @@ def updatePat(data):
         print("error updatePat", e)
         return False
     
-def validatePat(data):
+def validatePat(data, user_email):
     try:
  
         pat_id = data.get("pat_id", "")
-        username = data.get('username', 'system')  # o el usuario que corresponda
-        
         query = "UPDATE pathologies SET status = 'active' WHERE id_pathology = %s"
-        result = postgre.db_insert(query, params=(pat_id,),user=username)
+        result = postgre.db_insert(query, params=(pat_id,), user=user_email)
         return result
     except Exception as e:
         print("error validatePat", e)
         return False
     
-def getSymptoms(data):
+def getSymptoms(data, user_email):
     try:
         pat_id = data.get("id","")
 
@@ -502,7 +503,7 @@ def getSymptoms(data):
             symptoms.name ASC
         """
 
-        results = postgre.db_read(query, params=(pat_id,), user="system")
+        results = postgre.db_read(query, params=(pat_id,), user=user_email)
 
         output = [{
             "pat_id": row[0],
@@ -523,26 +524,24 @@ def getSymptoms(data):
         print("error getSymptoms", e)
         return False
 
-def deletePat(data):
+def deletePat(data, user_email):
     try:
         pat_id = data.get("id","")
-        username = data.get('username', 'system')  # o el usuario que corresponda
-        
         # 1. Borro idiomas
         query_delete_lang = "DELETE FROM tl_pathologies WHERE id_pathology = %s"
-        postgre.db_insert(query_delete_lang, params=(pat_id,), user=username)
+        postgre.db_insert(query_delete_lang, params=(pat_id,), user=user_email)
         
         # 2. Borro códigos
         query_delete_codes = "DELETE FROM pathologies_codes WHERE id_pathology = %s"
-        postgre.db_insert(query_delete_codes, params=(pat_id,), user=username)
+        postgre.db_insert(query_delete_codes, params=(pat_id,), user=user_email)
         
         # 3. Borro relaciones madre-hijo (ESTO VER CON SALI!!!!!!!!!!)
         query_delete_mother = "DELETE FROM pathologies_pathologies WHERE id_pathology_2 = %s OR id_pathology_1 = %s"
-        postgre.db_insert(query_delete_mother, params=(pat_id, pat_id), user=username)
+        postgre.db_insert(query_delete_mother, params=(pat_id, pat_id), user=user_email)
         
         # 4. Borro la patología principal
         query_delete_pat = "DELETE FROM pathologies WHERE id_pathology = %s"
-        postgre.db_insert(query_delete_pat, params=(pat_id,), user=username)
+        postgre.db_insert(query_delete_pat, params=(pat_id,), user=user_email)
         
         return True
 
@@ -550,7 +549,7 @@ def deletePat(data):
         print("error deletePat", e)
         return False
 
-def getRelations(data):
+def getRelations(data, user_email):
     try:
         query = """
             SELECT 
@@ -565,7 +564,7 @@ def getRelations(data):
             ORDER BY name_1 ASC, name_2 ASC;
         """
         
-        results = postgre.db_read(query)
+        results = postgre.db_read(query, user=user_email)
 
         output = [{
             "pat_id_1": row[0],
@@ -580,34 +579,30 @@ def getRelations(data):
         print("error getRelations", e)
         return False
 
-def validateRelation(data):
+def validateRelation(data, user_email):
     try:
         pat_id_1 = data.get("pat_id_1","")
         pat_id_2 = data.get("pat_id_2","")
-        username = data.get('username', 'system')
-
         query = """
             UPDATE pathologies_pathologies
             SET status = 'verified'
             WHERE id_pathology_1 = %s AND id_pathology_2 = %s
         """
-        result = postgre.db_insert(query, params=(pat_id_1, pat_id_2), user=username)
+        result = postgre.db_insert(query, params=(pat_id_1, pat_id_2), user=user_email)
         return result
     except Exception as e:
         print("error validateRelation", e)
         return False
     
-def deleteRelation(data):
+def deleteRelation(data, user_email):
     try:
         pat_id_1 = data.get("pat_id_1","")
         pat_id_2 = data.get("pat_id_2","")
-        username = data.get('username', 'system')
-
         query = """
             DELETE FROM pathologies_pathologies
             WHERE id_pathology_1 = %s AND id_pathology_2 = %s
         """
-        result = postgre.db_insert(query, params=(pat_id_1, pat_id_2), user=username)
+        result = postgre.db_insert(query, params=(pat_id_1, pat_id_2), user=user_email)
         return result
     except Exception as e:
         print("error deleteRelation", e)
