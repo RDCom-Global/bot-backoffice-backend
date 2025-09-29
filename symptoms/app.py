@@ -526,8 +526,7 @@ def updateRelation(data, user_email):
 
         query = """
             UPDATE pathologies_symptoms
-            SET username = %s,
-                link = %s,
+            SET link = %s,
                 importante = %s,
                 frequency = %s
             WHERE id_pathology = %s
@@ -535,7 +534,7 @@ def updateRelation(data, user_email):
         """
         result = postgre.db_insert(
             query,
-            params=(user_email, link, important, frequency, pat_id, sym_id),
+            params=(link, important, frequency, pat_id, sym_id),
             user=user_email
         )
 
