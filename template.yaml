@@ -78,7 +78,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
+        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:5
       Architectures:
         - x86_64
       Events:
@@ -96,7 +96,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
+        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:5
       Architectures:
         - x86_64
       Events:
@@ -114,7 +114,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:4
+        - arn:aws:lambda:us-east-2:293854028872:layer:psql_layer:5
       Architectures:
         - x86_64
       Events:

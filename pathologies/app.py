@@ -472,7 +472,7 @@ def validatePat(data):
         print("error validatePat", e)
         return False
     
-def getSymptoms(data):
+def getSymptoms_backup(data):
     try:
         pat_id = data.get("id","")
 
@@ -515,6 +515,78 @@ def getSymptoms(data):
             "relstate": row[7],
             "important": row[8],
             "frequency": row[9]
+        } for row in results]
+
+        return output
+
+    except Exception as e:
+        print("error getSymptoms", e)
+        return False
+
+def getSymptoms(data):
+    try:
+        pat_id = data.get("id","")
+
+        query = """
+            WITH mother AS (
+                SELECT id_pathology_1 AS mother_id
+                FROM pathologies_pathologies
+                WHERE id_pathology_2 = %s
+                LIMIT 1
+            )
+            SELECT 
+                ps.id_pathology, 
+                s.name, 
+                s.synonymous, 
+                s.id_symptom, 
+                s.hpo_id, 
+                s.status, 
+                ps.link, 
+                ps.status, 
+                ps.importante, 
+                ps.frequency,
+                'propio' AS origin
+            FROM pathologies_symptoms ps
+            INNER JOIN symptoms s
+                ON ps.id_symptom = s.id_symptom
+            WHERE ps.id_pathology = %s
+              AND s.status != 'inactive'
+
+            UNION
+
+            SELECT 
+                ps.id_pathology, 
+                s.name, 
+                s.synonymous, 
+                s.id_symptom, 
+                s.hpo_id, 
+                s.status, 
+                ps.link, 
+                ps.status, 
+                ps.importante, 
+                ps.frequency,
+                'heredado' AS origin
+            FROM pathologies_symptoms ps
+            INNER JOIN symptoms s
+                ON ps.id_symptom = s.id_symptom
+            WHERE ps.id_pathology = (SELECT mother_id FROM mother)
+              AND s.status != 'inactive'
+        """
+
+        results = postgre.db_read(query, params=(pat_id, pat_id), user="system")
+
+        output = [{
+            "pat_id": row[0],
+            "name": row[1],
+            "synonymous": row[2],
+            "sym_id": row[3],
+            "hpo_id": row[4],
+            "state": row[5],
+            "link": row[6],
+            "relstate": row[7],
+            "important": row[8],
+            "frequency": row[9],
+            "origin": row[10]   # <-- propio o heredado
         } for row in results]
 
         return output
